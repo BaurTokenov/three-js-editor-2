@@ -1,8 +1,8 @@
 {
-  "name": "@tofusoup429/react-component-module-frame",
-  "version": "0.0.10",
-  "description": "React module frame",
-  "homepage": "https://github.com/tofusoup429/react-component-module-frame",
+  "name": "three-js-editor-react-2",
+  "version": "1.0.1",
+  "description": "Three js editor inside React",
+  "homepage": "https://github.com/BaurTokenov/three-js-editor-2",
   "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
@@ -18,11 +18,13 @@
   },
   "peerDependencies": {
     "react": ">=17.0.2",
-    "react-dom": ">=17.0.2",
-    "styled-components": ">=5.3.0"
+    "react-dom": ">=17.0.2"
   },
   "files": [
     "/dist",
     "package.json"
-  ]
+  ],
+  "dependencies": {
+    "@emotion/styled": "^11.8.1"
+  }
 }
