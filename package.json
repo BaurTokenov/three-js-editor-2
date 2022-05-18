@@ -1,6 +1,6 @@
 {
   "name": "three-js-editor-react-2",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Three js editor inside React",
   "homepage": "https://github.com/BaurTokenov/three-js-editor-2",
   "main": "dist/index.js",
@@ -11,7 +11,6 @@
   "devDependencies": {
     "@types/react": ">=17.0.5",
     "@types/react-dom": ">=17.0.4",
-    "@types/styled-components": "^5.1.9",
     "react": ">=17.0.2",
     "react-dom": ">=17.0.2",
     "typescript": ">=4.2.4"
@@ -24,8 +23,5 @@
     "/dist",
     "package.json"
   ],
-  "dependencies": {
-    "@emotion/react": "^11.9.0",
-    "@emotion/styled": "^11.8.1"
-  }
+  "dependencies": {}
 }
