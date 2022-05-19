@@ -1,6 +1,6 @@
 {
   "name": "three-js-editor-react-2",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "Three js editor inside React",
   "homepage": "https://github.com/BaurTokenov/three-js-editor-2",
   "main": "dist/index.js",
@@ -20,8 +20,7 @@
   },
   "peerDependencies": {
     "react": ">=17.0.2",
-    "react-dom": ">=17.0.2",
-    "signals": ">=1.0.0"
+    "react-dom": ">=17.0.2"
   },
   "files": [
     "/dist",
