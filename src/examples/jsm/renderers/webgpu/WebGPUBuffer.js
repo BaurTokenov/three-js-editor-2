@@ -1,0 +1,33 @@
+import WebGPUBinding from './WebGPUBinding';
+import { getFloatLength } from './WebGPUBufferUtils';
+
+class WebGPUBuffer extends WebGPUBinding {
+  constructor(name, type, buffer = null) {
+    super(name);
+
+    this.bytesPerElement = Float32Array.BYTES_PER_ELEMENT;
+    this.type = type;
+    this.visibility = GPUShaderStage.VERTEX;
+
+    this.usage = GPUBufferUsage.COPY_DST;
+
+    this.buffer = buffer;
+    this.bufferGPU = null; // set by the renderer
+  }
+
+  getByteLength() {
+    return getFloatLength(this.buffer.byteLength);
+  }
+
+  getBuffer() {
+    return this.buffer;
+  }
+
+  update() {
+    return true;
+  }
+}
+
+WebGPUBuffer.prototype.isBuffer = true;
+
+export default WebGPUBuffer;

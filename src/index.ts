@@ -1,1 +1,1 @@
-export * from "./textRotator";
+export * from "./ThreeJsEditor";

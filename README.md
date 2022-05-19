@@ -1,14 +1,15 @@
-# react-component-module-frame
+# three-js-editor-react-2
 ## What is this project about?
-#### This template was built to make publishing react-components easy. All the basic settings such as tsconfig.json and package.json are done. It is up to you to modify the setting for your own taste.
-
+#### 
+This is a react component for using ThreeJsEditor inside React.
+https://github.com/mrdoob/three.js/tree/master/editor
 -----------------------------------------------------------------------------------------------------------------------
 
-#### To download this project  
-```
-git clone https://github.com/tofusoup429/react-component-module-frame.git
-```
------------------------------------------------------------------------------------------------------------------------
+## Installation
+```npm install three-js-editor-react-2```
 
+## Code management
+I probably should've forked the original repo.
 
-
+## Not supported
+* It doesn't support Scripts due to Codemirror, Acorn, TernServer dependencies for now.
