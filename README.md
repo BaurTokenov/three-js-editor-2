@@ -8,6 +8,19 @@ https://github.com/mrdoob/three.js/tree/master/editor
 ## Installation
 ```npm install three-js-editor-react-2```
 
+## Usage
+```js
+import { ThreeJsEditor } from 'three-js-editor-react-2';
+
+const ThreeJsEditorPage = () => {
+    return (
+        <div>
+            <ThreeJsEditor />
+        </div>
+    )
+}
+```
+
 ## Code management
 I probably should've forked the original repo.
 
