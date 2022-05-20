@@ -448,6 +448,11 @@ scheduler@^0.20.2:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
 
+signals@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/signals/-/signals-1.0.0.tgz#65f0c1599352b35372ecaae5a250e6107376ed69"
+  integrity sha1-ZfDBWZNSs1Ny7KrlolDmEHN27Wk=
+
 source-map@^0.5.7:
   version "0.5.7"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.5.7.tgz#8a039d2d1021d22d1ea14c80d8ea468ba2ef3fcc"
