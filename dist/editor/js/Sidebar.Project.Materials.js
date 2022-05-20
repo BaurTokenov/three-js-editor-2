@@ -1,0 +1,50 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.SidebarProjectMaterials = void 0;
+const ui_1 = require("./libs/ui");
+const SetMaterialCommand_1 = require("./commands/SetMaterialCommand");
+function SidebarProjectMaterials(editor) {
+    const signals = editor.signals;
+    const strings = editor.strings;
+    const container = new ui_1.UIPanel();
+    const headerRow = new ui_1.UIRow();
+    headerRow.add(new ui_1.UIText(strings.getKey('sidebar/project/materials').toUpperCase()));
+    container.add(headerRow);
+    const listbox = new ui_1.UIListbox();
+    container.add(listbox);
+    container.add(new ui_1.UIBreak());
+    const buttonsRow = new ui_1.UIRow();
+    container.add(buttonsRow);
+    const assignMaterial = new ui_1.UIButton(strings.getKey('sidebar/project/Assign'));
+    assignMaterial.onClick(function () {
+        const selectedObject = editor.selected;
+        if (selectedObject !== null) {
+            const oldMaterial = selectedObject.material;
+            // only assing materials to objects with a material property (e.g. avoid assigning material to THREE.Group)
+            if (oldMaterial !== undefined) {
+                const material = editor.getMaterialById(parseInt(listbox.getValue()));
+                if (material !== undefined) {
+                    editor.removeMaterial(oldMaterial);
+                    editor.execute(new SetMaterialCommand_1.SetMaterialCommand(editor, selectedObject, material));
+                    editor.addMaterial(material);
+                }
+            }
+        }
+    });
+    buttonsRow.add(assignMaterial);
+    // Signals
+    function refreshMaterialBrowserUI() {
+        listbox.setItems(Object.values(editor.materials));
+    }
+    signals.objectSelected.add(function (object) {
+        if (object !== null) {
+            const index = Object.values(editor.materials).indexOf(object.material);
+            listbox.selectIndex(index);
+        }
+    });
+    signals.materialAdded.add(refreshMaterialBrowserUI);
+    signals.materialChanged.add(refreshMaterialBrowserUI);
+    signals.materialRemoved.add(refreshMaterialBrowserUI);
+    return container;
+}
+exports.SidebarProjectMaterials = SidebarProjectMaterials;
