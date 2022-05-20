@@ -13,7 +13,7 @@ const Menubar_Status_1 = require("./Menubar.Status");
 function Menubar(editor, menubarCallbacks) {
     const container = new ui_1.UIPanel();
     container.setId('menubar');
-    container.add(new Menubar_File_1.MenubarFile(editor, menubarCallbacks['fileCallbacks']));
+    container.add(new Menubar_File_1.MenubarFile(editor, menubarCallbacks && menubarCallbacks['fileCallbacks']));
     container.add(new Menubar_Edit_1.MenubarEdit(editor));
     container.add(new Menubar_Add_1.MenubarAdd(editor));
     container.add(new Menubar_Play_1.MenubarPlay(editor));

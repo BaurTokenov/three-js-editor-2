@@ -13,7 +13,12 @@ function Menubar(editor, menubarCallbacks) {
   const container = new UIPanel();
   container.setId('menubar');
 
-  container.add(new MenubarFile(editor, menubarCallbacks['fileCallbacks']));
+  container.add(
+    new MenubarFile(
+      editor,
+      menubarCallbacks && menubarCallbacks['fileCallbacks']
+    )
+  );
   container.add(new MenubarEdit(editor));
   container.add(new MenubarAdd(editor));
   container.add(new MenubarPlay(editor));

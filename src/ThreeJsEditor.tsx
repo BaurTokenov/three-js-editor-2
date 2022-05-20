@@ -21,15 +21,19 @@ declare global {
 
 interface ThreeJsEditorProps {
   /** Callbacks to use when exporting*/
-  menubarCallbacks: {
+  menubarCallbacks?: {
     fileCallbacks: {
       exportGLTFCallback: (jsonText: string) => {};
     };
   };
+  setObjectLoaderFunction?: React.Dispatch<
+    React.SetStateAction<((files: File[]) => void) | null>
+  >;
 }
 
 export const ThreeJsEditor: React.FC<ThreeJsEditorProps> = ({
   menubarCallbacks,
+  setObjectLoaderFunction,
 }) => {
   const hostDivRef = useRef<HTMLDivElement | null>(null);
 
@@ -127,6 +131,9 @@ export const ThreeJsEditor: React.FC<ThreeJsEditorProps> = ({
       signals.historyChanged.add(saveState);
     });
 
+    if (_.isFunction(setObjectLoaderFunction)) {
+      setObjectLoaderFunction(() => editor.loader.loadFiles);
+    }
     //
 
     hostDiv.addEventListener('dragover', (event) => {

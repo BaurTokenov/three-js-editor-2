@@ -35,7 +35,7 @@ const Sidebar_1 = require("./editor/js/Sidebar");
 const Toolbar_1 = require("./editor/js/Toolbar");
 const Viewport_1 = require("./editor/js/Viewport");
 const VRButton_1 = require("./examples/jsm/webxr/VRButton");
-const ThreeJsEditor = ({ menubarCallbacks, }) => {
+const ThreeJsEditor = ({ menubarCallbacks, setObjectLoaderFunction, }) => {
     const hostDivRef = react_1.useRef(null);
     react_1.useEffect(() => {
         if (lodash_1.default.isNull(hostDivRef.current))
@@ -106,6 +106,9 @@ const ThreeJsEditor = ({ menubarCallbacks, }) => {
             signals.scriptChanged.add(saveState);
             signals.historyChanged.add(saveState);
         });
+        if (lodash_1.default.isFunction(setObjectLoaderFunction)) {
+            setObjectLoaderFunction(() => editor.loader.loadFiles);
+        }
         //
         hostDiv.addEventListener('dragover', (event) => {
             if (lodash_1.default.isNull(event.dataTransfer))
