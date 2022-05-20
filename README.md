@@ -5,8 +5,14 @@ This is a react component for using ThreeJsEditor inside React.
 https://github.com/mrdoob/three.js/tree/master/editor
 -----------------------------------------------------------------------------------------------------------------------
 
+## Beta version
+This package is at its beta stage. It may break with updates, so please be careful.
 ## Installation
-```npm install three-js-editor-react-2```
+```
+npm install three-js-editor-react-2
+
+yarn add three-js-editor-react-2
+```
 
 ## Usage
 ```js
