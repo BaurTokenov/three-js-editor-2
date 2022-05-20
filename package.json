@@ -1,12 +1,12 @@
 {
   "name": "three-js-editor-react-2",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "description": "Three js editor inside React",
   "homepage": "https://github.com/BaurTokenov/three-js-editor-2",
   "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
-    "build": "tsc && cp -R ./src/editor/images ./dist/editor"
+    "build": "tsc && cp -R ./src/editor/images ./dist/editor && cp ./src/index.d.ts ./dist"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.182",
