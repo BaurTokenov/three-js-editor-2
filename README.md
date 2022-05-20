@@ -15,7 +15,15 @@ import { ThreeJsEditor } from 'three-js-editor-react-2';
 const ThreeJsEditorPage = () => {
     return (
         <div>
-            <ThreeJsEditor />
+            <ThreeJsEditor 
+                menubarCallbacks={{
+                    fileCallbacks: {
+                    exportGLTFCallback: (jsonText: string) => {
+                        console.log('jsonText', jsonText);
+                    },
+                    },
+                }}
+            />
         </div>
     )
 }

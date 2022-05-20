@@ -35,7 +35,7 @@ const Sidebar_1 = require("./editor/js/Sidebar");
 const Toolbar_1 = require("./editor/js/Toolbar");
 const Viewport_1 = require("./editor/js/Viewport");
 const VRButton_1 = require("./examples/jsm/webxr/VRButton");
-const ThreeJsEditor = () => {
+const ThreeJsEditor = ({ menubarCallbacks, }) => {
     const hostDivRef = react_1.useRef(null);
     react_1.useEffect(() => {
         if (lodash_1.default.isNull(hostDivRef.current))
@@ -61,7 +61,7 @@ const ThreeJsEditor = () => {
         hostDiv.appendChild(player.dom);
         const sidebar = Sidebar_1.Sidebar(editor);
         hostDiv.appendChild(sidebar.dom);
-        const menubar = Menubar_1.Menubar(editor);
+        const menubar = Menubar_1.Menubar(editor, menubarCallbacks);
         hostDiv.appendChild(menubar.dom);
         const resizer = Resizer_1.Resizer(editor);
         hostDiv.appendChild(resizer.dom);

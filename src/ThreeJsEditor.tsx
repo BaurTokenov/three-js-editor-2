@@ -19,7 +19,18 @@ declare global {
   }
 }
 
-export const ThreeJsEditor = () => {
+interface ThreeJsEditorProps {
+  /** Callbacks to use when exporting*/
+  menubarCallbacks: {
+    fileCallbacks: {
+      exportGLTFCallback: (jsonText: string) => {};
+    };
+  };
+}
+
+export const ThreeJsEditor: React.FC<ThreeJsEditorProps> = ({
+  menubarCallbacks,
+}) => {
   const hostDivRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -57,7 +68,7 @@ export const ThreeJsEditor = () => {
     const sidebar = Sidebar(editor);
     hostDiv.appendChild(sidebar.dom);
 
-    const menubar = Menubar(editor);
+    const menubar = Menubar(editor, menubarCallbacks);
     hostDiv.appendChild(menubar.dom);
 
     const resizer = Resizer(editor);

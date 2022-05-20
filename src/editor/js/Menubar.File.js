@@ -4,7 +4,10 @@ import { zipSync, strToU8 } from '../../examples/jsm/libs/fflate.module';
 
 import { UIPanel, UIRow, UIHorizontalRule } from './libs/ui';
 
-function MenubarFile(editor) {
+function MenubarFile(
+  editor,
+  callbacks = { exportGLTFCallback: (jsonText) => {} }
+) {
   const config = editor.config;
   const strings = editor.strings;
 
@@ -151,7 +154,9 @@ function MenubarFile(editor) {
   option.setClass('option');
   option.setTextContent(strings.getKey('menubar/file/export/dae'));
   option.onClick(async function () {
-    const { ColladaExporter } = await import('../../examples/jsm/exporters/ColladaExporter.js');
+    const { ColladaExporter } = await import(
+      '../../examples/jsm/exporters/ColladaExporter.js'
+    );
 
     const exporter = new ColladaExporter();
 
@@ -174,7 +179,9 @@ function MenubarFile(editor) {
       return;
     }
 
-    const { DRACOExporter } = await import('../../examples/jsm/exporters/DRACOExporter.js');
+    const { DRACOExporter } = await import(
+      '../../examples/jsm/exporters/DRACOExporter.js'
+    );
 
     const exporter = new DRACOExporter();
 
@@ -203,7 +210,9 @@ function MenubarFile(editor) {
     const scene = editor.scene;
     const animations = getAnimations(scene);
 
-    const { GLTFExporter } = await import('../../examples/jsm/exporters/GLTFExporter.js');
+    const { GLTFExporter } = await import(
+      '../../examples/jsm/exporters/GLTFExporter.js'
+    );
 
     const exporter = new GLTFExporter();
 
@@ -227,14 +236,18 @@ function MenubarFile(editor) {
     const scene = editor.scene;
     const animations = getAnimations(scene);
 
-    const { GLTFExporter } = await import('../../examples/jsm/exporters/GLTFExporter.js');
+    const { GLTFExporter } = await import(
+      '../../examples/jsm/exporters/GLTFExporter.js'
+    );
 
     const exporter = new GLTFExporter();
 
     exporter.parse(
       scene,
       function (result) {
-        saveString(JSON.stringify(result, null, 2), 'scene.gltf');
+        const output = JSON.stringify(result, null, 2);
+        // saveString(output, 'scene.gltf');
+        callbacks.exportGLTFCallback(output);
       },
       undefined,
       { animations: animations }
@@ -255,7 +268,9 @@ function MenubarFile(editor) {
       return;
     }
 
-    const { OBJExporter } = await import('../../examples/jsm/exporters/OBJExporter.js');
+    const { OBJExporter } = await import(
+      '../../examples/jsm/exporters/OBJExporter.js'
+    );
 
     const exporter = new OBJExporter();
 
@@ -269,7 +284,9 @@ function MenubarFile(editor) {
   option.setClass('option');
   option.setTextContent(strings.getKey('menubar/file/export/ply'));
   option.onClick(async function () {
-    const { PLYExporter } = await import('../../examples/jsm/exporters/PLYExporter.js');
+    const { PLYExporter } = await import(
+      '../../examples/jsm/exporters/PLYExporter.js'
+    );
 
     const exporter = new PLYExporter();
 
@@ -285,7 +302,9 @@ function MenubarFile(editor) {
   option.setClass('option');
   option.setTextContent(strings.getKey('menubar/file/export/ply_binary'));
   option.onClick(async function () {
-    const { PLYExporter } = await import('../../examples/jsm/exporters/PLYExporter.js');
+    const { PLYExporter } = await import(
+      '../../examples/jsm/exporters/PLYExporter.js'
+    );
 
     const exporter = new PLYExporter();
 
@@ -305,7 +324,9 @@ function MenubarFile(editor) {
   option.setClass('option');
   option.setTextContent(strings.getKey('menubar/file/export/stl'));
   option.onClick(async function () {
-    const { STLExporter } = await import('../../examples/jsm/exporters/STLExporter.js');
+    const { STLExporter } = await import(
+      '../../examples/jsm/exporters/STLExporter.js'
+    );
 
     const exporter = new STLExporter();
 
@@ -319,11 +340,16 @@ function MenubarFile(editor) {
   option.setClass('option');
   option.setTextContent(strings.getKey('menubar/file/export/stl_binary'));
   option.onClick(async function () {
-    const { STLExporter } = await import('../../examples/jsm/exporters/STLExporter.js');
+    const { STLExporter } = await import(
+      '../../examples/jsm/exporters/STLExporter.js'
+    );
 
     const exporter = new STLExporter();
 
-    saveArrayBuffer(exporter.parse(editor.scene, { binary: true }), 'model-binary.stl');
+    saveArrayBuffer(
+      exporter.parse(editor.scene, { binary: true }),
+      'model-binary.stl'
+    );
   });
   options.add(option);
 
@@ -333,11 +359,16 @@ function MenubarFile(editor) {
   option.setClass('option');
   option.setTextContent(strings.getKey('menubar/file/export/usdz'));
   option.onClick(async function () {
-    const { USDZExporter } = await import('../../examples/jsm/exporters/USDZExporter.js');
+    const { USDZExporter } = await import(
+      '../../examples/jsm/exporters/USDZExporter.js'
+    );
 
     const exporter = new USDZExporter();
 
-    saveArrayBuffer(await exporter.parse(editor.scene, { binary: true }), 'model.usdz');
+    saveArrayBuffer(
+      await exporter.parse(editor.scene, { binary: true }),
+      'model.usdz'
+    );
   });
   options.add(option);
 

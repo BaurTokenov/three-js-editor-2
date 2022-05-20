@@ -32,7 +32,7 @@ exports.MenubarFile = void 0;
 const THREE = __importStar(require("three"));
 const fflate_module_1 = require("../../examples/jsm/libs/fflate.module");
 const ui_1 = require("./libs/ui");
-function MenubarFile(editor) {
+function MenubarFile(editor, callbacks = { exportGLTFCallback: (jsonText) => { } }) {
     const config = editor.config;
     const strings = editor.strings;
     const container = new ui_1.UIPanel();
@@ -211,7 +211,9 @@ function MenubarFile(editor) {
             const { GLTFExporter } = yield Promise.resolve().then(() => __importStar(require('../../examples/jsm/exporters/GLTFExporter.js')));
             const exporter = new GLTFExporter();
             exporter.parse(scene, function (result) {
-                saveString(JSON.stringify(result, null, 2), 'scene.gltf');
+                const output = JSON.stringify(result, null, 2);
+                // saveString(output, 'scene.gltf');
+                callbacks.exportGLTFCallback(output);
             }, undefined, { animations: animations });
         });
     });

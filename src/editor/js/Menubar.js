@@ -9,11 +9,11 @@ import { MenubarHelp } from './Menubar.Help';
 import { MenubarPlay } from './Menubar.Play';
 import { MenubarStatus } from './Menubar.Status';
 
-function Menubar(editor) {
+function Menubar(editor, menubarCallbacks) {
   const container = new UIPanel();
   container.setId('menubar');
 
-  container.add(new MenubarFile(editor));
+  container.add(new MenubarFile(editor, menubarCallbacks['fileCallbacks']));
   container.add(new MenubarEdit(editor));
   container.add(new MenubarAdd(editor));
   container.add(new MenubarPlay(editor));
