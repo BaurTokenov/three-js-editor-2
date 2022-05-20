@@ -49,17 +49,19 @@ function SidebarSettingsShortcuts(editor) {
             shortcutInput.setValue(config.getKey(configName));
         }
         shortcutInput.dom.maxLength = 1;
-        shortcutRow.add(new ui_1.UIText(strings.getKey('sidebar/settings/shortcuts/' + name)).setTextTransform('capitalize').setWidth('90px'));
+        shortcutRow.add(new ui_1.UIText(strings.getKey('sidebar/settings/shortcuts/' + name))
+            .setTextTransform('capitalize')
+            .setWidth('90px'));
         shortcutRow.add(shortcutInput);
         container.add(shortcutRow);
     }
     for (let i = 0; i < shortcuts.length; i += 1) {
         createShortcutInput(shortcuts[i]);
     }
-    document.addEventListener('keydown', function (event) {
+    editor.domElement.addEventListener('keydown', function (event) {
         switch (event.key.toLowerCase()) {
             case 'backspace':
-                event.preventDefault(); // prevent browser back
+            // event.preventDefault(); // prevent browser back
             // fall-through
             case 'delete':
                 const object = editor.selected;

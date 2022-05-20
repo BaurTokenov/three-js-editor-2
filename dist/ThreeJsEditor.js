@@ -46,11 +46,11 @@ const ThreeJsEditor = ({ menubarCallbacks, }) => {
         //   return this.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
         // };
         //
-        const editor = new Editor_1.Editor();
+        const hostDiv = hostDivRef.current;
+        const editor = new Editor_1.Editor(hostDiv);
         window.editor = editor; // Expose editor to Console
         window.THREE = THREE; // Expose THREE to APP Scripts and Console
         window.VRButton = VRButton_1.VRButton; // Expose VRButton to APP Scripts
-        const hostDiv = hostDivRef.current;
         const viewport = Viewport_1.Viewport(editor);
         hostDiv.appendChild(viewport.dom);
         const toolbar = Toolbar_1.Toolbar(editor);
@@ -73,7 +73,7 @@ const ThreeJsEditor = ({ menubarCallbacks, }) => {
                 if (state !== undefined) {
                     editor.fromJSON(state);
                 }
-                const selected = editor.config.getKey("selected");
+                const selected = editor.config.getKey('selected');
                 if (selected !== undefined) {
                     editor.selectByUuid(selected);
                 }
@@ -81,7 +81,7 @@ const ThreeJsEditor = ({ menubarCallbacks, }) => {
             //
             let timeout;
             function saveState() {
-                if (editor.config.getKey("autosave") === false) {
+                if (editor.config.getKey('autosave') === false) {
                     return;
                 }
                 clearTimeout(timeout);
@@ -107,17 +107,17 @@ const ThreeJsEditor = ({ menubarCallbacks, }) => {
             signals.historyChanged.add(saveState);
         });
         //
-        document.addEventListener("dragover", (event) => {
+        hostDiv.addEventListener('dragover', (event) => {
             if (lodash_1.default.isNull(event.dataTransfer))
                 return;
             event.preventDefault();
-            event.dataTransfer.dropEffect = "copy";
+            event.dataTransfer.dropEffect = 'copy';
         });
-        document.addEventListener("drop", (event) => {
+        hostDiv.addEventListener('drop', (event) => {
             if (lodash_1.default.isNull(event.dataTransfer))
                 return;
             event.preventDefault();
-            if (event.dataTransfer.types[0] === "text/plain")
+            if (event.dataTransfer.types[0] === 'text/plain')
                 return; // Outliner drop
             if (event.dataTransfer.items) {
                 // DataTransferItemList supports folders
@@ -130,16 +130,16 @@ const ThreeJsEditor = ({ menubarCallbacks, }) => {
         function onWindowResize() {
             editor.signals.windowResize.dispatch();
         }
-        window.addEventListener("resize", onWindowResize);
+        window.addEventListener('resize', onWindowResize);
         onWindowResize();
         //
         let isLoadingFromHash = false;
         const { hash } = window.location;
-        if (hash.slice(1, 6) === "file=") {
+        if (hash.slice(1, 6) === 'file=') {
             const file = hash.slice(6);
-            if (confirm("Any unsaved data will be lost. Are you sure?")) {
+            if (confirm('Any unsaved data will be lost. Are you sure?')) {
                 const loader = new THREE.FileLoader();
-                loader.crossOrigin = "";
+                loader.crossOrigin = '';
                 loader.load(file, (text) => {
                     editor.clear();
                     if (lodash_1.default.isString(text)) {
@@ -150,9 +150,9 @@ const ThreeJsEditor = ({ menubarCallbacks, }) => {
             }
         }
         // ServiceWorker
-        if ("serviceWorker" in navigator) {
+        if ('serviceWorker' in navigator) {
             try {
-                navigator.serviceWorker.register("sw.js");
+                navigator.serviceWorker.register('sw.js');
             }
             catch (error) {
                 console.log(error);
@@ -184,10 +184,10 @@ const StyledHost = styled_1.default.div `
     vertical-align: middle;
   }
 
-  input[type="color"]::-webkit-color-swatch-wrapper {
+  input[type='color']::-webkit-color-swatch-wrapper {
     padding: 0;
   }
-  input[type="color"]::-webkit-color-swatch {
+  input[type='color']::-webkit-color-swatch {
     border: none;
   }
 
@@ -306,11 +306,11 @@ const StyledHost = styled_1.default.div `
   }
 
   #outliner .opener.open:after {
-    content: "−";
+    content: '−';
   }
 
   #outliner .opener.closed:after {
-    content: "+";
+    content: '+';
   }
 
   #outliner .option {
@@ -338,7 +338,7 @@ const StyledHost = styled_1.default.div `
   }
 
   #outliner .type:after {
-    content: "●";
+    content: '●';
   }
 
   /* */
@@ -390,7 +390,7 @@ const StyledHost = styled_1.default.div `
   /* */
 
   #outliner .Script:after {
-    content: "◎";
+    content: '◎';
   }
 
   /*  */

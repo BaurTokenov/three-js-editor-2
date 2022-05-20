@@ -24,10 +24,14 @@ class APP {
       const { project } = json;
 
       if (project.vr !== undefined) renderer.xr.enabled = project.vr;
-      if (project.shadows !== undefined) renderer.shadowMap.enabled = project.shadows;
-      if (project.shadowType !== undefined) renderer.shadowMap.type = project.shadowType;
-      if (project.toneMapping !== undefined) renderer.toneMapping = project.toneMapping;
-      if (project.toneMappingExposure !== undefined) renderer.toneMappingExposure = project.toneMappingExposure;
+      if (project.shadows !== undefined)
+        renderer.shadowMap.enabled = project.shadows;
+      if (project.shadowType !== undefined)
+        renderer.shadowMap.type = project.shadowType;
+      if (project.toneMapping !== undefined)
+        renderer.toneMapping = project.toneMapping;
+      if (project.toneMappingExposure !== undefined)
+        renderer.toneMappingExposure = project.toneMappingExposure;
       if (project.physicallyCorrectLights !== undefined)
         renderer.physicallyCorrectLights = project.physicallyCorrectLights;
 
@@ -54,7 +58,10 @@ class APP {
         scriptWrapResultObj[eventKey] = eventKey;
       });
 
-      const scriptWrapResult = JSON.stringify(scriptWrapResultObj).replace(/"/g, '');
+      const scriptWrapResult = JSON.stringify(scriptWrapResultObj).replace(
+        /"/g,
+        ''
+      );
       Object.keys(json.scripts).forEach((uuid) => {
         const object = scene.getObjectByProperty('uuid', uuid, true);
 
@@ -69,9 +76,10 @@ class APP {
           const script = scripts[i];
 
           // eslint-disable-next-line no-new-func
-          const functions = new Function(scriptWrapParams, `${script.source}\nreturn ${scriptWrapResult};`).bind(
-            object
-          )(this, renderer, scene, camera);
+          const functions = new Function(
+            scriptWrapParams,
+            `${script.source}\nreturn ${scriptWrapResult};`
+          ).bind(object)(this, renderer, scene, camera);
 
           // eslint-disable-next-line no-loop-func
           Object.keys(functions).forEach((name) => {
@@ -130,7 +138,10 @@ class APP {
       time = performance.now();
 
       try {
-        dispatch(events.update, { time: time - startTime, delta: time - prevTime });
+        dispatch(events.update, {
+          time: time - startTime,
+          delta: time - prevTime,
+        });
       } catch (e) {
         console.error(e.message || e, e.stack || '');
       }
@@ -146,11 +157,11 @@ class APP {
       prevTime = performance.now();
       startTime = prevTime;
 
-      document.addEventListener('keydown', onKeyDown);
-      document.addEventListener('keyup', onKeyUp);
-      document.addEventListener('pointerdown', onPointerDown);
-      document.addEventListener('pointerup', onPointerUp);
-      document.addEventListener('pointermove', onPointerMove);
+      editor.domElement.addEventListener('keydown', onKeyDown);
+      editor.domElement.addEventListener('keyup', onKeyUp);
+      editor.domElement.addEventListener('pointerdown', onPointerDown);
+      editor.domElement.addEventListener('pointerup', onPointerUp);
+      editor.domElement.addEventListener('pointermove', onPointerMove);
 
       dispatch(events.start, arguments);
 

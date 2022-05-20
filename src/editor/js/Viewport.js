@@ -103,21 +103,42 @@ function Viewport(editor) {
       switch (transformControls.getMode()) {
         case 'translate':
           if (!objectPositionOnDown.equals(object.position)) {
-            editor.execute(new SetPositionCommand(editor, object, object.position, objectPositionOnDown));
+            editor.execute(
+              new SetPositionCommand(
+                editor,
+                object,
+                object.position,
+                objectPositionOnDown
+              )
+            );
           }
 
           break;
 
         case 'rotate':
           if (!objectRotationOnDown.equals(object.rotation)) {
-            editor.execute(new SetRotationCommand(editor, object, object.rotation, objectRotationOnDown));
+            editor.execute(
+              new SetRotationCommand(
+                editor,
+                object,
+                object.rotation,
+                objectRotationOnDown
+              )
+            );
           }
 
           break;
 
         case 'scale':
           if (!objectScaleOnDown.equals(object.scale)) {
-            editor.execute(new SetScaleCommand(editor, object, object.scale, objectScaleOnDown));
+            editor.execute(
+              new SetScaleCommand(
+                editor,
+                object,
+                object.scale,
+                objectScaleOnDown
+              )
+            );
           }
 
           break;
@@ -196,7 +217,7 @@ function Viewport(editor) {
     const array = getMousePosition(container.dom, event.clientX, event.clientY);
     onDownPosition.fromArray(array);
 
-    document.addEventListener('mouseup', onMouseUp);
+    editor.domElement.addEventListener('mouseup', onMouseUp);
   }
 
   function onMouseUp(event) {
@@ -214,7 +235,7 @@ function Viewport(editor) {
     const array = getMousePosition(container.dom, touch.clientX, touch.clientY);
     onDownPosition.fromArray(array);
 
-    document.addEventListener('touchend', onTouchEnd);
+    editor.domElement.addEventListener('touchend', onTouchEnd);
   }
 
   function onTouchEnd(event) {
@@ -302,13 +323,21 @@ function Viewport(editor) {
       const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
       mediaQuery.addEventListener('change', function (event) {
         renderer.setClearColor(event.matches ? 0x333333 : 0xaaaaaa);
-        updateGridColors(grid1, grid2, event.matches ? [0x222222, 0x888888] : [0x888888, 0x282828]);
+        updateGridColors(
+          grid1,
+          grid2,
+          event.matches ? [0x222222, 0x888888] : [0x888888, 0x282828]
+        );
 
         render();
       });
 
       renderer.setClearColor(mediaQuery.matches ? 0x333333 : 0xaaaaaa);
-      updateGridColors(grid1, grid2, mediaQuery.matches ? [0x222222, 0x888888] : [0x888888, 0x282828]);
+      updateGridColors(
+        grid1,
+        grid2,
+        mediaQuery.matches ? [0x222222, 0x888888] : [0x888888, 0x282828]
+      );
     }
 
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -414,7 +443,8 @@ function Viewport(editor) {
 
       case 'Equirectangular':
         if (backgroundEquirectangularTexture) {
-          backgroundEquirectangularTexture.mapping = THREE.EquirectangularReflectionMapping;
+          backgroundEquirectangularTexture.mapping =
+            THREE.EquirectangularReflectionMapping;
           scene.background = backgroundEquirectangularTexture;
         }
 
@@ -426,7 +456,10 @@ function Viewport(editor) {
 
   // environment
 
-  signals.sceneEnvironmentChanged.add(function (environmentType, environmentEquirectangularTexture) {
+  signals.sceneEnvironmentChanged.add(function (
+    environmentType,
+    environmentEquirectangularTexture
+  ) {
     switch (environmentType) {
       case 'None':
         scene.environment = null;
@@ -437,14 +470,18 @@ function Viewport(editor) {
         scene.environment = null;
 
         if (environmentEquirectangularTexture) {
-          environmentEquirectangularTexture.mapping = THREE.EquirectangularReflectionMapping;
+          environmentEquirectangularTexture.mapping =
+            THREE.EquirectangularReflectionMapping;
           scene.environment = environmentEquirectangularTexture;
         }
 
         break;
 
       case 'ModelViewer':
-        scene.environment = pmremGenerator.fromScene(new RoomEnvironment(), 0.04).texture;
+        scene.environment = pmremGenerator.fromScene(
+          new RoomEnvironment(),
+          0.04
+        ).texture;
 
         break;
     }
@@ -454,7 +491,13 @@ function Viewport(editor) {
 
   // fog
 
-  signals.sceneFogChanged.add(function (fogType, fogColor, fogNear, fogFar, fogDensity) {
+  signals.sceneFogChanged.add(function (
+    fogType,
+    fogColor,
+    fogNear,
+    fogFar,
+    fogDensity
+  ) {
     switch (fogType) {
       case 'None':
         scene.fog = null;
@@ -470,7 +513,13 @@ function Viewport(editor) {
     render();
   });
 
-  signals.sceneFogSettingsChanged.add(function (fogType, fogColor, fogNear, fogFar, fogDensity) {
+  signals.sceneFogSettingsChanged.add(function (
+    fogType,
+    fogColor,
+    fogNear,
+    fogFar,
+    fogDensity
+  ) {
     switch (fogType) {
       case 'Fog':
         scene.fog.color.setHex(fogColor);
@@ -578,7 +627,12 @@ function Viewport(editor) {
     // don't render under the grid.
 
     scene.add(grid);
-    renderer.setViewport(0, 0, container.dom.offsetWidth, container.dom.offsetHeight);
+    renderer.setViewport(
+      0,
+      0,
+      container.dom.offsetWidth,
+      container.dom.offsetHeight
+    );
     renderer.render(scene, editor.viewportCamera);
     scene.remove(grid);
 

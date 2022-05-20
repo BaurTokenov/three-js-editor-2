@@ -43,7 +43,7 @@ var _DEFAULT_CAMERA = new THREE.PerspectiveCamera(50, 1, 0.01, 1000);
 _DEFAULT_CAMERA.name = 'Camera';
 _DEFAULT_CAMERA.position.set(0, 5, 10);
 _DEFAULT_CAMERA.lookAt(new THREE.Vector3());
-function Editor() {
+function Editor(domElement) {
     var Signal = signals_1.default.Signal;
     this.signals = {
         // script
@@ -115,6 +115,7 @@ function Editor() {
     this.cameras = {};
     this.viewportCamera = this.camera;
     this.addCamera(this.camera);
+    this.domElement = domElement;
 }
 exports.Editor = Editor;
 Editor.prototype = {
@@ -272,7 +273,10 @@ Editor.prototype = {
     //
     addHelper: (function () {
         var geometry = new THREE.SphereGeometry(2, 4, 2);
-        var material = new THREE.MeshBasicMaterial({ color: 0xff0000, visible: false });
+        var material = new THREE.MeshBasicMaterial({
+            color: 0xff0000,
+            visible: false,
+        });
         return function (object, helper) {
             var _a;
             if (helper === undefined) {
@@ -435,7 +439,8 @@ Editor.prototype = {
         var scripts = this.scripts;
         for (var key in scripts) {
             var script = scripts[key];
-            if (script.length === 0 || scene.getObjectByProperty('uuid', key) === undefined) {
+            if (script.length === 0 ||
+                scene.getObjectByProperty('uuid', key) === undefined) {
                 delete scripts[key];
             }
         }

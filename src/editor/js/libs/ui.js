@@ -12,7 +12,11 @@ class UIElement {
       if (argument instanceof UIElement) {
         this.dom.appendChild(argument.dom);
       } else {
-        console.error('UIElement:', argument, 'is not an instance of UIElement.');
+        console.error(
+          'UIElement:',
+          argument,
+          'is not an instance of UIElement.'
+        );
       }
     }
 
@@ -26,7 +30,11 @@ class UIElement {
       if (argument instanceof UIElement) {
         this.dom.removeChild(argument.dom);
       } else {
-        console.error('UIElement:', argument, 'is not an instance of UIElement.');
+        console.error(
+          'UIElement:',
+          argument,
+          'is not an instance of UIElement.'
+        );
       }
     }
 
@@ -139,7 +147,10 @@ const properties = [
 ];
 
 properties.forEach((property) => {
-  const method = `set${property.substr(0, 1).toUpperCase()}${property.substr(1, property.length)}`;
+  const method = `set${property.substr(0, 1).toUpperCase()}${property.substr(
+    1,
+    property.length
+  )}`;
 
   UIElement.prototype[method] = function () {
     this.setStyle(property, arguments);
@@ -150,7 +161,16 @@ properties.forEach((property) => {
 
 // events
 
-const events = ['KeyUp', 'KeyDown', 'MouseOver', 'MouseOut', 'Click', 'DblClick', 'Change', 'Input'];
+const events = [
+  'KeyUp',
+  'KeyDown',
+  'MouseOver',
+  'MouseOut',
+  'Click',
+  'DblClick',
+  'Change',
+  'Input',
+];
 
 events.forEach((event) => {
   const method = `on${event}`;
@@ -260,7 +280,10 @@ class UITextArea extends UIElement {
 
         const cursor = this.selectionStart;
 
-        this.value = `${this.value.substring(0, cursor)}\t${this.value.substring(cursor)}`;
+        this.value = `${this.value.substring(
+          0,
+          cursor
+        )}\t${this.value.substring(cursor)}`;
         this.selectionStart = cursor + 1;
         this.selectionEnd = this.selectionStart;
       }
@@ -435,8 +458,8 @@ class UINumber extends UIElement {
       prevPointer.x = event.clientX;
       prevPointer.y = event.clientY;
 
-      document.addEventListener('mousemove', onMouseMove);
-      document.addEventListener('mouseup', onMouseUp);
+      editor.domElement.addEventListener('mousemove', onMouseMove);
+      editor.domElement.addEventListener('mouseup', onMouseUp);
     }
 
     function onMouseMove(event) {
@@ -447,7 +470,8 @@ class UINumber extends UIElement {
 
       distance += pointer.x - prevPointer.x - (pointer.y - prevPointer.y);
 
-      let value = onMouseDownValue + (distance / (event.shiftKey ? 5 : 50)) * scope.step;
+      let value =
+        onMouseDownValue + (distance / (event.shiftKey ? 5 : 50)) * scope.step;
       value = Math.min(scope.max, Math.max(scope.min, value));
 
       if (currentValue !== value) {
@@ -478,8 +502,8 @@ class UINumber extends UIElement {
         prevPointer.x = event.touches[0].pageX;
         prevPointer.y = event.touches[0].pageY;
 
-        document.addEventListener('touchmove', onTouchMove);
-        document.addEventListener('touchend', onTouchEnd);
+        editor.domElement.addEventListener('touchmove', onTouchMove);
+        editor.domElement.addEventListener('touchend', onTouchEnd);
       }
     }
 
@@ -491,7 +515,8 @@ class UINumber extends UIElement {
 
       distance += pointer.x - prevPointer.x - (pointer.y - prevPointer.y);
 
-      let value = onMouseDownValue + (distance / (event.shiftKey ? 5 : 50)) * scope.step;
+      let value =
+        onMouseDownValue + (distance / (event.shiftKey ? 5 : 50)) * scope.step;
       value = Math.min(scope.max, Math.max(scope.min, value));
 
       if (currentValue !== value) {
@@ -651,8 +676,8 @@ class UIInteger extends UIElement {
       prevPointer.x = event.clientX;
       prevPointer.y = event.clientY;
 
-      document.addEventListener('mousemove', onMouseMove);
-      document.addEventListener('mouseup', onMouseUp);
+      editor.domElement.addEventListener('mousemove', onMouseMove);
+      editor.domElement.addEventListener('mouseup', onMouseUp);
     }
 
     function onMouseMove(event) {
@@ -663,7 +688,8 @@ class UIInteger extends UIElement {
 
       distance += pointer.x - prevPointer.x - (pointer.y - prevPointer.y);
 
-      let value = onMouseDownValue + (distance / (event.shiftKey ? 5 : 50)) * scope.step;
+      let value =
+        onMouseDownValue + (distance / (event.shiftKey ? 5 : 50)) * scope.step;
       value = Math.ceil(Math.min(scope.max, Math.max(scope.min, value)));
 
       if (currentValue !== value) {

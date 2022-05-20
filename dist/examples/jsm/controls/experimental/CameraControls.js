@@ -55,7 +55,11 @@ var CameraControls = function (object, domElement) {
     // The four arrow keys
     this.keys = { LEFT: 37, UP: 38, RIGHT: 39, BOTTOM: 40 };
     // Mouse buttons
-    this.mouseButtons = { LEFT: three_1.MOUSE.ROTATE, MIDDLE: three_1.MOUSE.DOLLY, RIGHT: three_1.MOUSE.PAN };
+    this.mouseButtons = {
+        LEFT: three_1.MOUSE.ROTATE,
+        MIDDLE: three_1.MOUSE.DOLLY,
+        RIGHT: three_1.MOUSE.PAN,
+    };
     // Touch fingers
     this.touches = { ONE: three_1.TOUCH.ROTATE, TWO: three_1.TOUCH.DOLLY_PAN };
     // for reset
@@ -89,7 +93,7 @@ var CameraControls = function (object, domElement) {
         state = STATE.NONE;
     };
     // this method is exposed, but perhaps it would be better if we can make it private...
-    this.update = function () {
+    this.update = (function () {
         var offset = new three_1.Vector3();
         // so camera.up is the orbit axis
         var quat = new three_1.Quaternion().setFromUnitVectors(object.up, new three_1.Vector3(0, 1, 0));
@@ -105,7 +109,7 @@ var CameraControls = function (object, domElement) {
                 // rotate around screen-space y-axis
                 if (sphericalDelta.theta) {
                     vec.set(0, 1, 0).applyQuaternion(scope.object.quaternion);
-                    const factor = (scope.enableDamping) ? scope.dampingFactor : 1;
+                    const factor = scope.enableDamping ? scope.dampingFactor : 1;
                     q.setFromAxisAngle(vec, sphericalDelta.theta * factor);
                     scope.object.quaternion.premultiply(q);
                     offset.applyQuaternion(q);
@@ -113,7 +117,7 @@ var CameraControls = function (object, domElement) {
                 // rotate around screen-space x-axis
                 if (sphericalDelta.phi) {
                     vec.set(1, 0, 0).applyQuaternion(scope.object.quaternion);
-                    const factor = (scope.enableDamping) ? scope.dampingFactor : 1;
+                    const factor = scope.enableDamping ? scope.dampingFactor : 1;
                     q.setFromAxisAngle(vec, sphericalDelta.phi * factor);
                     scope.object.quaternion.premultiply(q);
                     offset.applyQuaternion(q);
@@ -160,8 +164,8 @@ var CameraControls = function (object, domElement) {
                 scope.object.lookAt(scope.target);
             }
             if (scope.enableDamping === true) {
-                sphericalDelta.theta *= (1 - scope.dampingFactor);
-                sphericalDelta.phi *= (1 - scope.dampingFactor);
+                sphericalDelta.theta *= 1 - scope.dampingFactor;
+                sphericalDelta.phi *= 1 - scope.dampingFactor;
                 panOffset.multiplyScalar(1 - scope.dampingFactor);
             }
             else {
@@ -183,7 +187,7 @@ var CameraControls = function (object, domElement) {
             }
             return false;
         };
-    }();
+    })();
     this.dispose = function () {
         scope.domElement.removeEventListener('contextmenu', onContextMenu, false);
         scope.domElement.removeEventListener('mousedown', onMouseDown, false);
@@ -211,7 +215,7 @@ var CameraControls = function (object, domElement) {
         TOUCH_ROTATE: 3,
         TOUCH_PAN: 4,
         TOUCH_DOLLY_PAN: 5,
-        TOUCH_DOLLY_ROTATE: 6
+        TOUCH_DOLLY_ROTATE: 6,
     };
     var state = STATE.NONE;
     var EPS = 0.000001;
@@ -231,7 +235,7 @@ var CameraControls = function (object, domElement) {
     var dollyEnd = new three_1.Vector2();
     var dollyDelta = new three_1.Vector2();
     function getAutoRotationAngle() {
-        return 2 * Math.PI / 60 / 60 * scope.autoRotateSpeed;
+        return ((2 * Math.PI) / 60 / 60) * scope.autoRotateSpeed;
     }
     function getZoomScale() {
         return Math.pow(0.95, scope.zoomSpeed);
@@ -242,15 +246,15 @@ var CameraControls = function (object, domElement) {
     function rotateUp(angle) {
         sphericalDelta.phi -= angle;
     }
-    var panLeft = function () {
+    var panLeft = (function () {
         var v = new three_1.Vector3();
         return function panLeft(distance, objectMatrix) {
             v.setFromMatrixColumn(objectMatrix, 0); // get X column of objectMatrix
             v.multiplyScalar(-distance);
             panOffset.add(v);
         };
-    }();
-    var panUp = function () {
+    })();
+    var panUp = (function () {
         var v = new three_1.Vector3();
         return function panUp(distance, objectMatrix) {
             if (scope.screenSpacePanning === true) {
@@ -263,9 +267,9 @@ var CameraControls = function (object, domElement) {
             v.multiplyScalar(distance);
             panOffset.add(v);
         };
-    }();
+    })();
     // deltaX and deltaY are in pixels; right and down are positive
-    var pan = function () {
+    var pan = (function () {
         var offset = new three_1.Vector3();
         return function pan(deltaX, deltaY) {
             var element = scope.domElement;
@@ -275,15 +279,19 @@ var CameraControls = function (object, domElement) {
                 offset.copy(position).sub(scope.target);
                 var targetDistance = offset.length();
                 // half of the fov is center to top of screen
-                targetDistance *= Math.tan((scope.object.fov / 2) * Math.PI / 180.0);
+                targetDistance *= Math.tan(((scope.object.fov / 2) * Math.PI) / 180.0);
                 // we use only clientHeight here so aspect ratio does not distort speed
-                panLeft(2 * deltaX * targetDistance / element.clientHeight, scope.object.matrix);
-                panUp(2 * deltaY * targetDistance / element.clientHeight, scope.object.matrix);
+                panLeft((2 * deltaX * targetDistance) / element.clientHeight, scope.object.matrix);
+                panUp((2 * deltaY * targetDistance) / element.clientHeight, scope.object.matrix);
             }
             else if (scope.object.isOrthographicCamera) {
                 // orthographic
-                panLeft(deltaX * (scope.object.right - scope.object.left) / scope.object.zoom / element.clientWidth, scope.object.matrix);
-                panUp(deltaY * (scope.object.top - scope.object.bottom) / scope.object.zoom / element.clientHeight, scope.object.matrix);
+                panLeft((deltaX * (scope.object.right - scope.object.left)) /
+                    scope.object.zoom /
+                    element.clientWidth, scope.object.matrix);
+                panUp((deltaY * (scope.object.top - scope.object.bottom)) /
+                    scope.object.zoom /
+                    element.clientHeight, scope.object.matrix);
             }
             else {
                 // camera neither orthographic nor perspective
@@ -291,7 +299,7 @@ var CameraControls = function (object, domElement) {
                 scope.enablePan = false;
             }
         };
-    }();
+    })();
     function dollyIn(dollyScale) {
         if (scope.object.isPerspectiveCamera) {
             scale /= dollyScale;
@@ -334,10 +342,12 @@ var CameraControls = function (object, domElement) {
     }
     function handleMouseMoveRotate(event) {
         rotateEnd.set(event.clientX, event.clientY);
-        rotateDelta.subVectors(rotateEnd, rotateStart).multiplyScalar(scope.rotateSpeed);
+        rotateDelta
+            .subVectors(rotateEnd, rotateStart)
+            .multiplyScalar(scope.rotateSpeed);
         var element = scope.domElement;
-        rotateLeft(2 * Math.PI * rotateDelta.x / element.clientHeight); // yes, height
-        rotateUp(2 * Math.PI * rotateDelta.y / element.clientHeight);
+        rotateLeft((2 * Math.PI * rotateDelta.x) / element.clientHeight); // yes, height
+        rotateUp((2 * Math.PI * rotateDelta.y) / element.clientHeight);
         rotateStart.copy(rotateEnd);
         scope.update();
     }
@@ -445,10 +455,12 @@ var CameraControls = function (object, domElement) {
             var y = 0.5 * (event.touches[0].pageY + event.touches[1].pageY);
             rotateEnd.set(x, y);
         }
-        rotateDelta.subVectors(rotateEnd, rotateStart).multiplyScalar(scope.rotateSpeed);
+        rotateDelta
+            .subVectors(rotateEnd, rotateStart)
+            .multiplyScalar(scope.rotateSpeed);
         var element = scope.domElement;
-        rotateLeft(2 * Math.PI * rotateDelta.x / element.clientHeight); // yes, height
-        rotateUp(2 * Math.PI * rotateDelta.y / element.clientHeight);
+        rotateLeft((2 * Math.PI * rotateDelta.x) / element.clientHeight); // yes, height
+        rotateUp((2 * Math.PI * rotateDelta.y) / element.clientHeight);
         rotateStart.copy(rotateEnd);
     }
     function handleTouchMovePan(event) {
@@ -552,8 +564,8 @@ var CameraControls = function (object, domElement) {
                 state = STATE.NONE;
         }
         if (state !== STATE.NONE) {
-            document.addEventListener('mousemove', onMouseMove, false);
-            document.addEventListener('mouseup', onMouseUp, false);
+            editor.domElement.addEventListener('mousemove', onMouseMove, false);
+            editor.domElement.addEventListener('mouseup', onMouseUp, false);
             scope.dispatchEvent(startEvent);
         }
     }
@@ -589,7 +601,9 @@ var CameraControls = function (object, domElement) {
         state = STATE.NONE;
     }
     function onMouseWheel(event) {
-        if (scope.enabled === false || scope.enableZoom === false || (state !== STATE.NONE && state !== STATE.ROTATE))
+        if (scope.enabled === false ||
+            scope.enableZoom === false ||
+            (state !== STATE.NONE && state !== STATE.ROTATE))
             return;
         event.preventDefault();
         event.stopPropagation();
@@ -598,7 +612,9 @@ var CameraControls = function (object, domElement) {
         scope.dispatchEvent(endEvent);
     }
     function onKeyDown(event) {
-        if (scope.enabled === false || scope.enableKeys === false || scope.enablePan === false)
+        if (scope.enabled === false ||
+            scope.enableKeys === false ||
+            scope.enablePan === false)
             return;
         handleKeyDown(event);
     }

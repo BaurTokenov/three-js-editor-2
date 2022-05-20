@@ -12,7 +12,7 @@ _DEFAULT_CAMERA.name = 'Camera';
 _DEFAULT_CAMERA.position.set(0, 5, 10);
 _DEFAULT_CAMERA.lookAt(new THREE.Vector3());
 
-function Editor() {
+function Editor(domElement) {
   var Signal = signals.Signal;
 
   this.signals = {
@@ -117,6 +117,8 @@ function Editor() {
   this.viewportCamera = this.camera;
 
   this.addCamera(this.camera);
+
+  this.domElement = domElement;
 }
 
 Editor.prototype = {
@@ -313,7 +315,10 @@ Editor.prototype = {
 
   addHelper: (function () {
     var geometry = new THREE.SphereGeometry(2, 4, 2);
-    var material = new THREE.MeshBasicMaterial({ color: 0xff0000, visible: false });
+    var material = new THREE.MeshBasicMaterial({
+      color: 0xff0000,
+      visible: false,
+    });
 
     return function (object, helper) {
       if (helper === undefined) {
@@ -515,7 +520,10 @@ Editor.prototype = {
     for (var key in scripts) {
       var script = scripts[key];
 
-      if (script.length === 0 || scene.getObjectByProperty('uuid', key) === undefined) {
+      if (
+        script.length === 0 ||
+        scene.getObjectByProperty('uuid', key) === undefined
+      ) {
         delete scripts[key];
       }
     }
@@ -528,9 +536,13 @@ Editor.prototype = {
         shadows: this.config.getKey('project/renderer/shadows'),
         shadowType: this.config.getKey('project/renderer/shadowType'),
         vr: this.config.getKey('project/vr'),
-        physicallyCorrectLights: this.config.getKey('project/renderer/physicallyCorrectLights'),
+        physicallyCorrectLights: this.config.getKey(
+          'project/renderer/physicallyCorrectLights'
+        ),
         toneMapping: this.config.getKey('project/renderer/toneMapping'),
-        toneMappingExposure: this.config.getKey('project/renderer/toneMappingExposure'),
+        toneMappingExposure: this.config.getKey(
+          'project/renderer/toneMappingExposure'
+        ),
       },
       camera: this.camera.toJSON(),
       scene: this.scene.toJSON(),

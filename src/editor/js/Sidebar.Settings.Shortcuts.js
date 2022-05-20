@@ -17,7 +17,9 @@ function SidebarSettingsShortcuts(editor) {
   const container = new UIPanel();
 
   const headerRow = new UIRow();
-  headerRow.add(new UIText(strings.getKey('sidebar/settings/shortcuts').toUpperCase()));
+  headerRow.add(
+    new UIText(strings.getKey('sidebar/settings/shortcuts').toUpperCase())
+  );
   container.add(headerRow);
 
   const shortcuts = ['translate', 'rotate', 'scale', 'undo', 'focus'];
@@ -63,7 +65,9 @@ function SidebarSettingsShortcuts(editor) {
 
     shortcutInput.dom.maxLength = 1;
     shortcutRow.add(
-      new UIText(strings.getKey('sidebar/settings/shortcuts/' + name)).setTextTransform('capitalize').setWidth('90px')
+      new UIText(strings.getKey('sidebar/settings/shortcuts/' + name))
+        .setTextTransform('capitalize')
+        .setWidth('90px')
     );
     shortcutRow.add(shortcutInput);
 
@@ -74,10 +78,10 @@ function SidebarSettingsShortcuts(editor) {
     createShortcutInput(shortcuts[i]);
   }
 
-  document.addEventListener('keydown', function (event) {
+  editor.domElement.addEventListener('keydown', function (event) {
     switch (event.key.toLowerCase()) {
       case 'backspace':
-        event.preventDefault(); // prevent browser back
+      // event.preventDefault(); // prevent browser back
 
       // fall-through
 
@@ -87,7 +91,8 @@ function SidebarSettingsShortcuts(editor) {
         if (object === null) return;
 
         const parent = object.parent;
-        if (parent !== null) editor.execute(new RemoveObjectCommand(editor, object));
+        if (parent !== null)
+          editor.execute(new RemoveObjectCommand(editor, object));
 
         break;
 

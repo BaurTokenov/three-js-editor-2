@@ -1,15 +1,15 @@
-import styled from "@emotion/styled";
-import _ from "lodash";
-import React, { useEffect, useRef } from "react";
-import * as THREE from "three";
-import { Editor } from "./editor/js/Editor";
-import { Menubar } from "./editor/js/Menubar";
-import { Player } from "./editor/js/Player";
-import { Resizer } from "./editor/js/Resizer";
-import { Sidebar } from "./editor/js/Sidebar";
-import { Toolbar } from "./editor/js/Toolbar";
-import { Viewport } from "./editor/js/Viewport";
-import { VRButton } from "./examples/jsm/webxr/VRButton";
+import styled from '@emotion/styled';
+import _ from 'lodash';
+import React, { useEffect, useRef } from 'react';
+import * as THREE from 'three';
+import { Editor } from './editor/js/Editor';
+import { Menubar } from './editor/js/Menubar';
+import { Player } from './editor/js/Player';
+import { Resizer } from './editor/js/Resizer';
+import { Sidebar } from './editor/js/Sidebar';
+import { Toolbar } from './editor/js/Toolbar';
+import { Viewport } from './editor/js/Viewport';
+import { VRButton } from './examples/jsm/webxr/VRButton';
 
 declare global {
   interface Window {
@@ -45,13 +45,12 @@ export const ThreeJsEditor: React.FC<ThreeJsEditorProps> = ({
 
     //
 
-    const editor = new Editor();
+    const hostDiv = hostDivRef.current;
+    const editor = new Editor(hostDiv);
 
     window.editor = editor; // Expose editor to Console
     window.THREE = THREE; // Expose THREE to APP Scripts and Console
     window.VRButton = VRButton; // Expose VRButton to APP Scripts
-
-    const hostDiv = hostDivRef.current;
 
     const viewport = Viewport(editor);
     hostDiv.appendChild(viewport.dom);
@@ -84,7 +83,7 @@ export const ThreeJsEditor: React.FC<ThreeJsEditorProps> = ({
           editor.fromJSON(state);
         }
 
-        const selected = editor.config.getKey("selected");
+        const selected = editor.config.getKey('selected');
 
         if (selected !== undefined) {
           editor.selectByUuid(selected);
@@ -96,7 +95,7 @@ export const ThreeJsEditor: React.FC<ThreeJsEditorProps> = ({
       let timeout: NodeJS.Timeout;
 
       function saveState() {
-        if (editor.config.getKey("autosave") === false) {
+        if (editor.config.getKey('autosave') === false) {
           return;
         }
 
@@ -130,20 +129,20 @@ export const ThreeJsEditor: React.FC<ThreeJsEditorProps> = ({
 
     //
 
-    document.addEventListener("dragover", (event) => {
+    hostDiv.addEventListener('dragover', (event) => {
       if (_.isNull(event.dataTransfer)) return;
 
       event.preventDefault();
 
-      event.dataTransfer.dropEffect = "copy";
+      event.dataTransfer.dropEffect = 'copy';
     });
 
-    document.addEventListener("drop", (event) => {
+    hostDiv.addEventListener('drop', (event) => {
       if (_.isNull(event.dataTransfer)) return;
 
       event.preventDefault();
 
-      if (event.dataTransfer.types[0] === "text/plain") return; // Outliner drop
+      if (event.dataTransfer.types[0] === 'text/plain') return; // Outliner drop
 
       if (event.dataTransfer.items) {
         // DataTransferItemList supports folders
@@ -158,7 +157,7 @@ export const ThreeJsEditor: React.FC<ThreeJsEditorProps> = ({
       editor.signals.windowResize.dispatch();
     }
 
-    window.addEventListener("resize", onWindowResize);
+    window.addEventListener('resize', onWindowResize);
 
     onWindowResize();
 
@@ -167,12 +166,12 @@ export const ThreeJsEditor: React.FC<ThreeJsEditorProps> = ({
     let isLoadingFromHash = false;
     const { hash } = window.location;
 
-    if (hash.slice(1, 6) === "file=") {
+    if (hash.slice(1, 6) === 'file=') {
       const file = hash.slice(6);
 
-      if (confirm("Any unsaved data will be lost. Are you sure?")) {
+      if (confirm('Any unsaved data will be lost. Are you sure?')) {
         const loader = new THREE.FileLoader();
-        loader.crossOrigin = "";
+        loader.crossOrigin = '';
         loader.load(file, (text) => {
           editor.clear();
           if (_.isString(text)) {
@@ -186,9 +185,9 @@ export const ThreeJsEditor: React.FC<ThreeJsEditorProps> = ({
 
     // ServiceWorker
 
-    if ("serviceWorker" in navigator) {
+    if ('serviceWorker' in navigator) {
       try {
-        navigator.serviceWorker.register("sw.js");
+        navigator.serviceWorker.register('sw.js');
       } catch (error) {
         console.log(error);
       }
@@ -220,10 +219,10 @@ const StyledHost = styled.div`
     vertical-align: middle;
   }
 
-  input[type="color"]::-webkit-color-swatch-wrapper {
+  input[type='color']::-webkit-color-swatch-wrapper {
     padding: 0;
   }
-  input[type="color"]::-webkit-color-swatch {
+  input[type='color']::-webkit-color-swatch {
     border: none;
   }
 
@@ -342,11 +341,11 @@ const StyledHost = styled.div`
   }
 
   #outliner .opener.open:after {
-    content: "−";
+    content: '−';
   }
 
   #outliner .opener.closed:after {
-    content: "+";
+    content: '+';
   }
 
   #outliner .option {
@@ -374,7 +373,7 @@ const StyledHost = styled.div`
   }
 
   #outliner .type:after {
-    content: "●";
+    content: '●';
   }
 
   /* */
@@ -426,7 +425,7 @@ const StyledHost = styled.div`
   /* */
 
   #outliner .Script:after {
-    content: "◎";
+    content: '◎';
   }
 
   /*  */

@@ -164,7 +164,7 @@ function Viewport(editor) {
         // event.preventDefault();
         const array = getMousePosition(container.dom, event.clientX, event.clientY);
         onDownPosition.fromArray(array);
-        document.addEventListener('mouseup', onMouseUp);
+        editor.domElement.addEventListener('mouseup', onMouseUp);
     }
     function onMouseUp(event) {
         const array = getMousePosition(container.dom, event.clientX, event.clientY);
@@ -176,7 +176,7 @@ function Viewport(editor) {
         const touch = event.changedTouches[0];
         const array = getMousePosition(container.dom, touch.clientX, touch.clientY);
         onDownPosition.fromArray(array);
-        document.addEventListener('touchend', onTouchEnd);
+        editor.domElement.addEventListener('touchend', onTouchEnd);
     }
     function onTouchEnd(event) {
         const touch = event.changedTouches[0];
@@ -318,7 +318,8 @@ function Viewport(editor) {
                 break;
             case 'Equirectangular':
                 if (backgroundEquirectangularTexture) {
-                    backgroundEquirectangularTexture.mapping = THREE.EquirectangularReflectionMapping;
+                    backgroundEquirectangularTexture.mapping =
+                        THREE.EquirectangularReflectionMapping;
                     scene.background = backgroundEquirectangularTexture;
                 }
                 break;
@@ -334,7 +335,8 @@ function Viewport(editor) {
             case 'Equirectangular':
                 scene.environment = null;
                 if (environmentEquirectangularTexture) {
-                    environmentEquirectangularTexture.mapping = THREE.EquirectangularReflectionMapping;
+                    environmentEquirectangularTexture.mapping =
+                        THREE.EquirectangularReflectionMapping;
                     scene.environment = environmentEquirectangularTexture;
                 }
                 break;

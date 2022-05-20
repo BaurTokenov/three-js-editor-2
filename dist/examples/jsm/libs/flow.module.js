@@ -28,8 +28,8 @@ exports.REVISION = REVISION;
 const Styles = {
     icons: {
         close: '',
-        unlink: ''
-    }
+        unlink: '',
+    },
 };
 exports.Styles = Styles;
 let _id = 0;
@@ -124,7 +124,7 @@ const draggableDOM = (dom, callback = null, className = 'dragging') => {
             delta: { x: 0, y: 0 },
             start: { x: dom.offsetLeft, y: dom.offsetTop },
             dragging: false,
-            isTouch: !!e.touches
+            isTouch: !!e.touches,
         };
         window.addEventListener('mousemove', onGlobalMouseMove);
         window.addEventListener('mouseup', onGlobalMouseUp);
@@ -212,7 +212,7 @@ var Utils = /*#__PURE__*/ Object.freeze({
     draggableDOM: draggableDOM,
     dispatchEventList: dispatchEventList,
     toPX: toPX,
-    toHex: toHex
+    toHex: toHex,
 });
 exports.Utils = Utils;
 class Link {
@@ -256,7 +256,7 @@ class Element extends Serializer {
                 element = overDOM ? overDOM.element : null;
             }
             const type = e.type;
-            if ((type === 'mouseout') && selected === element) {
+            if (type === 'mouseout' && selected === element) {
                 selected = null;
             }
             else {
@@ -279,9 +279,9 @@ class Element extends Serializer {
         this.lioLength = 0;
         this.rioLength = 0;
         this.events = {
-            'connect': [],
-            'connectChildren': [],
-            'valid': []
+            connect: [],
+            connectChildren: [],
+            valid: [],
         };
         this.node = null;
         this.style = '';
@@ -455,7 +455,9 @@ class Element extends Serializer {
             this.links.push(link);
             if (this.disconnectDOM === null) {
                 this.disconnectDOM = document.createElement('f-disconnect');
-                this.disconnectDOM.innerHTML = Styles.icons.unlink ? `<i class='${Styles.icons.unlink}'></i>` : '✖';
+                this.disconnectDOM.innerHTML = Styles.icons.unlink
+                    ? `<i class='${Styles.icons.unlink}'></i>`
+                    : '✖';
                 this.dom.append(this.disconnectDOM);
                 const onDisconnect = () => {
                     this.links = [];
@@ -595,8 +597,10 @@ class Element extends Serializer {
                 else {
                     previewLink.inputElement = selected;
                 }
-                const isInvalid = previewLink.inputElement !== null && previewLink.outputElement !== null &&
-                    previewLink.inputElement.inputLength > 0 && previewLink.outputElement.outputLength > 0 &&
+                const isInvalid = previewLink.inputElement !== null &&
+                    previewLink.outputElement !== null &&
+                    previewLink.inputElement.inputLength > 0 &&
+                    previewLink.outputElement.outputLength > 0 &&
                     dispatchEventList(previewLink.inputElement.events.valid, previewLink.inputElement, previewLink.outputElement, data.dragging ? 'dragging' : 'dragged') === false;
                 if (data.dragging && isInvalid) {
                     if (type === defaultOutput) {
@@ -622,7 +626,8 @@ class Element extends Serializer {
                             return;
                         }
                         //
-                        if (link.inputElement.inputLength > 0 && link.outputElement.outputLength > 0) {
+                        if (link.inputElement.inputLength > 0 &&
+                            link.outputElement.outputLength > 0) {
                             link.inputElement.connect(link.outputElement);
                         }
                     }
@@ -644,8 +649,8 @@ class Input extends Serializer {
         this.extra = null;
         this.tagColor = null;
         this.events = {
-            'change': [],
-            'click': []
+            change: [],
+            click: [],
         };
         this.addEventListener('change', () => {
             dispatchEventList(this.events.change, this);
@@ -741,8 +746,8 @@ class Node extends Serializer {
         this.canvas = null;
         this.elements = [];
         this.events = {
-            'focus': [],
-            'blur': []
+            focus: [],
+            blur: [],
         };
         this.setWidth(300).setPosition(0, 0);
     }
@@ -773,7 +778,7 @@ class Node extends Serializer {
         const dom = this.dom;
         return {
             x: parseInt(dom.style.left),
-            y: parseInt(dom.style.top)
+            y: parseInt(dom.style.top),
         };
     }
     setWidth(val) {
@@ -935,7 +940,7 @@ exports.TitleElement = TitleElement;
 const drawLine = (p1x, p1y, p2x, p2y, invert, size, colorA, ctx, colorB = null) => {
     const dx = p2x - p1x;
     const dy = p2y - p1y;
-    const offset = Math.sqrt((dx * dx) + (dy * dy)) * (invert ? -.3 : .3);
+    const offset = Math.sqrt(dx * dx + dy * dy) * (invert ? -0.3 : 0.3);
     ctx.beginPath();
     ctx.moveTo(p1x, p1y);
     ctx.bezierCurveTo(p1x + offset, p1y, p2x - offset, p2y, p2x, p2y);
@@ -951,11 +956,7 @@ const drawLine = (p1x, p1y, p2x, p2y, invert, size, colorA, ctx, colorB = null) 
     ctx.lineWidth = size;
     ctx.stroke();
 };
-const colors = [
-    '#ff4444',
-    '#44ff44',
-    '#4444ff'
-];
+const colors = ['#ff4444', '#44ff44', '#4444ff'];
 const dropNode = new Node().add(new TitleElement('File')).setWidth(250);
 class Canvas extends Serializer {
     constructor() {
@@ -988,7 +989,7 @@ class Canvas extends Serializer {
         this.updating = false;
         this.droppedItems = [];
         this.events = {
-            'drop': []
+            drop: [],
         };
         frontCanvas.className = 'front';
         contentDOM.style.left = toPX(this.centerX);
@@ -1002,61 +1003,61 @@ class Canvas extends Serializer {
         dom.append(contentDOM);
         dom.append(areaDOM);
         /*
-        let zoomTouchData = null;
-
-        const onZoomStart = () => {
-
-            zoomTouchData = null;
-
-        };
-*/
+            let zoomTouchData = null;
+    
+            const onZoomStart = () => {
+    
+                zoomTouchData = null;
+    
+            };
+    */
         const onZoom = (e) => {
             if (e.touches) {
                 if (e.touches.length === 2) {
                     e.preventDefault();
                     e.stopImmediatePropagation();
                     /*
-                    const clientX = ( e.touches[ 0 ].clientX + e.touches[ 1 ].clientX ) / 2;
-                    const clientY = ( e.touches[ 0 ].clientY + e.touches[ 1 ].clientY ) / 2;
-
-                    const distance = Math.hypot(
-                        e.touches[ 0 ].clientX - e.touches[ 1 ].clientX,
-                        e.touches[ 0 ].clientY - e.touches[ 1 ].clientY
-                    );
-
-                    if ( zoomTouchData === null ) {
-
-                        zoomTouchData = {
-                            distance
-                        };
-
-                    }
-
-                    const delta = ( zoomTouchData.distance - distance );
-                    zoomTouchData.distance = distance;
-
-                    let zoom = Math.min( Math.max( this.zoom - delta * .01, .5 ), 1.2 );
-
-                    if ( zoom < .52 ) zoom = .5;
-                    else if ( zoom > .98 ) zoom = 1;
-
-                    contentDOM.style.left = toPX( this.centerX / zoom );
-                    contentDOM.style.top = toPX( this.centerY / zoom );
-                    contentDOM.style.zoom = this.zoom = zoom;
-*/
+                              const clientX = ( e.touches[ 0 ].clientX + e.touches[ 1 ].clientX ) / 2;
+                              const clientY = ( e.touches[ 0 ].clientY + e.touches[ 1 ].clientY ) / 2;
+          
+                              const distance = Math.hypot(
+                                  e.touches[ 0 ].clientX - e.touches[ 1 ].clientX,
+                                  e.touches[ 0 ].clientY - e.touches[ 1 ].clientY
+                              );
+          
+                              if ( zoomTouchData === null ) {
+          
+                                  zoomTouchData = {
+                                      distance
+                                  };
+          
+                              }
+          
+                              const delta = ( zoomTouchData.distance - distance );
+                              zoomTouchData.distance = distance;
+          
+                              let zoom = Math.min( Math.max( this.zoom - delta * .01, .5 ), 1.2 );
+          
+                              if ( zoom < .52 ) zoom = .5;
+                              else if ( zoom > .98 ) zoom = 1;
+          
+                              contentDOM.style.left = toPX( this.centerX / zoom );
+                              contentDOM.style.top = toPX( this.centerY / zoom );
+                              contentDOM.style.zoom = this.zoom = zoom;
+          */
                 }
             }
             else {
                 e.preventDefault();
                 e.stopImmediatePropagation();
                 /*
-                const delta = e.deltaY / 100;
-                const zoom = Math.min( Math.max( this.zoom - delta * .1, .5 ), 1 );
-
-                contentDOM.style.left = toPX( this.centerX / zoom );
-                contentDOM.style.top = toPX( this.centerY / zoom );
-                contentDOM.style.zoom = this.zoom = zoom;
-*/
+                        const delta = e.deltaY / 100;
+                        const zoom = Math.min( Math.max( this.zoom - delta * .1, .5 ), 1 );
+        
+                        contentDOM.style.left = toPX( this.centerX / zoom );
+                        contentDOM.style.top = toPX( this.centerY / zoom );
+                        contentDOM.style.zoom = this.zoom = zoom;
+        */
             }
         };
         dom.addEventListener('wheel', onZoom);
@@ -1116,8 +1117,10 @@ class Canvas extends Serializer {
             const { zoom, rect } = this;
             this.clientX = event.clientX;
             this.clientY = event.clientY;
-            this.relativeClientX = (((dom.scrollLeft - this.centerX) + event.clientX) - rect.left) / zoom;
-            this.relativeClientY = (((dom.scrollTop - this.centerY) + event.clientY) - rect.top) / zoom;
+            this.relativeClientX =
+                (dom.scrollLeft - this.centerX + event.clientX - rect.left) / zoom;
+            this.relativeClientY =
+                (dom.scrollTop - this.centerY + event.clientY - rect.top) / zoom;
         };
         this._onContentLoaded = () => {
             this.centralize();
@@ -1148,13 +1151,13 @@ class Canvas extends Serializer {
     }
     start() {
         this.updating = true;
-        document.addEventListener('wheel', this._onMoveEvent, true);
-        document.addEventListener('mousedown', this._onMoveEvent, true);
-        document.addEventListener('touchstart', this._onMoveEvent, true);
-        document.addEventListener('mousemove', this._onMoveEvent, true);
-        document.addEventListener('touchmove', this._onMoveEvent, true);
-        document.addEventListener('dragover', this._onMoveEvent, true);
-        document.addEventListener('DOMContentLoaded', this._onContentLoaded);
+        editor.domElement.addEventListener('wheel', this._onMoveEvent, true);
+        editor.domElement.addEventListener('mousedown', this._onMoveEvent, true);
+        editor.domElement.addEventListener('touchstart', this._onMoveEvent, true);
+        editor.domElement.addEventListener('mousemove', this._onMoveEvent, true);
+        editor.domElement.addEventListener('touchmove', this._onMoveEvent, true);
+        editor.domElement.addEventListener('dragover', this._onMoveEvent, true);
+        editor.domElement.addEventListener('DOMContentLoaded', this._onContentLoaded);
         requestAnimationFrame(this._onUpdate);
     }
     stop() {
@@ -1264,7 +1267,7 @@ class Canvas extends Serializer {
                 const rect = lioElement.dom.getBoundingClientRect();
                 length = Math.max(length, lioElement.rioLength);
                 aPos.x = rect.x + rect.width;
-                aPos.y = rect.y + (rect.height / 2);
+                aPos.y = rect.y + rect.height / 2;
             }
             else {
                 aPos.x = this.clientX;
@@ -1275,7 +1278,7 @@ class Canvas extends Serializer {
                 const rect = rioElement.dom.getBoundingClientRect();
                 length = Math.max(length, rioElement.lioLength);
                 bPos.x = rect.x;
-                bPos.y = rect.y + (rect.height / 2);
+                bPos.y = rect.y + rect.height / 2;
             }
             else {
                 bPos.x = this.clientX;
@@ -1313,13 +1316,13 @@ class Canvas extends Serializer {
                     const lioLength = Math.min(rioElement.lioLength, length);
                     const colorA = lioElement.getRIOColor() || color;
                     const colorB = rioElement.getLIOColor() || color;
-                    const aCenterY = ((rioLength * marginY) * .5) - (marginY / 2);
-                    const bCenterY = ((lioLength * marginY) * .5) - (marginY / 2);
+                    const aCenterY = rioLength * marginY * 0.5 - marginY / 2;
+                    const bCenterY = lioLength * marginY * 0.5 - marginY / 2;
                     const aIndex = Math.min(i, rioLength - 1);
                     const bIndex = Math.min(i, lioLength - 1);
-                    const aPosY = (aIndex * marginY) - 1;
-                    const bPosY = (bIndex * marginY) - 1;
-                    drawLine(aPos.x * zoom, ((aPos.y + aPosY) - aCenterY) * zoom, bPos.x * zoom, ((bPos.y + bPosY) - bCenterY) * zoom, false, 2, colorA, drawContext, colorB);
+                    const aPosY = aIndex * marginY - 1;
+                    const bPosY = bIndex * marginY - 1;
+                    drawLine(aPos.x * zoom, (aPos.y + aPosY - aCenterY) * zoom, bPos.x * zoom, (bPos.y + bPosY - bCenterY) * zoom, false, 2, colorA, drawContext, colorB);
                 }
             }
         }
@@ -1388,9 +1391,11 @@ class ObjectNode extends Node {
             .setObjectCallback(callback)
             .setSerializable(false)
             .setOutput(inputLength);
-        const closeButton = new ButtonInput(Styles.icons.close || '✕').onClick(() => {
+        const closeButton = new ButtonInput(Styles.icons.close || '✕')
+            .onClick(() => {
             this.dispose();
-        }).setIcon(Styles.icons.close);
+        })
+            .setIcon(Styles.icons.close);
         title.addButton(closeButton);
         this.add(title);
         this.title = title;
@@ -1448,7 +1453,7 @@ class StringInput extends Input {
 exports.StringInput = StringInput;
 const ENTER_KEY = 13;
 class NumberInput extends Input {
-    constructor(value = 0, min = -Infinity, max = Infinity, step = .01) {
+    constructor(value = 0, min = -Infinity, max = Infinity, step = 0.01) {
         const dom = document.createElement('input');
         super(dom);
         this.min = min;
@@ -1488,7 +1493,7 @@ class NumberInput extends Input {
                 data.value = this.getValue();
             }
             const diff = delta.x - delta.y;
-            const value = data.value + (diff * this.step);
+            const value = data.value + diff * this.step;
             this.dom.value = this._getString(value.toFixed(this.precision));
             this.dispatchEvent(new Event('change'));
         });
@@ -1544,7 +1549,7 @@ class NumberInput extends Input {
 }
 exports.NumberInput = NumberInput;
 const getStep = (min, max) => {
-    const sensibility = .001;
+    const sensibility = 0.001;
     return (max - min) * sensibility;
 };
 class SliderInput extends Input {
@@ -1836,7 +1841,9 @@ class Menu extends EventTarget {
 exports.Menu = Menu;
 let lastContext = null;
 const onCloseLastContext = (e) => {
-    if (lastContext && lastContext.visible === true && e.target.closest('f-menu.context') === null) {
+    if (lastContext &&
+        lastContext.visible === true &&
+        e.target.closest('f-menu.context') === null) {
         lastContext.hide();
     }
 };
@@ -1873,7 +1880,7 @@ class ContextMenu extends Menu {
     }
     openFrom(dom) {
         const rect = dom.getBoundingClientRect();
-        return this.open(rect.x + (rect.width / 2), rect.y + (rect.height / 2));
+        return this.open(rect.x + rect.width / 2, rect.y + rect.height / 2);
     }
     open(x = pointer.x, y = pointer.y) {
         if (lastContext !== null) {
@@ -2001,10 +2008,12 @@ class Search extends Menu {
             if (keyCode === 38) {
                 const index = this.filteredIndex;
                 if (this.forceAutoComplete) {
-                    this.filteredIndex = index !== null ? (index + 1) % (this.filtered.length || 1) : 0;
+                    this.filteredIndex =
+                        index !== null ? (index + 1) % (this.filtered.length || 1) : 0;
                 }
                 else {
-                    this.filteredIndex = index !== null ? Math.min(index + 1, this.filtered.length - 1) : 0;
+                    this.filteredIndex =
+                        index !== null ? Math.min(index + 1, this.filtered.length - 1) : 0;
                 }
                 e.preventDefault();
                 filter = false;
@@ -2023,7 +2032,9 @@ class Search extends Menu {
                 filter = false;
             }
             else if (keyCode === 13) {
-                this.value = this.currentFiltered ? this.currentFiltered.button.getValue() : inputDOM.value;
+                this.value = this.currentFiltered
+                    ? this.currentFiltered.button.getValue()
+                    : inputDOM.value;
                 this.submit();
                 e.preventDefault();
                 filter = false;
@@ -2110,7 +2121,9 @@ class Search extends Menu {
         this.updateFilter();
     }
     get filteredIndex() {
-        return this.currentFiltered ? this.filtered.indexOf(this.currentFiltered) : null;
+        return this.currentFiltered
+            ? this.filtered.indexOf(this.currentFiltered)
+            : null;
     }
     filter(text) {
         text = filterString(text);
@@ -2123,7 +2136,7 @@ class Search extends Menu {
                 const score = text.length / label.length;
                 filtered.push({
                     button,
-                    score
+                    score,
                 });
             }
         }
@@ -2175,7 +2188,8 @@ class SelectInput extends Input {
             }
             dom.append(option);
         }
-        dom.value = value !== null ? value : containsDefaultValue ? defaultValue : '';
+        dom.value =
+            value !== null ? value : containsDefaultValue ? defaultValue : '';
         return this;
     }
     getOptions() {
@@ -2239,14 +2253,14 @@ var Flow = /*#__PURE__*/ Object.freeze({
     SliderInput: SliderInput,
     StringInput: StringInput,
     TextInput: TextInput,
-    ToggleInput: ToggleInput
+    ToggleInput: ToggleInput,
 });
 class Loader extends EventTarget {
     constructor(parseType = Loader.DEFAULT) {
         super();
         this.parseType = parseType;
         this.events = {
-            'load': []
+            load: [],
         };
     }
     setParseType(type) {
@@ -2263,13 +2277,13 @@ class Loader extends EventTarget {
     load(url, lib = null) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield fetch(url)
-                .then(response => response.json())
-                .then(result => {
+                .then((response) => response.json())
+                .then((result) => {
                 this.data = this.parse(result, lib);
                 dispatchEventList(this.events.load, this);
                 return this.data;
             })
-                .catch(err => {
+                .catch((err) => {
                 console.error('Loader:', err);
             });
         });
@@ -2304,7 +2318,8 @@ class Loader extends EventTarget {
         const deserializePass = (prop = null) => {
             for (const id in json.objects) {
                 const newObject = objects[id];
-                if (ref.has(newObject) === false && (prop === null || newObject[prop] === true)) {
+                if (ref.has(newObject) === false &&
+                    (prop === null || newObject[prop] === true)) {
                     ref.set(newObject, true);
                     if (newObject.getSerializable()) {
                         newObject.deserialize(json.objects[id]);

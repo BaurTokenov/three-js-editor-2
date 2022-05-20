@@ -2,389 +2,295 @@
  * https://github.com/sunag/flow
  */
 
-function __flow__addCSS( css ) {
+function __flow__addCSS(css) {
+  try {
+    const style = document.createElement('style');
 
-	try {
-
-		const style = document.createElement( 'style' );
-
-		style.setAttribute( 'type', 'text/css' );
-		style.innerHTML = css;
-		document.head.appendChild( style );
-
-	} catch ( e ) {}
-
+    style.setAttribute('type', 'text/css');
+    style.innerHTML = css;
+    document.head.appendChild(style);
+  } catch (e) {}
 }
 
-__flow__addCSS( `@keyframes f-animation-open { 0% { transform: scale(.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; }}f-canvas,f-canvas canvas { position: absolute; top: 0; left: 0; margin: 0; padding: 0; width: 100%; height: 100%; -webkit-touch-callout: none; }f-canvas { overflow: auto; cursor: grab;}f-canvas canvas.front { z-index: 10;}body.dragging *:not(.drag) { pointer-events: none !important;}f-canvas.grabbing * { cursor: grabbing; user-select: none;}f-canvas canvas { position: fixed; overflow: hidden; pointer-events: none;}f-canvas::-webkit-scrollbar { width: 8px; height: 8px;}f-canvas::-webkit-scrollbar-thumb:hover{ background: #014fc5;}f-canvas::-webkit-scrollbar-track { background: #363636;}f-canvas::-webkit-scrollbar-thumb { background-color: #666666; border-radius: 10px; border: 0;}f-canvas f-content,f-canvas f-area { position: absolute; display: block;}f-node { position: absolute; margin: 0; padding: 0; user-select: none; width: 320px; z-index: 1; cursor: auto; filter: drop-shadow(0 0 10px #00000061); backdrop-filter: blur(4px);}f-node.selected { z-index: 2;}f-node.selected,f-canvas.dragging-rio f-node:hover,f-canvas.dragging-lio f-node:hover { filter: drop-shadow(0 0 10px #00000061) drop-shadow(0 0 8px #4444dd);}f-node.closed f-element:not(:first-child) { display: none;}f-node.center { top: 50%; left: 50%; transform: translate( -50%, -50% );}f-node.top-right { top: 0; right: 0;}f-node.top-center { top: 0; left: 50%; transform: translateX( -50% );}f-node.top-left { top: 0; left: 0;}f-node { transition: filter 0.2s ease;}f-node { animation: .2s f-animation-open 1 alternate ease-out;}f-tips,f-drop,f-menu,f-menu input,f-menu button,f-element,f-element input,f-element select,f-element button,f-element textarea { font-family: 'Open Sans', sans-serif; font-size: 13px; text-transform: capitalize; color: #eeeeee; outline: solid 0px #000; margin: 0; padding: 0; border: 0; user-select: none; -webkit-tap-highlight-color: transparent; transition: background 0.2s ease, filter 0.2s ease;}f-element input:read-only { color: #666;}f-element input,f-element textarea { text-transform: initial;}f-element input { transition: background 0.1s ease;}f-element input,f-element select,f-element button,f-element textarea { background-color: #232324d1;}f-element { position: relative; width: calc( 100% - 14px ); background: rgba(45, 45, 48, 0.95); pointer-events: auto; border-bottom: 2px solid #232323; display: flex; padding-left: 7px; padding-right: 7px; padding-top: 2px; padding-bottom: 2px;}f-element:after,f-element:before { transition: opacity .17s; opacity: 0; content: '';}f-element[tooltip]:hover:after,f-element[tooltip]:focus-within:after { font-size: 14px !important; display: flex; justify-content: center; position: fixed; margin-left: -7px; width: calc( 100% ); background: #1d1d1de8; border: 1px solid #444444a1; border-radius: 6px; color: #dadada; content: attr( tooltip ); margin-top: -41px; font-size: 16px; padding-top: 3px; padding-bottom: 3px; z-index: 10; opacity: 1; backdrop-filter: blur(4px); white-space: nowrap; overflow: hidden; text-shadow: 1px 1px 0px #0007;}f-element[tooltip]:hover:before,f-element[tooltip]:focus-within:before { border: solid; border-color: #1d1d1de8 transparent; border-width: 12px 6px 0 6px; left: calc( 50% - 6px ); bottom: 30px; position: absolute; opacity: 1; z-index: 11;}f-element[error] { background-color: #ff0000;}f-element[error]:hover:after,f-element[error]:focus-within:after { border: none; background-color: #ff0000bb; filter: drop-shadow( 2px 2px 5px #000 ); color: #fff;}f-element[error]:hover:before,f-element[error]:focus-within:before { border-color: #ff0000bb transparent;}f-element { height: 24px;}f-element input { margin-top: 2px; margin-bottom: 2px; box-shadow: inset 0px 1px 1px rgb(0 0 0 / 20%), 0px 1px 0px rgb(255 255 255 / 5%); margin-left: 2px; margin-right: 2px; width: 100%; padding-left: 4px; padding-right: 4px;}f-element input.number { cursor: col-resize;}f-element input:focus[type='text'], f-element input:focus[type='range'], f-element input:focus[type='color'] { background: rgba( 0, 0, 0, 0.6 ); outline: solid 1px rgba( 0, 80, 200, 0.98 );}f-element input[type='color'] { appearance: none; padding: 0; margin-left: 2px; margin-right: 2px; height: calc( 100% - 4px ); margin-top: 2px; border: none;}f-element input[type='color']::-webkit-color-swatch-wrapper { padding: 2px;}f-element input[type='color']::-webkit-color-swatch { border: none; cursor: alias;}f-element input[type='range'] { appearance: none; width: 100%; overflow: hidden; padding: 0; cursor: ew-resize;}f-element input[type='range']::-webkit-slider-runnable-track { appearance: none; height: 10px; color: #13bba4; margin: 0;}f-element input[type='range']::-webkit-slider-thumb { appearance: none; width: 0; background: #434343; box-shadow: -500px 0 0 500px rgba( 0, 120, 255, 0.98 ); border-radius: 50%; border: 0 !important;}f-element input[type='range']::-webkit-slider-runnable-track { margin-left: -4px; margin-right: -5px;}f-element input[type='checkbox'] { appearance: none; cursor: pointer;}f-element input[type='checkbox'].toggle { height: 20px; width: 45px; border-radius: 16px; display: inline-block; position: relative; margin: 0; margin-top: 2px; background: linear-gradient( 0deg, #292929 0%, #0a0a0ac2 100% ); transition: all 0.2s ease;}f-element input[type='checkbox'].toggle:after { content: ""; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: white; box-shadow: 0 1px 2px rgba(44, 44, 44, 0.2); transition: all 0.2s cubic-bezier(0.5, 0.1, 0.75, 1.35);}f-element input[type='checkbox'].toggle:checked { background: linear-gradient( 0deg, #0177fb 0%, #0177fb 100% );}f-element input[type='checkbox'].toggle:checked:after { transform: translatex(25px);}f-element.auto-height { display: table;}f-element textarea { width: calc( 100% - 18px ); padding-top: 1px; padding-bottom: 3px; padding-left: 3px; padding-right: 8px; margin-top: 2px; margin-left: 2px; height: calc( 100% - 8px ); max-height: 300px; border-radius: 2px; resize: none; box-shadow: inset 0px 1px 1px rgb(0 0 0 / 20%), 0px 1px 0px rgb(255 255 255 / 5%);}f-element.auto-height textarea { resize: auto;}f-element select { width: 100%; margin-top: 2px; margin-bottom: 2px; margin-left: 2px; margin-right: 2px; cursor: pointer; box-shadow: inset 0px 1px 1px rgb(0 0 0 / 20%), 0px 1px 0px rgb(255 255 255 / 5%);}f-element f-toolbar { position: absolute; display: flex; top: 0; width: 100%; height: 100%; align-content: space-around;}f-element.input-right f-toolbar { right: 7px; float: right; justify-content: end;}f-element f-toolbar { margin-top: auto; margin-bottom: auto; margin-left: 3px; margin-right: 3px; font-size: 18px; line-height: 18px;}f-element f-toolbar button { opacity: .7; cursor: pointer; font-size: 14px; width: unset; height: unset; border-radius: unset; border: unset; outline: 0; background-color: unset; box-shadow: unset;}f-element f-toolbar button:hover,f-element f-toolbar button:active { opacity: 1; border: 0; background-color: unset;}f-element input.range-value { width: 60px; text-align: center;}f-menu.context button,f-element button { width: 100%; height: calc( 100% - 4px ); margin-left: 2px; margin-right: 2px; margin-top: 2px; border-radius: 3px; cursor: pointer;}f-element button { box-shadow: inset 1px 1px 1px 0 rgb(255 255 255 / 17%), inset -2px -2px 2px 0 rgb(0 0 0 / 26%);}f-element button:hover { color: #fff; background-color: #2a2a2a;}f-element button:active { border: 1px solid rgba( 0, 120, 255, 0.98 );}f-element f-inputs,f-element f-subinputs { display: flex; justify-content: flex-end; width: 100%;}f-element f-inputs { left: 100px; top: 50%; transform: translateY(-50%); position: absolute; width: calc( 100% - 106px ); height: calc( 100% - 4px ); z-index: 1;}f-element.inputs-disable f-inputs { filter: grayscale(100%); opacity: .5;}f-element.inputs-disable f-inputs input { pointer-events: none;}f-element f-label,f-element span { margin: auto; text-shadow: 1px 1px 0px #0007;}f-element f-label { padding-left: 4px; white-space: nowrap; position: absolute; top: 50%; transform: translateY(-50%); width: calc( 100% - 20px );}f-element.right f-label { text-align: right;}f-element.center f-label { text-align: center;}f-element f-label i { float: left; font-size: 18px; margin-right: 6px;}f-element f-label.center { width: 100%; text-align: center; display: block;}f-element.title { height: 29px; background-color: #3a3a3ab0; background-color: #3b3b43ed; cursor: all-scroll; border-top-left-radius: 6px; border-top-right-radius: 6px;}f-element.blue { background-color: #014fc5;}f-element.red { background-color: #bd0b0b;}f-element.green { background-color: #148d05;}f-element.yellow { background-color: #d6b100;}f-element.title.left { text-align: left; display: inline-grid; justify-content: start;}f-element.title span { text-align: center; font-size: 15px; padding-top: 2px;}f-element.title i { font-size: 18px; position: absolute; right: 10px; top: 50%; transform: translateY(-50%); opacity: .5;}f-element.title f-toolbar i { font-size: 20px; right: unset; left: 0px;}f-element.input-right.title i { left: 10px; right: unset;}f-element.title.left span { text-align: left;}f-element f-io { border: 2px solid #dadada; width: 7px; height: 7px; position: absolute; background: #242427; border-radius: 8px; float: left; left: -7px; top: calc( 50% - 5px ); cursor: alias; box-shadow: 0 0 3px 2px #0000005e; z-index: 1;}f-element f-io.connect,f-canvas.dragging-rio f-element:hover f-io.lio,f-canvas.dragging-lio f-element:hover f-io.rio { zoom: 1.4;}f-node.io-connect f-io:not(.connect) { border: 2px solid #dadada !important; zoom: 1 !important;}f-element f-io.rio { float: right; right: -7px; left: unset;}f-element f-disconnect { position: absolute; left: -35px; top: 50%; font-size: 22px; transform: translateY( -50% ); filter: drop-shadow(0 0 5px #000); text-shadow: 0px 0px 5px black; cursor: pointer; transition: all .2s;}f-element.input-right f-disconnect { right: -35px; left: unset;}f-element f-disconnect:hover { color: #ff3300;}f-element textarea::-webkit-scrollbar { width: 6px;}f-element textarea::-webkit-scrollbar-track { background: #111; } f-element textarea::-webkit-scrollbar-thumb { background: #0177fb; }f-element textarea::-webkit-scrollbar-thumb:hover { background: #1187ff; }f-element.small { height: 18px;}f-element.large { height: 36px;}body.connecting f-node:not(.io-connect) f-element:hover,f-element.select { background-color: rgba(61, 70, 82, 0.98);}f-element.invalid > f-io { zoom: 1 !important;}f-element.invalid::after { font-size: 14px !important; display: flex; justify-content: center; align-items:center; margin: auto; position: absolute; width: 100%; height: 100%; background: #bd0b0b77; vertical-align: middle; color: #fff; content: 'Not Compatible'; opacity: .95; backdrop-filter: grayscale(100%); white-space: nowrap; overflow: hidden; left: 0; top: 0; text-transform: initial;}f-element.invalid > f-inputs,f-element.invalid > f-label { opacity: .1;}f-drop { width: 100%; height: 100%; position: sticky; left: 0; top: 0; background: #02358417; text-align: center; justify-content: center; align-items: center; display: flex; box-shadow: inset 0 0 20px 10px #464ace17; pointer-events: none; transition: all .07s; opacity: 0; visibility: hidden;}f-drop.visible { visibility: unset; opacity: unset; transition: all .23s;}f-drop span { opacity: .5; font-size: 40px; text-shadow: 0px 0px 5px #000; font-weight: bold;}f-tooltip { pointer-events: none;}f-tooltip { position: absolute; left: 0; top: 0; background: rgba(0,0,0,.8); backdrop-filter: blur(4px); font-size: 14px; padding: 7px; left: 50%; border-radius: 10px; transform: translateX(-50%); visibility: hidden; pointer-events: none; opacity: 0; transition: all 0.3s ease; z-index: 150; white-space: nowrap;}f-menu.context,f-menu.search { position: absolute;}f-menu.context { width: 170px; z-index: 110;}f-menu.search { bottom: 85px; left: 50%; transform: translateX(-50%); z-index: 10; width: 300px;}f-menu.context f-list { display: block; margin: 0; background: #171717e6; font-size: 12px; border-radius: 6px; backdrop-filter: blur(6px); border: 1px solid #7e7e7e45; box-shadow: 3px 3px 6px rgba(0,0,0,.2); transition: opacity 0.2s ease, transform 0.1s ease;}f-menu.search f-list { margin: 0 6px 0 6px; display: flex; flex-direction: column-reverse; margin-bottom: 5px;}f-menu.context.hidden { visibility: hidden; opacity: 0;}f-menu.context f-item,f-menu.search f-item { display: block; position: relative; margin: 0; padding: 0; white-space: nowrap;}f-menu.search f-item { opacity: 0;}f-menu.context f-item.submenu::after { content: ""; position: absolute; right: 6px; top: 50%; -webkit-transform: translateY(-50%); transform: translateY(-50%); border: 5px solid transparent; border-left-color: #808080;}f-menu.context f-item:hover > f-menu,f-menu.context f-item.active > f-menu { visibility: unset; transform: unset; opacity: unset;}f-menu.context f-menu { top: 0px; left: calc( 100% - 4px );}f-menu.context f-item button,f-menu.search f-item button { overflow: visible; display: block; width: calc( 100% - 6px ); text-align: left; cursor: pointer; white-space: nowrap; padding: 6px 8px; border-radius: 3px; background: rgba(45, 45, 48, 0.95); border: 0; color: #ddd; margin: 3px; text-shadow: 1px 1px 0px #0007;}f-menu.context f-item button i,f-menu.search f-item button i { float: left; font-size: 16px;}f-menu.context f-item button span,f-menu.search f-item button span { margin-left: 6px;}f-menu.context f-item:hover > button,f-menu.search f-item:hover > button,f-menu.search f-item.active > button { color: #fff; background-color: rgba(61, 70, 82, 0.98);}f-menu.search f-item:hover,f-menu.search f-item.active { opacity: 1 !important;}f-menu.context f-item button:active { outline: solid 1px rgba( 0, 80, 200, 0.98 );}f-menu.context f-item f-tooltip { margin-left: 85px; top: -50px;}f-menu.search f-item { display: none;}f-menu.search f-item:nth-child(1) { opacity: 1; display: unset;}f-menu.search f-item:nth-child(2) { opacity: .8; display: unset;}f-menu.search f-item:nth-child(3) { opacity: .6; display: unset;}f-menu.search f-item:nth-child(4) { opacity: .4; display: unset;}f-menu.search f-item button { border-radius: 14px;}f-tips { right: 10px; top: 10px; position: absolute; z-index: 100; pointer-events: none; display: flex; flex-direction: column;}f-tips f-tip { width: 450px; font-size: 13px; border-radius: 6px; text-align: center; display: block; height: auto; color: #ffffffe0; margin: 4px; padding: 4px; background: #17171794; border: 1px solid #7e7e7e38; line-height: 100%; backdrop-filter: blur(6px); transition: all 0.2s ease; text-transform: initial; opacity: 0;}f-tips f-tip:nth-child(1) { opacity: 1;}f-tips f-tip:nth-child(2) { opacity: .75;}f-tips f-tip:nth-child(3) { opacity: .25;}f-tips f-tip:nth-child(4) { opacity: .1;}f-tips f-tip.error { background: #b900005e;}f-menu.search input { width: calc( 100% - 28px ); height: 41px; position: absolute; z-index: 10; border-radius: 20px; padding-left: 14px; padding-right: 14px; font-size: 15px; background-color: #17171794; border: 1px solid #7e7e7e45; backdrop-filter: blur(6px); box-shadow: 3px 3px 6px rgb(0 0 0 / 20%); text-transform: initial;}f-menu.circle { position: absolute; left: 40px; bottom: 40px; z-index: 100;}f-menu.circle f-item { align-content: space-around; margin-right: 20px;}f-menu.circle f-item button { width: 47px; height: 47px; font-size: 22px; background: #17171794; border-radius: 50%; backdrop-filter: blur(6px); border: 1px solid #7e7e7e45; line-height: 100%; cursor: pointer; box-shadow: 3px 3px 6px rgba(0,0,0,.2);}f-menu.circle f-item f-tooltip { margin-top: -60px;}.f-rounded f-node f-element,.f-rounded f-node f-element.title.left { border-radius: 10px 5px 10px 5px;}.f-rounded f-node f-element input, .f-rounded f-node f-element select,.f-rounded f-node f-element button,.f-rounded f-node f-element textarea,.f-rounded f-node f-element input[type='checkbox'].toggle,.f-rounded f-node f-element input[type='checkbox'].toggle:after { border-radius: 20px 10px;}.f-rounded f-node f-element input { padding-left: 7px; padding-right: 7px;}.f-rounded f-menu.context,.f-rounded f-menu.context f-item button { border-radius: 20px 10px;}@media (hover: hover) and (pointer: fine) { f-node:not(.selected):hover { filter: drop-shadow(0 0 6px #66666630); } f-element f-toolbar { visibility: hidden; opacity: 0; transition: opacity 0.2s ease; } f-node:hover > f-element f-toolbar { visibility: visible; opacity: 1; } f-element f-io:hover { zoom: 1.4; } f-menu.circle f-item button:hover { background-color: #2a2a2a; } f-menu.search input:hover, f-menu.search input:focus { background-color: #1a1a1a; filter: drop-shadow(0 0 6px #66666630); } f-menu.search input:focus { filter: drop-shadow(0 0 8px #4444dd); } f-menu.circle f-item button:hover > f-tooltip, f-menu.context f-item button:hover > f-tooltip { visibility: visible; opacity: 1; } f-menu.circle f-item button:hover > f-tooltip { margin-top: -50px; } f-menu.context f-item button:hover > f-tooltip { top: -30px; } f-menu.circle f-item button:focus > f-tooltip, f-menu.context f-item button:focus > f-tooltip { visibility: hidden; opacity: 0; }}@media (hover: none) and (pointer: coarse) { body.dragging f-canvas, body.connecting f-canvas { overflow: hidden !important; }}f-canvas { will-change: top, left;}f-node { will-change: transform !important;}` );
+__flow__addCSS(
+  `@keyframes f-animation-open { 0% { transform: scale(.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; }}f-canvas,f-canvas canvas { position: absolute; top: 0; left: 0; margin: 0; padding: 0; width: 100%; height: 100%; -webkit-touch-callout: none; }f-canvas { overflow: auto; cursor: grab;}f-canvas canvas.front { z-index: 10;}body.dragging *:not(.drag) { pointer-events: none !important;}f-canvas.grabbing * { cursor: grabbing; user-select: none;}f-canvas canvas { position: fixed; overflow: hidden; pointer-events: none;}f-canvas::-webkit-scrollbar { width: 8px; height: 8px;}f-canvas::-webkit-scrollbar-thumb:hover{ background: #014fc5;}f-canvas::-webkit-scrollbar-track { background: #363636;}f-canvas::-webkit-scrollbar-thumb { background-color: #666666; border-radius: 10px; border: 0;}f-canvas f-content,f-canvas f-area { position: absolute; display: block;}f-node { position: absolute; margin: 0; padding: 0; user-select: none; width: 320px; z-index: 1; cursor: auto; filter: drop-shadow(0 0 10px #00000061); backdrop-filter: blur(4px);}f-node.selected { z-index: 2;}f-node.selected,f-canvas.dragging-rio f-node:hover,f-canvas.dragging-lio f-node:hover { filter: drop-shadow(0 0 10px #00000061) drop-shadow(0 0 8px #4444dd);}f-node.closed f-element:not(:first-child) { display: none;}f-node.center { top: 50%; left: 50%; transform: translate( -50%, -50% );}f-node.top-right { top: 0; right: 0;}f-node.top-center { top: 0; left: 50%; transform: translateX( -50% );}f-node.top-left { top: 0; left: 0;}f-node { transition: filter 0.2s ease;}f-node { animation: .2s f-animation-open 1 alternate ease-out;}f-tips,f-drop,f-menu,f-menu input,f-menu button,f-element,f-element input,f-element select,f-element button,f-element textarea { font-family: 'Open Sans', sans-serif; font-size: 13px; text-transform: capitalize; color: #eeeeee; outline: solid 0px #000; margin: 0; padding: 0; border: 0; user-select: none; -webkit-tap-highlight-color: transparent; transition: background 0.2s ease, filter 0.2s ease;}f-element input:read-only { color: #666;}f-element input,f-element textarea { text-transform: initial;}f-element input { transition: background 0.1s ease;}f-element input,f-element select,f-element button,f-element textarea { background-color: #232324d1;}f-element { position: relative; width: calc( 100% - 14px ); background: rgba(45, 45, 48, 0.95); pointer-events: auto; border-bottom: 2px solid #232323; display: flex; padding-left: 7px; padding-right: 7px; padding-top: 2px; padding-bottom: 2px;}f-element:after,f-element:before { transition: opacity .17s; opacity: 0; content: '';}f-element[tooltip]:hover:after,f-element[tooltip]:focus-within:after { font-size: 14px !important; display: flex; justify-content: center; position: fixed; margin-left: -7px; width: calc( 100% ); background: #1d1d1de8; border: 1px solid #444444a1; border-radius: 6px; color: #dadada; content: attr( tooltip ); margin-top: -41px; font-size: 16px; padding-top: 3px; padding-bottom: 3px; z-index: 10; opacity: 1; backdrop-filter: blur(4px); white-space: nowrap; overflow: hidden; text-shadow: 1px 1px 0px #0007;}f-element[tooltip]:hover:before,f-element[tooltip]:focus-within:before { border: solid; border-color: #1d1d1de8 transparent; border-width: 12px 6px 0 6px; left: calc( 50% - 6px ); bottom: 30px; position: absolute; opacity: 1; z-index: 11;}f-element[error] { background-color: #ff0000;}f-element[error]:hover:after,f-element[error]:focus-within:after { border: none; background-color: #ff0000bb; filter: drop-shadow( 2px 2px 5px #000 ); color: #fff;}f-element[error]:hover:before,f-element[error]:focus-within:before { border-color: #ff0000bb transparent;}f-element { height: 24px;}f-element input { margin-top: 2px; margin-bottom: 2px; box-shadow: inset 0px 1px 1px rgb(0 0 0 / 20%), 0px 1px 0px rgb(255 255 255 / 5%); margin-left: 2px; margin-right: 2px; width: 100%; padding-left: 4px; padding-right: 4px;}f-element input.number { cursor: col-resize;}f-element input:focus[type='text'], f-element input:focus[type='range'], f-element input:focus[type='color'] { background: rgba( 0, 0, 0, 0.6 ); outline: solid 1px rgba( 0, 80, 200, 0.98 );}f-element input[type='color'] { appearance: none; padding: 0; margin-left: 2px; margin-right: 2px; height: calc( 100% - 4px ); margin-top: 2px; border: none;}f-element input[type='color']::-webkit-color-swatch-wrapper { padding: 2px;}f-element input[type='color']::-webkit-color-swatch { border: none; cursor: alias;}f-element input[type='range'] { appearance: none; width: 100%; overflow: hidden; padding: 0; cursor: ew-resize;}f-element input[type='range']::-webkit-slider-runnable-track { appearance: none; height: 10px; color: #13bba4; margin: 0;}f-element input[type='range']::-webkit-slider-thumb { appearance: none; width: 0; background: #434343; box-shadow: -500px 0 0 500px rgba( 0, 120, 255, 0.98 ); border-radius: 50%; border: 0 !important;}f-element input[type='range']::-webkit-slider-runnable-track { margin-left: -4px; margin-right: -5px;}f-element input[type='checkbox'] { appearance: none; cursor: pointer;}f-element input[type='checkbox'].toggle { height: 20px; width: 45px; border-radius: 16px; display: inline-block; position: relative; margin: 0; margin-top: 2px; background: linear-gradient( 0deg, #292929 0%, #0a0a0ac2 100% ); transition: all 0.2s ease;}f-element input[type='checkbox'].toggle:after { content: ""; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: white; box-shadow: 0 1px 2px rgba(44, 44, 44, 0.2); transition: all 0.2s cubic-bezier(0.5, 0.1, 0.75, 1.35);}f-element input[type='checkbox'].toggle:checked { background: linear-gradient( 0deg, #0177fb 0%, #0177fb 100% );}f-element input[type='checkbox'].toggle:checked:after { transform: translatex(25px);}f-element.auto-height { display: table;}f-element textarea { width: calc( 100% - 18px ); padding-top: 1px; padding-bottom: 3px; padding-left: 3px; padding-right: 8px; margin-top: 2px; margin-left: 2px; height: calc( 100% - 8px ); max-height: 300px; border-radius: 2px; resize: none; box-shadow: inset 0px 1px 1px rgb(0 0 0 / 20%), 0px 1px 0px rgb(255 255 255 / 5%);}f-element.auto-height textarea { resize: auto;}f-element select { width: 100%; margin-top: 2px; margin-bottom: 2px; margin-left: 2px; margin-right: 2px; cursor: pointer; box-shadow: inset 0px 1px 1px rgb(0 0 0 / 20%), 0px 1px 0px rgb(255 255 255 / 5%);}f-element f-toolbar { position: absolute; display: flex; top: 0; width: 100%; height: 100%; align-content: space-around;}f-element.input-right f-toolbar { right: 7px; float: right; justify-content: end;}f-element f-toolbar { margin-top: auto; margin-bottom: auto; margin-left: 3px; margin-right: 3px; font-size: 18px; line-height: 18px;}f-element f-toolbar button { opacity: .7; cursor: pointer; font-size: 14px; width: unset; height: unset; border-radius: unset; border: unset; outline: 0; background-color: unset; box-shadow: unset;}f-element f-toolbar button:hover,f-element f-toolbar button:active { opacity: 1; border: 0; background-color: unset;}f-element input.range-value { width: 60px; text-align: center;}f-menu.context button,f-element button { width: 100%; height: calc( 100% - 4px ); margin-left: 2px; margin-right: 2px; margin-top: 2px; border-radius: 3px; cursor: pointer;}f-element button { box-shadow: inset 1px 1px 1px 0 rgb(255 255 255 / 17%), inset -2px -2px 2px 0 rgb(0 0 0 / 26%);}f-element button:hover { color: #fff; background-color: #2a2a2a;}f-element button:active { border: 1px solid rgba( 0, 120, 255, 0.98 );}f-element f-inputs,f-element f-subinputs { display: flex; justify-content: flex-end; width: 100%;}f-element f-inputs { left: 100px; top: 50%; transform: translateY(-50%); position: absolute; width: calc( 100% - 106px ); height: calc( 100% - 4px ); z-index: 1;}f-element.inputs-disable f-inputs { filter: grayscale(100%); opacity: .5;}f-element.inputs-disable f-inputs input { pointer-events: none;}f-element f-label,f-element span { margin: auto; text-shadow: 1px 1px 0px #0007;}f-element f-label { padding-left: 4px; white-space: nowrap; position: absolute; top: 50%; transform: translateY(-50%); width: calc( 100% - 20px );}f-element.right f-label { text-align: right;}f-element.center f-label { text-align: center;}f-element f-label i { float: left; font-size: 18px; margin-right: 6px;}f-element f-label.center { width: 100%; text-align: center; display: block;}f-element.title { height: 29px; background-color: #3a3a3ab0; background-color: #3b3b43ed; cursor: all-scroll; border-top-left-radius: 6px; border-top-right-radius: 6px;}f-element.blue { background-color: #014fc5;}f-element.red { background-color: #bd0b0b;}f-element.green { background-color: #148d05;}f-element.yellow { background-color: #d6b100;}f-element.title.left { text-align: left; display: inline-grid; justify-content: start;}f-element.title span { text-align: center; font-size: 15px; padding-top: 2px;}f-element.title i { font-size: 18px; position: absolute; right: 10px; top: 50%; transform: translateY(-50%); opacity: .5;}f-element.title f-toolbar i { font-size: 20px; right: unset; left: 0px;}f-element.input-right.title i { left: 10px; right: unset;}f-element.title.left span { text-align: left;}f-element f-io { border: 2px solid #dadada; width: 7px; height: 7px; position: absolute; background: #242427; border-radius: 8px; float: left; left: -7px; top: calc( 50% - 5px ); cursor: alias; box-shadow: 0 0 3px 2px #0000005e; z-index: 1;}f-element f-io.connect,f-canvas.dragging-rio f-element:hover f-io.lio,f-canvas.dragging-lio f-element:hover f-io.rio { zoom: 1.4;}f-node.io-connect f-io:not(.connect) { border: 2px solid #dadada !important; zoom: 1 !important;}f-element f-io.rio { float: right; right: -7px; left: unset;}f-element f-disconnect { position: absolute; left: -35px; top: 50%; font-size: 22px; transform: translateY( -50% ); filter: drop-shadow(0 0 5px #000); text-shadow: 0px 0px 5px black; cursor: pointer; transition: all .2s;}f-element.input-right f-disconnect { right: -35px; left: unset;}f-element f-disconnect:hover { color: #ff3300;}f-element textarea::-webkit-scrollbar { width: 6px;}f-element textarea::-webkit-scrollbar-track { background: #111; } f-element textarea::-webkit-scrollbar-thumb { background: #0177fb; }f-element textarea::-webkit-scrollbar-thumb:hover { background: #1187ff; }f-element.small { height: 18px;}f-element.large { height: 36px;}body.connecting f-node:not(.io-connect) f-element:hover,f-element.select { background-color: rgba(61, 70, 82, 0.98);}f-element.invalid > f-io { zoom: 1 !important;}f-element.invalid::after { font-size: 14px !important; display: flex; justify-content: center; align-items:center; margin: auto; position: absolute; width: 100%; height: 100%; background: #bd0b0b77; vertical-align: middle; color: #fff; content: 'Not Compatible'; opacity: .95; backdrop-filter: grayscale(100%); white-space: nowrap; overflow: hidden; left: 0; top: 0; text-transform: initial;}f-element.invalid > f-inputs,f-element.invalid > f-label { opacity: .1;}f-drop { width: 100%; height: 100%; position: sticky; left: 0; top: 0; background: #02358417; text-align: center; justify-content: center; align-items: center; display: flex; box-shadow: inset 0 0 20px 10px #464ace17; pointer-events: none; transition: all .07s; opacity: 0; visibility: hidden;}f-drop.visible { visibility: unset; opacity: unset; transition: all .23s;}f-drop span { opacity: .5; font-size: 40px; text-shadow: 0px 0px 5px #000; font-weight: bold;}f-tooltip { pointer-events: none;}f-tooltip { position: absolute; left: 0; top: 0; background: rgba(0,0,0,.8); backdrop-filter: blur(4px); font-size: 14px; padding: 7px; left: 50%; border-radius: 10px; transform: translateX(-50%); visibility: hidden; pointer-events: none; opacity: 0; transition: all 0.3s ease; z-index: 150; white-space: nowrap;}f-menu.context,f-menu.search { position: absolute;}f-menu.context { width: 170px; z-index: 110;}f-menu.search { bottom: 85px; left: 50%; transform: translateX(-50%); z-index: 10; width: 300px;}f-menu.context f-list { display: block; margin: 0; background: #171717e6; font-size: 12px; border-radius: 6px; backdrop-filter: blur(6px); border: 1px solid #7e7e7e45; box-shadow: 3px 3px 6px rgba(0,0,0,.2); transition: opacity 0.2s ease, transform 0.1s ease;}f-menu.search f-list { margin: 0 6px 0 6px; display: flex; flex-direction: column-reverse; margin-bottom: 5px;}f-menu.context.hidden { visibility: hidden; opacity: 0;}f-menu.context f-item,f-menu.search f-item { display: block; position: relative; margin: 0; padding: 0; white-space: nowrap;}f-menu.search f-item { opacity: 0;}f-menu.context f-item.submenu::after { content: ""; position: absolute; right: 6px; top: 50%; -webkit-transform: translateY(-50%); transform: translateY(-50%); border: 5px solid transparent; border-left-color: #808080;}f-menu.context f-item:hover > f-menu,f-menu.context f-item.active > f-menu { visibility: unset; transform: unset; opacity: unset;}f-menu.context f-menu { top: 0px; left: calc( 100% - 4px );}f-menu.context f-item button,f-menu.search f-item button { overflow: visible; display: block; width: calc( 100% - 6px ); text-align: left; cursor: pointer; white-space: nowrap; padding: 6px 8px; border-radius: 3px; background: rgba(45, 45, 48, 0.95); border: 0; color: #ddd; margin: 3px; text-shadow: 1px 1px 0px #0007;}f-menu.context f-item button i,f-menu.search f-item button i { float: left; font-size: 16px;}f-menu.context f-item button span,f-menu.search f-item button span { margin-left: 6px;}f-menu.context f-item:hover > button,f-menu.search f-item:hover > button,f-menu.search f-item.active > button { color: #fff; background-color: rgba(61, 70, 82, 0.98);}f-menu.search f-item:hover,f-menu.search f-item.active { opacity: 1 !important;}f-menu.context f-item button:active { outline: solid 1px rgba( 0, 80, 200, 0.98 );}f-menu.context f-item f-tooltip { margin-left: 85px; top: -50px;}f-menu.search f-item { display: none;}f-menu.search f-item:nth-child(1) { opacity: 1; display: unset;}f-menu.search f-item:nth-child(2) { opacity: .8; display: unset;}f-menu.search f-item:nth-child(3) { opacity: .6; display: unset;}f-menu.search f-item:nth-child(4) { opacity: .4; display: unset;}f-menu.search f-item button { border-radius: 14px;}f-tips { right: 10px; top: 10px; position: absolute; z-index: 100; pointer-events: none; display: flex; flex-direction: column;}f-tips f-tip { width: 450px; font-size: 13px; border-radius: 6px; text-align: center; display: block; height: auto; color: #ffffffe0; margin: 4px; padding: 4px; background: #17171794; border: 1px solid #7e7e7e38; line-height: 100%; backdrop-filter: blur(6px); transition: all 0.2s ease; text-transform: initial; opacity: 0;}f-tips f-tip:nth-child(1) { opacity: 1;}f-tips f-tip:nth-child(2) { opacity: .75;}f-tips f-tip:nth-child(3) { opacity: .25;}f-tips f-tip:nth-child(4) { opacity: .1;}f-tips f-tip.error { background: #b900005e;}f-menu.search input { width: calc( 100% - 28px ); height: 41px; position: absolute; z-index: 10; border-radius: 20px; padding-left: 14px; padding-right: 14px; font-size: 15px; background-color: #17171794; border: 1px solid #7e7e7e45; backdrop-filter: blur(6px); box-shadow: 3px 3px 6px rgb(0 0 0 / 20%); text-transform: initial;}f-menu.circle { position: absolute; left: 40px; bottom: 40px; z-index: 100;}f-menu.circle f-item { align-content: space-around; margin-right: 20px;}f-menu.circle f-item button { width: 47px; height: 47px; font-size: 22px; background: #17171794; border-radius: 50%; backdrop-filter: blur(6px); border: 1px solid #7e7e7e45; line-height: 100%; cursor: pointer; box-shadow: 3px 3px 6px rgba(0,0,0,.2);}f-menu.circle f-item f-tooltip { margin-top: -60px;}.f-rounded f-node f-element,.f-rounded f-node f-element.title.left { border-radius: 10px 5px 10px 5px;}.f-rounded f-node f-element input, .f-rounded f-node f-element select,.f-rounded f-node f-element button,.f-rounded f-node f-element textarea,.f-rounded f-node f-element input[type='checkbox'].toggle,.f-rounded f-node f-element input[type='checkbox'].toggle:after { border-radius: 20px 10px;}.f-rounded f-node f-element input { padding-left: 7px; padding-right: 7px;}.f-rounded f-menu.context,.f-rounded f-menu.context f-item button { border-radius: 20px 10px;}@media (hover: hover) and (pointer: fine) { f-node:not(.selected):hover { filter: drop-shadow(0 0 6px #66666630); } f-element f-toolbar { visibility: hidden; opacity: 0; transition: opacity 0.2s ease; } f-node:hover > f-element f-toolbar { visibility: visible; opacity: 1; } f-element f-io:hover { zoom: 1.4; } f-menu.circle f-item button:hover { background-color: #2a2a2a; } f-menu.search input:hover, f-menu.search input:focus { background-color: #1a1a1a; filter: drop-shadow(0 0 6px #66666630); } f-menu.search input:focus { filter: drop-shadow(0 0 8px #4444dd); } f-menu.circle f-item button:hover > f-tooltip, f-menu.context f-item button:hover > f-tooltip { visibility: visible; opacity: 1; } f-menu.circle f-item button:hover > f-tooltip { margin-top: -50px; } f-menu.context f-item button:hover > f-tooltip { top: -30px; } f-menu.circle f-item button:focus > f-tooltip, f-menu.context f-item button:focus > f-tooltip { visibility: hidden; opacity: 0; }}@media (hover: none) and (pointer: coarse) { body.dragging f-canvas, body.connecting f-canvas { overflow: hidden !important; }}f-canvas { will-change: top, left;}f-node { will-change: transform !important;}`
+);
 
 const REVISION = '1';
 
 const Styles = {
-	icons: {
-		close: '',
-		unlink: ''
-	}
+  icons: {
+    close: '',
+    unlink: '',
+  },
 };
 
 let _id = 0;
 
 class Serializer extends EventTarget {
+  constructor() {
+    super();
 
-	constructor() {
+    this._id = _id++;
 
-		super();
+    this._serializable = true;
+  }
 
-		this._id = _id ++;
+  get id() {
+    return this._id;
+  }
 
-		this._serializable = true;
+  setSerializable(value) {
+    this._serializable = value;
 
-	}
+    return this;
+  }
 
-	get id() {
+  getSerializable() {
+    return this._serializable;
+  }
 
-		return this._id;
+  serialize(/*data*/) {
+    console.warn('Serializer: Abstract function.');
+  }
 
-	}
+  deserialize(/*data*/) {
+    console.warn('Serializer: Abstract function.');
+  }
 
-	setSerializable( value ) {
+  toJSON(data = null) {
+    let object = null;
 
-		this._serializable = value;
+    const id = this.id;
 
-		return this;
+    if (data !== null) {
+      const objects = data.objects;
 
-	}
+      object = objects[id];
 
-	getSerializable() {
+      if (object === undefined) {
+        object = { objects };
 
-		return this._serializable;
+        this.serialize(object);
 
-	}
+        delete object.objects;
 
-	serialize( /*data*/ ) {
+        objects[id] = object;
+      }
+    } else {
+      object = { objects: {} };
 
-		console.warn( 'Serializer: Abstract function.' );
+      this.serialize(object);
+    }
 
-	}
+    object.id = id;
+    object.type = this.constructor.name;
 
-	deserialize( /*data*/ ) {
-
-		console.warn( 'Serializer: Abstract function.' );
-
-	}
-
-	toJSON( data = null ) {
-
-		let object = null;
-
-		const id = this.id;
-
-		if ( data !== null ) {
-
-			const objects = data.objects;
-
-			object = objects[ id ];
-
-			if ( object === undefined ) {
-
-				object = { objects };
-
-				this.serialize( object );
-
-				delete object.objects;
-
-				objects[ id ] = object;
-
-			}
-
-		} else {
-
-			object = { objects: {} };
-
-			this.serialize( object );
-
-		}
-
-		object.id = id;
-		object.type = this.constructor.name;
-
-		return object;
-
-	}
-
+    return object;
+  }
 }
 
 class PointerMonitor {
+  started = false;
 
-	started = false;
+  constructor() {
+    this.x = 0;
+    this.y = 0;
 
-	constructor() {
+    this._onMoveEvent = (e) => {
+      const event = e.touches ? e.touches[0] : e;
 
-		this.x = 0;
-		this.y = 0;
+      this.x = event.x;
+      this.y = event.y;
+    };
+  }
 
-		this._onMoveEvent = ( e ) => {
+  start() {
+    if (this.started) return;
 
-			const event = e.touches ? e.touches[ 0 ] : e;
+    this.started = true;
 
-			this.x = event.x;
-			this.y = event.y;
+    window.addEventListener('wheel', this._onMoveEvent, true);
 
-		};
+    window.addEventListener('mousedown', this._onMoveEvent, true);
+    window.addEventListener('touchstart', this._onMoveEvent, true);
 
-	}
+    window.addEventListener('mousemove', this._onMoveEvent, true);
+    window.addEventListener('touchmove', this._onMoveEvent, true);
 
-	start() {
+    window.addEventListener('dragover', this._onMoveEvent, true);
 
-		if ( this.started ) return;
-
-		this.started = true;
-
-		window.addEventListener( 'wheel', this._onMoveEvent, true );
-
-		window.addEventListener( 'mousedown', this._onMoveEvent, true );
-		window.addEventListener( 'touchstart', this._onMoveEvent, true );
-
-		window.addEventListener( 'mousemove', this._onMoveEvent, true );
-		window.addEventListener( 'touchmove', this._onMoveEvent, true );
-
-		window.addEventListener( 'dragover', this._onMoveEvent, true );
-
-		return this;
-
-	}
-
+    return this;
+  }
 }
 
 const pointer = new PointerMonitor().start();
 
-const draggableDOM = ( dom, callback = null, className = 'dragging' ) => {
+const draggableDOM = (dom, callback = null, className = 'dragging') => {
+  let dragData = null;
 
-	let dragData = null;
+  const getZoom = () => {
+    let zoomDOM = dom;
 
-	const getZoom = () => {
+    while (zoomDOM && zoomDOM !== document) {
+      const zoom = zoomDOM.style.zoom;
 
-		let zoomDOM = dom;
+      if (zoom) {
+        return Number(zoom);
+      }
 
-		while ( zoomDOM && zoomDOM !== document ) {
+      zoomDOM = zoomDOM.parentNode;
+    }
 
-			const zoom = zoomDOM.style.zoom;
+    return 1;
+  };
 
-			if ( zoom ) {
+  const onMouseDown = (e) => {
+    const event = e.touches ? e.touches[0] : e;
 
-				return Number( zoom );
+    e.stopImmediatePropagation();
 
-			}
+    dragData = {
+      client: { x: event.clientX, y: event.clientY },
+      delta: { x: 0, y: 0 },
+      start: { x: dom.offsetLeft, y: dom.offsetTop },
+      dragging: false,
+      isTouch: !!e.touches,
+    };
 
-			zoomDOM = zoomDOM.parentNode;
+    window.addEventListener('mousemove', onGlobalMouseMove);
+    window.addEventListener('mouseup', onGlobalMouseUp);
 
-		}
+    window.addEventListener('touchmove', onGlobalMouseMove);
+    window.addEventListener('touchend', onGlobalMouseUp);
+  };
 
-		return 1;
+  const onGlobalMouseMove = (e) => {
+    const { start, delta, client } = dragData;
 
-	};
+    const event = e.touches ? e.touches[0] : e;
 
-	const onMouseDown = ( e ) => {
+    const zoom = getZoom();
 
-		const event = e.touches ? e.touches[ 0 ] : e;
+    delta.x = (event.clientX - client.x) / zoom;
+    delta.y = (event.clientY - client.y) / zoom;
 
-		e.stopImmediatePropagation();
+    dragData.x = start.x + delta.x;
+    dragData.y = start.y + delta.y;
 
-		dragData = {
-			client: { x: event.clientX, y: event.clientY },
-			delta: { x: 0, y: 0 },
-			start: { x: dom.offsetLeft, y: dom.offsetTop },
-			dragging: false,
-			isTouch: !! e.touches
-		};
+    if (dragData.dragging === true) {
+      if (callback !== null) {
+        callback(dragData);
+      } else {
+        dom.style.cssText += `; left: ${dragData.x}px; top: ${dragData.y}px;`;
+      }
 
-		window.addEventListener( 'mousemove', onGlobalMouseMove );
-		window.addEventListener( 'mouseup', onGlobalMouseUp );
+      e.stopImmediatePropagation();
+    } else {
+      if (Math.abs(delta.x) > 2 || Math.abs(delta.y) > 2) {
+        dragData.dragging = true;
 
-		window.addEventListener( 'touchmove', onGlobalMouseMove );
-		window.addEventListener( 'touchend', onGlobalMouseUp );
+        dom.classList.add('drag');
 
-	};
+        if (className) document.body.classList.add(className);
 
-	const onGlobalMouseMove = ( e ) => {
+        e.stopImmediatePropagation();
+      }
+    }
+  };
 
-		const { start, delta, client } = dragData;
+  const onGlobalMouseUp = (e) => {
+    e.stopImmediatePropagation();
 
-		const event = e.touches ? e.touches[ 0 ] : e;
+    dom.classList.remove('drag');
 
-		const zoom = getZoom();
+    if (className) document.body.classList.remove(className);
 
-		delta.x = ( event.clientX - client.x ) / zoom;
-		delta.y = ( event.clientY - client.y ) / zoom;
+    window.removeEventListener('mousemove', onGlobalMouseMove);
+    window.removeEventListener('mouseup', onGlobalMouseUp);
 
-		dragData.x = start.x + delta.x;
-		dragData.y = start.y + delta.y;
+    window.removeEventListener('touchmove', onGlobalMouseMove);
+    window.removeEventListener('touchend', onGlobalMouseUp);
 
-		if ( dragData.dragging === true ) {
+    if (callback === null) {
+      dom.removeEventListener('mousedown', onMouseDown);
+      dom.removeEventListener('touchstart', onMouseDown);
+    }
 
-			if ( callback !== null ) {
+    dragData.dragging = false;
 
-				callback( dragData );
+    if (callback !== null) {
+      callback(dragData);
+    }
+  };
 
-			} else {
+  if (dom instanceof Event) {
+    const e = dom;
+    dom = e.target;
 
-				dom.style.cssText += `; left: ${ dragData.x }px; top: ${ dragData.y }px;`;
-
-			}
-
-			e.stopImmediatePropagation();
-
-		} else {
-
-			if ( Math.abs( delta.x ) > 2 || Math.abs( delta.y ) > 2 ) {
-
-				dragData.dragging = true;
-
-				dom.classList.add( 'drag' );
-
-				if ( className ) document.body.classList.add( className );
-
-				e.stopImmediatePropagation();
-
-			}
-
-		}
-
-	};
-
-	const onGlobalMouseUp = ( e ) => {
-
-		e.stopImmediatePropagation();
-
-		dom.classList.remove( 'drag' );
-
-		if ( className ) document.body.classList.remove( className );
-
-		window.removeEventListener( 'mousemove', onGlobalMouseMove );
-		window.removeEventListener( 'mouseup', onGlobalMouseUp );
-
-		window.removeEventListener( 'touchmove', onGlobalMouseMove );
-		window.removeEventListener( 'touchend', onGlobalMouseUp );
-
-		if ( callback === null ) {
-
-			dom.removeEventListener( 'mousedown', onMouseDown );
-			dom.removeEventListener( 'touchstart', onMouseDown );
-
-		}
-
-		dragData.dragging = false;
-
-		if ( callback !== null ) {
-
-			callback( dragData );
-
-		}
-
-	};
-
-	if ( dom instanceof Event ) {
-
-		const e = dom;
-		dom = e.target;
-
-		onMouseDown( e );
-
-	} else {
-
-		dom.addEventListener( 'mousedown', onMouseDown );
-		dom.addEventListener( 'touchstart', onMouseDown );
-
-	}
-
+    onMouseDown(e);
+  } else {
+    dom.addEventListener('mousedown', onMouseDown);
+    dom.addEventListener('touchstart', onMouseDown);
+  }
 };
 
-const dispatchEventList = ( list, ...params ) => {
+const dispatchEventList = (list, ...params) => {
+  for (const callback of list) {
+    if (callback(...params) === false) {
+      return false;
+    }
+  }
 
-	for ( const callback of list ) {
-
-		if ( callback( ...params ) === false ) {
-
-			return false;
-
-		}
-
-	}
-
-	return true;
-
+  return true;
 };
 
-const toPX = ( val ) => {
+const toPX = (val) => {
+  if (isNaN(val) === false) {
+    val = `${val}px`;
+  }
 
-	if ( isNaN( val ) === false ) {
-
-		val = `${ val }px`;
-
-	}
-
-	return val;
-
+  return val;
 };
 
-const toHex = ( val ) => {
+const toHex = (val) => {
+  if (isNaN(val) === false) {
+    val = `#${val.toString(16).padStart(6, '0')}`;
+  }
 
-	if ( isNaN( val ) === false ) {
-
-		val = `#${ val.toString( 16 ).padStart( 6, '0' ) }`;
-
-	}
-
-	return val;
-
+  return val;
 };
 
-var Utils = /*#__PURE__*/Object.freeze( {
-	__proto__: null,
-	pointer: pointer,
-	draggableDOM: draggableDOM,
-	dispatchEventList: dispatchEventList,
-	toPX: toPX,
-	toHex: toHex
-} );
+var Utils = /*#__PURE__*/ Object.freeze({
+  __proto__: null,
+  pointer: pointer,
+  draggableDOM: draggableDOM,
+  dispatchEventList: dispatchEventList,
+  toPX: toPX,
+  toHex: toHex,
+});
 
 class Link {
+  constructor(inputElement = null, outputElement = null) {
+    this.inputElement = inputElement;
+    this.outputElement = outputElement;
+  }
 
-	constructor( inputElement = null, outputElement = null ) {
+  get lioElement() {
+    if (Link.InputDirection === 'left') {
+      return this.outputElement;
+    } else {
+      return this.inputElement;
+    }
+  }
 
-		this.inputElement = inputElement;
-		this.outputElement = outputElement;
-
-	}
-
-	get lioElement() {
-
-		if ( Link.InputDirection === 'left' ) {
-
-			return this.outputElement;
-
-		} else {
-
-			return this.inputElement;
-
-		}
-
-	}
-
-	get rioElement() {
-
-		if ( Link.InputDirection === 'left' ) {
-
-			return this.inputElement;
-
-		} else {
-
-			return this.outputElement;
-
-		}
-
-	}
-
+  get rioElement() {
+    if (Link.InputDirection === 'left') {
+      return this.inputElement;
+    } else {
+      return this.outputElement;
+    }
+  }
 }
 
 //Link.InputDirection = 'right';
@@ -393,1367 +299,1069 @@ Link.InputDirection = 'left';
 let selected = null;
 
 class Element extends Serializer {
+  constructor(draggable = false) {
+    super();
 
-	constructor( draggable = false ) {
+    const dom = document.createElement('f-element');
+    dom.element = this;
 
-		super();
+    const onSelect = (e) => {
+      let element = this;
 
-		const dom = document.createElement( 'f-element' );
-		dom.element = this;
+      if (e.changedTouches && e.changedTouches.length > 0) {
+        const touch = e.changedTouches[0];
 
-		const onSelect = ( e ) => {
+        let overDOM = document.elementFromPoint(touch.clientX, touch.clientY);
 
-			let element = this;
+        while (overDOM && (!overDOM.element || !overDOM.element.isElement)) {
+          overDOM = overDOM.parentNode;
+        }
 
-			if ( e.changedTouches && e.changedTouches.length > 0 ) {
+        element = overDOM ? overDOM.element : null;
+      }
 
-				const touch = e.changedTouches[ 0 ];
+      const type = e.type;
 
-				let overDOM = document.elementFromPoint( touch.clientX, touch.clientY );
+      if (type === 'mouseout' && selected === element) {
+        selected = null;
+      } else {
+        selected = element;
+      }
+    };
 
-				while ( overDOM && ( ! overDOM.element || ! overDOM.element.isElement ) ) {
+    if (draggable === false) {
+      dom.ontouchstart = dom.onmousedown = (e) => {
+        e.stopPropagation();
+      };
+    }
 
-					overDOM = overDOM.parentNode;
+    dom.addEventListener('mouseup', onSelect, true);
+    dom.addEventListener('mouseover', onSelect);
+    dom.addEventListener('mouseout', onSelect);
+    dom.addEventListener('touchmove', onSelect);
+    dom.addEventListener('touchend', onSelect);
 
-				}
+    this.inputs = [];
 
-				element = overDOM ? overDOM.element : null;
+    this.links = [];
 
-			}
+    this.dom = dom;
 
-			const type = e.type;
+    this.lioLength = 0;
+    this.rioLength = 0;
 
-			if ( ( type === 'mouseout' ) && selected === element ) {
+    this.events = {
+      connect: [],
+      connectChildren: [],
+      valid: [],
+    };
 
-				selected = null;
+    this.node = null;
 
-			} else {
+    this.style = '';
 
-				selected = element;
+    this.objectCallback = null;
 
-			}
+    this.enabledInputs = true;
 
-		};
+    this.visible = true;
 
-		if ( draggable === false ) {
+    this.inputsDOM = dom;
 
-			dom.ontouchstart = dom.onmousedown = ( e ) => {
+    this.disconnectDOM = null;
 
-				e.stopPropagation();
+    this.lioDOM = this._createIO('lio');
+    this.rioDOM = this._createIO('rio');
 
-			};
+    this.dom.classList.add(`input-${Link.InputDirection}`);
 
-		}
+    this.dom.append(this.lioDOM);
+    this.dom.append(this.rioDOM);
 
-		dom.addEventListener( 'mouseup', onSelect, true );
-		dom.addEventListener( 'mouseover', onSelect );
-		dom.addEventListener( 'mouseout', onSelect );
-		dom.addEventListener( 'touchmove', onSelect );
-		dom.addEventListener( 'touchend', onSelect );
+    this.addEventListener('connect', () => {
+      dispatchEventList(this.events.connect, this);
+    });
 
-		this.inputs = [];
+    this.addEventListener('connectChildren', () => {
+      dispatchEventList(this.events.connectChildren, this);
+    });
+  }
 
-		this.links = [];
+  setAttribute(name, value) {
+    this.dom.setAttribute(name, value);
 
-		this.dom = dom;
+    return this;
+  }
 
-		this.lioLength = 0;
-		this.rioLength = 0;
+  onValid(callback) {
+    this.events.valid.push(callback);
 
-		this.events = {
-			'connect': [],
-			'connectChildren': [],
-			'valid': []
-		};
+    return this;
+  }
 
-		this.node = null;
+  onConnect(callback, childrens = false) {
+    this.events.connect.push(callback);
 
-		this.style = '';
+    if (childrens) {
+      this.events.connectChildren.push(callback);
+    }
 
-		this.objectCallback = null;
+    return this;
+  }
 
-		this.enabledInputs = true;
+  setObjectCallback(callback) {
+    this.objectCallback = callback;
 
-		this.visible = true;
+    return this;
+  }
 
-		this.inputsDOM = dom;
+  getObject(output = null) {
+    return this.objectCallback ? this.objectCallback(output) : null;
+  }
 
-		this.disconnectDOM = null;
+  setVisible(value) {
+    this.visible = value;
 
-		this.lioDOM = this._createIO( 'lio' );
-		this.rioDOM = this._createIO( 'rio' );
+    this.dom.style.display = value ? '' : 'none';
 
-		this.dom.classList.add( `input-${ Link.InputDirection }` );
+    return this;
+  }
 
-		this.dom.append( this.lioDOM );
-		this.dom.append( this.rioDOM );
+  getVisible() {
+    return this.visible;
+  }
 
-		this.addEventListener( 'connect', ( ) => {
+  setEnabledInputs(value) {
+    const dom = this.dom;
 
-			dispatchEventList( this.events.connect, this );
+    if (!this.enabledInputs) dom.classList.remove('inputs-disable');
 
-		} );
+    if (!value) dom.classList.add('inputs-disable');
 
-		this.addEventListener( 'connectChildren', ( ) => {
+    this.enabledInputs = value;
 
-			dispatchEventList( this.events.connectChildren, this );
+    return this;
+  }
 
-		} );
+  getEnabledInputs() {
+    return this.enabledInputs;
+  }
 
-	}
+  setColor(color) {
+    this.dom.style['background-color'] = toHex(color);
 
-	setAttribute( name, value ) {
+    return this;
+  }
 
-		this.dom.setAttribute( name, value );
+  setStyle(style) {
+    const dom = this.dom;
 
-		return this;
+    if (this.style) dom.classList.remove(this.style);
 
-	}
+    if (style) dom.classList.add(style);
 
-	onValid( callback ) {
+    this.style = style;
 
-		this.events.valid.push( callback );
+    return this;
+  }
 
-		return this;
+  setInput(length) {
+    if (Link.InputDirection === 'left') {
+      return this.setLIO(length);
+    } else {
+      return this.setRIO(length);
+    }
+  }
 
-	}
+  setInputColor(color) {
+    if (Link.InputDirection === 'left') {
+      return this.setLIOColor(color);
+    } else {
+      return this.setRIOColor(color);
+    }
+  }
 
-	onConnect( callback, childrens = false ) {
+  setOutput(length) {
+    if (Link.InputDirection === 'left') {
+      return this.setRIO(length);
+    } else {
+      return this.setLIO(length);
+    }
+  }
 
-		this.events.connect.push( callback );
+  setOutputColor(color) {
+    if (Link.InputDirection === 'left') {
+      return this.setRIOColor(color);
+    } else {
+      return this.setLIOColor(color);
+    }
+  }
 
-		if ( childrens ) {
+  get inputLength() {
+    if (Link.InputDirection === 'left') {
+      return this.lioLength;
+    } else {
+      return this.rioLength;
+    }
+  }
 
-			this.events.connectChildren.push( callback );
+  get outputLength() {
+    if (Link.InputDirection === 'left') {
+      return this.rioLength;
+    } else {
+      return this.lioLength;
+    }
+  }
 
-		}
+  setLIOColor(color) {
+    this.lioDOM.style['border-color'] = toHex(color);
 
-		return this;
+    return this;
+  }
 
-	}
+  setLIO(length) {
+    this.lioLength = length;
 
-	setObjectCallback( callback ) {
+    this.lioDOM.style.visibility = length > 0 ? '' : 'hidden';
 
-		this.objectCallback = callback;
+    return this;
+  }
 
-		return this;
+  getLIOColor() {
+    return this.lioDOM.style['border-color'];
+  }
 
-	}
+  setRIOColor(color) {
+    this.rioDOM.style['border-color'] = toHex(color);
 
-	getObject( output = null ) {
+    return this;
+  }
 
-		return this.objectCallback ? this.objectCallback( output ) : null;
+  getRIOColor() {
+    return this.rioDOM.style['border-color'];
+  }
 
-	}
+  setRIO(length) {
+    this.rioLength = length;
 
-	setVisible( value ) {
+    this.rioDOM.style.visibility = length > 0 ? '' : 'hidden';
 
-		this.visible = value;
+    return this;
+  }
 
-		this.dom.style.display = value ? '' : 'none';
+  add(input) {
+    this.inputs.push(input);
 
-		return this;
+    input.element = this;
 
-	}
+    this.inputsDOM.append(input.dom);
 
-	getVisible() {
+    return this;
+  }
 
-		return this.visible;
+  setHeight(val) {
+    this.dom.style.height = toPX(val);
 
-	}
+    return this;
+  }
 
-	setEnabledInputs( value ) {
+  getHeight() {
+    return this.dom.style.height;
+  }
 
-		const dom = this.dom;
+  connect(element = null) {
+    if (this.disconnectDOM !== null) {
+      // remove the current input
 
-		if ( ! this.enabledInputs ) dom.classList.remove( 'inputs-disable' );
+      this.disconnectDOM.dispatchEvent(new Event('disconnect'));
+    }
 
-		if ( ! value ) dom.classList.add( 'inputs-disable' );
+    if (element !== null) {
+      if (
+        dispatchEventList(this.events.valid, this, element, 'connect') === false
+      ) {
+        return false;
+      }
 
-		this.enabledInputs = value;
+      const link = new Link(this, element);
 
-		return this;
+      this.links.push(link);
 
-	}
+      if (this.disconnectDOM === null) {
+        this.disconnectDOM = document.createElement('f-disconnect');
+        this.disconnectDOM.innerHTML = Styles.icons.unlink
+          ? `<i class='${Styles.icons.unlink}'></i>`
+          : '✖';
 
-	getEnabledInputs() {
+        this.dom.append(this.disconnectDOM);
 
-		return this.enabledInputs;
+        const onDisconnect = () => {
+          this.links = [];
+          this.dom.removeChild(this.disconnectDOM);
 
-	}
+          this.disconnectDOM.removeEventListener('mousedown', onClick, true);
+          this.disconnectDOM.removeEventListener('touchstart', onClick, true);
+          this.disconnectDOM.removeEventListener(
+            'disconnect',
+            onDisconnect,
+            true
+          );
 
-	setColor( color ) {
+          element.removeEventListener('connect', onConnect);
+          element.removeEventListener('connectChildren', onConnect);
+          element.removeEventListener('nodeConnect', onConnect);
+          element.removeEventListener('nodeConnectChildren', onConnect);
+          element.removeEventListener('dispose', onDispose);
 
-		this.dom.style[ 'background-color' ] = toHex( color );
+          this.disconnectDOM = null;
+        };
 
-		return this;
+        const onConnect = () => {
+          this.dispatchEvent(new Event('connectChildren'));
+        };
 
-	}
+        const onDispose = () => {
+          this.connect();
+        };
 
-	setStyle( style ) {
+        const onClick = (e) => {
+          e.stopPropagation();
 
-		const dom = this.dom;
+          this.connect();
+        };
 
-		if ( this.style ) dom.classList.remove( this.style );
+        this.disconnectDOM.addEventListener('mousedown', onClick, true);
+        this.disconnectDOM.addEventListener('touchstart', onClick, true);
+        this.disconnectDOM.addEventListener('disconnect', onDisconnect, true);
 
-		if ( style ) dom.classList.add( style );
+        element.addEventListener('connect', onConnect);
+        element.addEventListener('connectChildren', onConnect);
+        element.addEventListener('nodeConnect', onConnect);
+        element.addEventListener('nodeConnectChildren', onConnect);
+        element.addEventListener('dispose', onDispose);
+      }
+    }
 
-		this.style = style;
+    this.dispatchEvent(new Event('connect'));
 
-		return this;
+    return true;
+  }
 
-	}
+  dispose() {
+    this.dispatchEvent(new Event('dispose'));
+  }
 
-	setInput( length ) {
+  serialize(data) {
+    const height = this.getHeight();
 
-		if ( Link.InputDirection === 'left' ) {
+    const inputs = [];
+    const links = [];
 
-			return this.setLIO( length );
+    for (const input of this.inputs) {
+      inputs.push(input.toJSON(data).id);
+    }
 
-		} else {
+    for (const link of this.links) {
+      if (link.inputElement !== null && link.outputElement !== null) {
+        links.push(link.outputElement.toJSON(data).id);
+      }
+    }
 
-			return this.setRIO( length );
+    if (this.inputLength > 0) data.inputLength = this.inputLength;
+    if (this.outputLength > 0) data.outputLength = this.outputLength;
 
-		}
+    if (inputs.length > 0) data.inputs = inputs;
+    if (links.length > 0) data.links = links;
 
-	}
+    if (this.style !== '') {
+      data.style = this.style;
+    }
 
-	setInputColor( color ) {
+    if (height !== '') {
+      data.height = height;
+    }
+  }
 
-		if ( Link.InputDirection === 'left' ) {
+  deserialize(data) {
+    if (data.inputLength !== undefined) this.setInput(data.inputLength);
+    if (data.outputLength !== undefined) this.setOutput(data.outputLength);
 
-			return this.setLIOColor( color );
+    if (data.inputs !== undefined) {
+      const inputs = this.inputs;
 
-		} else {
+      if (inputs.length > 0) {
+        let index = 0;
 
-			return this.setRIOColor( color );
+        for (const id of data.inputs) {
+          data.objects[id] = inputs[index++];
+        }
+      } else {
+        for (const id of data.inputs) {
+          this.add(data.objects[id]);
+        }
+      }
+    }
 
-		}
+    if (data.links !== undefined) {
+      for (const id of data.links) {
+        this.connect(data.objects[id]);
+      }
+    }
 
-	}
+    if (data.style !== undefined) {
+      this.setStyle(data.style);
+    }
 
-	setOutput( length ) {
+    if (data.height !== undefined) {
+      this.setHeight(data.height);
+    }
+  }
 
-		if ( Link.InputDirection === 'left' ) {
+  getLinkedObject(output = null) {
+    const linkedElement = this.getLinkedElement();
 
-			return this.setRIO( length );
+    return linkedElement ? linkedElement.getObject(output) : null;
+  }
 
-		} else {
+  getLinkedElement() {
+    const link = this.getLink();
 
-			return this.setLIO( length );
+    return link ? link.outputElement : null;
+  }
 
-		}
+  getLink() {
+    return this.links[0];
+  }
 
-	}
+  _createIO(type) {
+    const { dom } = this;
 
-	setOutputColor( color ) {
+    const ioDOM = document.createElement('f-io');
+    ioDOM.style.visibility = 'hidden';
+    ioDOM.className = type;
 
-		if ( Link.InputDirection === 'left' ) {
+    const onConnectEvent = (e) => {
+      e.preventDefault();
 
-			return this.setRIOColor( color );
+      e.stopPropagation();
 
-		} else {
+      selected = null;
 
-			return this.setLIOColor( color );
+      const nodeDOM = this.node.dom;
 
-		}
+      nodeDOM.classList.add('io-connect');
 
-	}
+      ioDOM.classList.add('connect');
+      dom.classList.add('select');
 
-	get inputLength() {
+      const defaultOutput = Link.InputDirection === 'left' ? 'lio' : 'rio';
 
-		if ( Link.InputDirection === 'left' ) {
+      const link =
+        type === defaultOutput ? new Link(this) : new Link(null, this);
+      const previewLink = new Link(link.inputElement, link.outputElement);
 
-			return this.lioLength;
+      this.links.push(link);
 
-		} else {
+      draggableDOM(
+        e,
+        (data) => {
+          if (previewLink.outputElement)
+            previewLink.outputElement.dom.classList.remove('invalid');
 
-			return this.rioLength;
+          if (previewLink.inputElement)
+            previewLink.inputElement.dom.classList.remove('invalid');
 
-		}
+          previewLink.inputElement = link.inputElement;
+          previewLink.outputElement = link.outputElement;
 
-	}
+          if (type === defaultOutput) {
+            previewLink.outputElement = selected;
+          } else {
+            previewLink.inputElement = selected;
+          }
 
-	get outputLength() {
+          const isInvalid =
+            previewLink.inputElement !== null &&
+            previewLink.outputElement !== null &&
+            previewLink.inputElement.inputLength > 0 &&
+            previewLink.outputElement.outputLength > 0 &&
+            dispatchEventList(
+              previewLink.inputElement.events.valid,
+              previewLink.inputElement,
+              previewLink.outputElement,
+              data.dragging ? 'dragging' : 'dragged'
+            ) === false;
 
-		if ( Link.InputDirection === 'left' ) {
+          if (data.dragging && isInvalid) {
+            if (type === defaultOutput) {
+              if (previewLink.outputElement)
+                previewLink.outputElement.dom.classList.add('invalid');
+            } else {
+              if (previewLink.inputElement)
+                previewLink.inputElement.dom.classList.add('invalid');
+            }
 
-			return this.rioLength;
+            return;
+          }
 
-		} else {
+          if (!data.dragging) {
+            nodeDOM.classList.remove('io-connect');
 
-			return this.lioLength;
+            ioDOM.classList.remove('connect');
+            dom.classList.remove('select');
 
-		}
+            this.links.splice(this.links.indexOf(link), 1);
 
-	}
+            if (selected !== null && !isInvalid) {
+              link.inputElement = previewLink.inputElement;
+              link.outputElement = previewLink.outputElement;
 
-	setLIOColor( color ) {
+              // check if is an is circular link
 
-		this.lioDOM.style[ 'border-color' ] = toHex( color );
+              if (link.outputElement.node.isCircular(link.inputElement.node)) {
+                return;
+              }
 
-		return this;
+              //
 
-	}
+              if (
+                link.inputElement.inputLength > 0 &&
+                link.outputElement.outputLength > 0
+              ) {
+                link.inputElement.connect(link.outputElement);
+              }
+            }
+          }
+        },
+        'connecting'
+      );
+    };
 
-	setLIO( length ) {
+    ioDOM.addEventListener('mousedown', onConnectEvent, true);
+    ioDOM.addEventListener('touchstart', onConnectEvent, true);
 
-		this.lioLength = length;
-
-		this.lioDOM.style.visibility = length > 0 ? '' : 'hidden';
-
-		return this;
-
-	}
-
-	getLIOColor() {
-
-		return this.lioDOM.style[ 'border-color' ];
-
-	}
-
-	setRIOColor( color ) {
-
-		this.rioDOM.style[ 'border-color' ] = toHex( color );
-
-		return this;
-
-	}
-
-	getRIOColor() {
-
-		return this.rioDOM.style[ 'border-color' ];
-
-	}
-
-	setRIO( length ) {
-
-		this.rioLength = length;
-
-		this.rioDOM.style.visibility = length > 0 ? '' : 'hidden';
-
-		return this;
-
-	}
-
-	add( input ) {
-
-		this.inputs.push( input );
-
-		input.element = this;
-
-		this.inputsDOM.append( input.dom );
-
-		return this;
-
-	}
-
-	setHeight( val ) {
-
-		this.dom.style.height = toPX( val );
-
-		return this;
-
-	}
-
-	getHeight() {
-
-		return this.dom.style.height;
-
-	}
-
-	connect( element = null ) {
-
-		if ( this.disconnectDOM !== null ) {
-
-			// remove the current input
-
-			this.disconnectDOM.dispatchEvent( new Event( 'disconnect' ) );
-
-		}
-
-		if ( element !== null ) {
-
-			if ( dispatchEventList( this.events.valid, this, element, 'connect' ) === false ) {
-
-				return false;
-
-			}
-
-			const link = new Link( this, element );
-
-			this.links.push( link );
-
-			if ( this.disconnectDOM === null ) {
-
-				this.disconnectDOM = document.createElement( 'f-disconnect' );
-				this.disconnectDOM.innerHTML = Styles.icons.unlink ? `<i class='${ Styles.icons.unlink }'></i>` : '✖';
-
-				this.dom.append( this.disconnectDOM );
-
-				const onDisconnect = () => {
-
-					this.links = [];
-					this.dom.removeChild( this.disconnectDOM );
-
-					this.disconnectDOM.removeEventListener( 'mousedown', onClick, true );
-					this.disconnectDOM.removeEventListener( 'touchstart', onClick, true );
-					this.disconnectDOM.removeEventListener( 'disconnect', onDisconnect, true );
-
-					element.removeEventListener( 'connect', onConnect );
-					element.removeEventListener( 'connectChildren', onConnect );
-					element.removeEventListener( 'nodeConnect', onConnect );
-					element.removeEventListener( 'nodeConnectChildren', onConnect );
-					element.removeEventListener( 'dispose', onDispose );
-
-					this.disconnectDOM = null;
-
-				};
-
-				const onConnect = () => {
-
-					this.dispatchEvent( new Event( 'connectChildren' ) );
-
-				};
-
-				const onDispose = () => {
-
-					this.connect();
-
-				};
-
-				const onClick = ( e ) => {
-
-					e.stopPropagation();
-
-					this.connect();
-
-				};
-
-				this.disconnectDOM.addEventListener( 'mousedown', onClick, true );
-				this.disconnectDOM.addEventListener( 'touchstart', onClick, true );
-				this.disconnectDOM.addEventListener( 'disconnect', onDisconnect, true );
-
-				element.addEventListener( 'connect', onConnect );
-				element.addEventListener( 'connectChildren', onConnect );
-				element.addEventListener( 'nodeConnect', onConnect );
-				element.addEventListener( 'nodeConnectChildren', onConnect );
-				element.addEventListener( 'dispose', onDispose );
-
-			}
-
-		}
-
-		this.dispatchEvent( new Event( 'connect' ) );
-
-		return true;
-
-	}
-
-	dispose() {
-
-		this.dispatchEvent( new Event( 'dispose' ) );
-
-	}
-
-	serialize( data ) {
-
-		const height = this.getHeight();
-
-		const inputs = [];
-		const links = [];
-
-		for ( const input of this.inputs ) {
-
-			inputs.push( input.toJSON( data ).id );
-
-		}
-
-		for ( const link of this.links ) {
-
-			if ( link.inputElement !== null && link.outputElement !== null ) {
-
-				links.push( link.outputElement.toJSON( data ).id );
-
-			}
-
-		}
-
-		if ( this.inputLength > 0 ) data.inputLength = this.inputLength;
-		if ( this.outputLength > 0 ) data.outputLength = this.outputLength;
-
-		if ( inputs.length > 0 ) data.inputs = inputs;
-		if ( links.length > 0 ) data.links = links;
-
-		if ( this.style !== '' ) {
-
-			data.style = this.style;
-
-		}
-
-		if ( height !== '' ) {
-
-			data.height = height;
-
-		}
-
-	}
-
-	deserialize( data ) {
-
-		if ( data.inputLength !== undefined ) this.setInput( data.inputLength );
-		if ( data.outputLength !== undefined ) this.setOutput( data.outputLength );
-
-		if ( data.inputs !== undefined ) {
-
-			const inputs = this.inputs;
-
-			if ( inputs.length > 0 ) {
-
-				let index = 0;
-
-				for ( const id of data.inputs ) {
-
-					data.objects[ id ] = inputs[ index ++ ];
-
-				}
-
-			} else {
-
-				for ( const id of data.inputs ) {
-
-					this.add( data.objects[ id ] );
-
-				}
-
-			}
-
-		}
-
-		if ( data.links !== undefined ) {
-
-			for ( const id of data.links ) {
-
-				this.connect( data.objects[ id ] );
-
-			}
-
-		}
-
-		if ( data.style !== undefined ) {
-
-			this.setStyle( data.style );
-
-		}
-
-		if ( data.height !== undefined ) {
-
-			this.setHeight( data.height );
-
-		}
-
-	}
-
-	getLinkedObject( output = null ) {
-
-		const linkedElement = this.getLinkedElement();
-
-		return linkedElement ? linkedElement.getObject( output ) : null;
-
-	}
-
-	getLinkedElement() {
-
-		const link = this.getLink();
-
-		return link ? link.outputElement : null;
-
-	}
-
-	getLink() {
-
-		return this.links[ 0 ];
-
-	}
-
-	_createIO( type ) {
-
-		const { dom } = this;
-
-		const ioDOM = document.createElement( 'f-io' );
-		ioDOM.style.visibility = 'hidden';
-		ioDOM.className = type;
-
-		const onConnectEvent = ( e ) => {
-
-			e.preventDefault();
-
-			e.stopPropagation();
-
-			selected = null;
-
-			const nodeDOM = this.node.dom;
-
-			nodeDOM.classList.add( 'io-connect' );
-
-			ioDOM.classList.add( 'connect' );
-			dom.classList.add( 'select' );
-
-			const defaultOutput = Link.InputDirection === 'left' ? 'lio' : 'rio';
-
-			const link = type === defaultOutput ? new Link( this ) : new Link( null, this );
-			const previewLink = new Link( link.inputElement, link.outputElement );
-
-			this.links.push( link );
-
-			draggableDOM( e, ( data ) => {
-
-				if ( previewLink.outputElement )
-					previewLink.outputElement.dom.classList.remove( 'invalid' );
-
-				if ( previewLink.inputElement )
-					previewLink.inputElement.dom.classList.remove( 'invalid' );
-
-				previewLink.inputElement = link.inputElement;
-				previewLink.outputElement = link.outputElement;
-
-				if ( type === defaultOutput ) {
-
-					previewLink.outputElement = selected;
-
-				} else {
-
-					previewLink.inputElement = selected;
-
-				}
-
-				const isInvalid = previewLink.inputElement !== null && previewLink.outputElement !== null &&
-					previewLink.inputElement.inputLength > 0 && previewLink.outputElement.outputLength > 0 &&
-					dispatchEventList( previewLink.inputElement.events.valid, previewLink.inputElement, previewLink.outputElement, data.dragging ? 'dragging' : 'dragged' ) === false;
-
-				if ( data.dragging && isInvalid ) {
-
-					if ( type === defaultOutput ) {
-
-						if ( previewLink.outputElement )
-							previewLink.outputElement.dom.classList.add( 'invalid' );
-
-					} else {
-
-						if ( previewLink.inputElement )
-							previewLink.inputElement.dom.classList.add( 'invalid' );
-
-					}
-
-					return;
-
-				}
-
-				if ( ! data.dragging ) {
-
-					nodeDOM.classList.remove( 'io-connect' );
-
-					ioDOM.classList.remove( 'connect' );
-					dom.classList.remove( 'select' );
-
-					this.links.splice( this.links.indexOf( link ), 1 );
-
-					if ( selected !== null && ! isInvalid ) {
-
-						link.inputElement = previewLink.inputElement;
-						link.outputElement = previewLink.outputElement;
-
-						// check if is an is circular link
-
-						if ( link.outputElement.node.isCircular( link.inputElement.node ) ) {
-
-							return;
-
-						}
-
-						//
-
-						if ( link.inputElement.inputLength > 0 && link.outputElement.outputLength > 0 ) {
-
-							link.inputElement.connect( link.outputElement );
-
-						}
-
-					}
-
-				}
-
-			}, 'connecting' );
-
-		};
-
-		ioDOM.addEventListener( 'mousedown', onConnectEvent, true );
-		ioDOM.addEventListener( 'touchstart', onConnectEvent, true );
-
-		return ioDOM;
-
-	}
-
+    return ioDOM;
+  }
 }
 
 Element.prototype.isElement = true;
 
 class Input extends Serializer {
+  constructor(dom) {
+    super();
 
-	constructor( dom ) {
+    this.dom = dom;
 
-		super();
+    this.element = null;
 
-		this.dom = dom;
+    this.extra = null;
 
-		this.element = null;
+    this.tagColor = null;
 
-		this.extra = null;
+    this.events = {
+      change: [],
+      click: [],
+    };
 
-		this.tagColor = null;
+    this.addEventListener('change', () => {
+      dispatchEventList(this.events.change, this);
+    });
 
-		this.events = {
-			'change': [],
-			'click': []
-		};
+    this.addEventListener('click', () => {
+      dispatchEventList(this.events.click, this);
+    });
+  }
 
-		this.addEventListener( 'change', ( ) => {
+  setExtra(value) {
+    this.extra = value;
 
-			dispatchEventList( this.events.change, this );
+    return this;
+  }
 
-		} );
+  getExtra() {
+    return this.extra;
+  }
 
-		this.addEventListener( 'click', ( ) => {
+  setTagColor(color) {
+    this.tagColor = color;
 
-			dispatchEventList( this.events.click, this );
+    this.dom.style['border-left'] = `2px solid ${color}`;
 
-		} );
+    return this;
+  }
 
-	}
+  getTagColor() {
+    return this.tagColor;
+  }
 
-	setExtra( value ) {
+  setToolTip(text) {
+    const div = document.createElement('f-tooltip');
+    div.innerText = text;
 
-		this.extra = value;
+    this.dom.append(div);
 
-		return this;
+    return this;
+  }
 
-	}
+  onChange(callback) {
+    this.events.change.push(callback);
 
-	getExtra() {
+    return this;
+  }
 
-		return this.extra;
+  onClick(callback) {
+    this.events.click.push(callback);
 
-	}
+    return this;
+  }
 
-	setTagColor( color ) {
+  setReadOnly(value) {
+    this.dom.readOnly = value;
 
-		this.tagColor = color;
+    return this;
+  }
 
-		this.dom.style[ 'border-left' ] = `2px solid ${color}`;
+  getReadOnly() {
+    return this.dom.readOnly;
+  }
 
-		return this;
+  setValue(value, dispatch = true) {
+    this.dom.value = value;
 
-	}
+    if (dispatch) this.dispatchEvent(new Event('change'));
 
-	getTagColor() {
+    return this;
+  }
 
-		return this.tagColor;
+  getValue() {
+    return this.dom.value;
+  }
 
-	}
+  serialize(data) {
+    data.value = this.getValue();
+  }
 
-	setToolTip( text ) {
-
-		const div = document.createElement( 'f-tooltip' );
-		div.innerText = text;
-
-		this.dom.append( div );
-
-		return this;
-
-	}
-
-	onChange( callback ) {
-
-		this.events.change.push( callback );
-
-		return this;
-
-	}
-
-	onClick( callback ) {
-
-		this.events.click.push( callback );
-
-		return this;
-
-	}
-
-	setReadOnly( value ) {
-
-		this.dom.readOnly = value;
-
-		return this;
-
-	}
-
-	getReadOnly() {
-
-		return this.dom.readOnly;
-
-	}
-
-	setValue( value, dispatch = true ) {
-
-		this.dom.value = value;
-
-		if ( dispatch ) this.dispatchEvent( new Event( 'change' ) );
-
-		return this;
-
-	}
-
-	getValue() {
-
-		return this.dom.value;
-
-	}
-
-	serialize( data ) {
-
-		data.value = this.getValue();
-
-	}
-
-	deserialize( data ) {
-
-		this.setValue( data.value );
-
-	}
-
+  deserialize(data) {
+    this.setValue(data.value);
+  }
 }
 
 Input.prototype.isInput = true;
 
 class Node extends Serializer {
+  constructor() {
+    super();
 
-	constructor() {
+    const dom = document.createElement('f-node');
 
-		super();
+    const onDown = () => {
+      const canvas = this.canvas;
 
-		const dom = document.createElement( 'f-node' );
+      if (canvas !== null) {
+        canvas.select(this);
+      }
+    };
 
-		const onDown = () => {
+    dom.addEventListener('mousedown', onDown, true);
+    dom.addEventListener('touchstart', onDown, true);
 
-			const canvas = this.canvas;
+    this._onConnect = (e) => {
+      const { target } = e;
 
-			if ( canvas !== null ) {
+      for (const element of this.elements) {
+        if (element !== target) {
+          element.dispatchEvent(new Event('nodeConnect'));
+        }
+      }
+    };
 
-				canvas.select( this );
+    this._onConnectChildren = (e) => {
+      const { target } = e;
 
-			}
+      for (const element of this.elements) {
+        if (element !== target) {
+          element.dispatchEvent(new Event('nodeConnectChildren'));
+        }
+      }
+    };
 
-		};
+    this.dom = dom;
 
-		dom.addEventListener( 'mousedown', onDown, true );
-		dom.addEventListener( 'touchstart', onDown, true );
+    this.style = '';
 
-		this._onConnect = ( e ) => {
+    this.canvas = null;
 
-			const { target } = e;
+    this.elements = [];
 
-			for ( const element of this.elements ) {
+    this.events = {
+      focus: [],
+      blur: [],
+    };
 
-				if ( element !== target ) {
+    this.setWidth(300).setPosition(0, 0);
+  }
 
-					element.dispatchEvent( new Event( 'nodeConnect' ) );
+  onFocus(callback) {
+    this.events.focus.push(callback);
 
-				}
+    return this;
+  }
 
-			}
+  onBlur(callback) {
+    this.events.blur.push(callback);
 
-		};
+    return this;
+  }
 
-		this._onConnectChildren = ( e ) => {
+  setStyle(style) {
+    const dom = this.dom;
 
-			const { target } = e;
+    if (this.style) dom.classList.remove(this.style);
 
-			for ( const element of this.elements ) {
+    if (style) dom.classList.add(style);
 
-				if ( element !== target ) {
+    this.style = style;
 
-					element.dispatchEvent( new Event( 'nodeConnectChildren' ) );
+    return this;
+  }
 
-				}
+  setPosition(x, y) {
+    const dom = this.dom;
 
-			}
+    dom.style.left = toPX(x);
+    dom.style.top = toPX(y);
 
-		};
+    return this;
+  }
 
-		this.dom = dom;
+  getPosition() {
+    const dom = this.dom;
 
-		this.style = '';
+    return {
+      x: parseInt(dom.style.left),
+      y: parseInt(dom.style.top),
+    };
+  }
 
-		this.canvas = null;
+  setWidth(val) {
+    this.dom.style.width = toPX(val);
 
-		this.elements = [];
+    return this;
+  }
 
-		this.events = {
-			'focus': [],
-			'blur': []
-		};
+  getWidth() {
+    return parseInt(this.dom.style.width);
+  }
 
-		this.setWidth( 300 ).setPosition( 0, 0 );
+  add(element) {
+    this.elements.push(element);
 
-	}
+    element.node = this;
+    element.addEventListener('connect', this._onConnect);
+    element.addEventListener('connectChildren', this._onConnectChildren);
 
-	onFocus( callback ) {
+    this.dom.append(element.dom);
 
-		this.events.focus.push( callback );
+    return this;
+  }
 
-		return this;
+  remove(element) {
+    this.elements.splice(this.elements.indexOf(element), 1);
 
-	}
+    element.node = null;
+    element.removeEventListener('connect', this._onConnect);
+    element.removeEventListener('connectChildren', this._onConnectChildren);
 
-	onBlur( callback ) {
+    this.dom.removeChild(element.dom);
 
-		this.events.blur.push( callback );
+    return this;
+  }
 
-		return this;
+  dispose() {
+    const canvas = this.canvas;
 
-	}
+    if (canvas !== null) canvas.remove(this);
 
-	setStyle( style ) {
+    for (const element of this.elements) {
+      element.dispose();
+    }
 
-		const dom = this.dom;
+    this.dispatchEvent(new Event('dispose'));
+  }
 
-		if ( this.style ) dom.classList.remove( this.style );
+  isCircular(node) {
+    if (node === this) return true;
 
-		if ( style ) dom.classList.add( style );
+    const links = this.getLinks();
 
-		this.style = style;
+    for (const link of links) {
+      if (link.outputElement.node.isCircular(node)) {
+        return true;
+      }
+    }
 
-		return this;
+    return false;
+  }
 
-	}
+  getLinks() {
+    const links = [];
 
-	setPosition( x, y ) {
+    for (const element of this.elements) {
+      links.push(...element.links);
+    }
 
-		const dom = this.dom;
+    return links;
+  }
 
-		dom.style.left = toPX( x );
-		dom.style.top = toPX( y );
+  serialize(data) {
+    const { x, y } = this.getPosition();
 
-		return this;
+    const elements = [];
 
-	}
+    for (const element of this.elements) {
+      elements.push(element.toJSON(data).id);
+    }
 
-	getPosition() {
+    data.x = x;
+    data.y = y;
+    data.width = this.getWidth();
+    data.elements = elements;
 
-		const dom = this.dom;
+    if (this.style !== '') {
+      data.style = this.style;
+    }
+  }
 
-		return {
-			x: parseInt( dom.style.left ),
-			y: parseInt( dom.style.top )
-		};
+  deserialize(data) {
+    this.setPosition(data.x, data.y);
+    this.setWidth(data.width);
 
-	}
+    if (data.style !== undefined) {
+      this.setStyle(data.style);
+    }
 
-	setWidth( val ) {
+    const elements = this.elements;
 
-		this.dom.style.width = toPX( val );
+    if (elements.length > 0) {
+      let index = 0;
 
-		return this;
-
-	}
-
-	getWidth() {
-
-		return parseInt( this.dom.style.width );
-
-	}
-
-	add( element ) {
-
-		this.elements.push( element );
-
-		element.node = this;
-		element.addEventListener( 'connect', this._onConnect );
-		element.addEventListener( 'connectChildren', this._onConnectChildren );
-
-		this.dom.append( element.dom );
-
-		return this;
-
-	}
-
-	remove( element ) {
-
-		this.elements.splice( this.elements.indexOf( element ), 1 );
-
-		element.node = null;
-		element.removeEventListener( 'connect', this._onConnect );
-		element.removeEventListener( 'connectChildren', this._onConnectChildren );
-
-		this.dom.removeChild( element.dom );
-
-		return this;
-
-	}
-
-	dispose() {
-
-		const canvas = this.canvas;
-
-		if ( canvas !== null ) canvas.remove( this );
-
-		for ( const element of this.elements ) {
-
-			element.dispose();
-
-		}
-
-		this.dispatchEvent( new Event( 'dispose' ) );
-
-	}
-
-	isCircular( node ) {
-
-		if ( node === this ) return true;
-
-		const links = this.getLinks();
-
-		for ( const link of links ) {
-
-			if ( link.outputElement.node.isCircular( node ) ) {
-
-				return true;
-
-			}
-
-		}
-
-		return false;
-
-	}
-
-	getLinks() {
-
-		const links = [];
-
-		for ( const element of this.elements ) {
-
-			links.push( ...element.links );
-
-		}
-
-		return links;
-
-	}
-
-	serialize( data ) {
-
-		const { x, y } = this.getPosition();
-
-		const elements = [];
-
-		for ( const element of this.elements ) {
-
-			elements.push( element.toJSON( data ).id );
-
-		}
-
-		data.x = x;
-		data.y = y;
-		data.width = this.getWidth();
-		data.elements = elements;
-
-		if ( this.style !== '' ) {
-
-			data.style = this.style;
-
-		}
-
-	}
-
-	deserialize( data ) {
-
-		this.setPosition( data.x, data.y );
-		this.setWidth( data.width );
-
-		if ( data.style !== undefined ) {
-
-			this.setStyle( data.style );
-
-		}
-
-		const elements = this.elements;
-
-		if ( elements.length > 0 ) {
-
-			let index = 0;
-
-			for ( const id of data.elements ) {
-
-				data.objects[ id ] = elements[ index ++ ];
-
-			}
-
-		} else {
-
-			for ( const id of data.elements ) {
-
-				this.add( data.objects[ id ] );
-
-			}
-
-		}
-
-	}
-
+      for (const id of data.elements) {
+        data.objects[id] = elements[index++];
+      }
+    } else {
+      for (const id of data.elements) {
+        this.add(data.objects[id]);
+      }
+    }
+  }
 }
 
 Node.prototype.isNode = true;
 
 class DraggableElement extends Element {
+  constructor(draggable = true) {
+    super(true);
 
-	constructor( draggable = true ) {
+    this.draggable = draggable;
 
-		super( true );
+    const onDrag = (e) => {
+      e.preventDefault();
 
-		this.draggable = draggable;
+      if (this.draggable === true) {
+        draggableDOM(this.node.dom);
+      }
+    };
 
-		const onDrag = ( e ) => {
+    const { dom } = this;
 
-			e.preventDefault();
-
-			if ( this.draggable === true ) {
-
-				draggableDOM( this.node.dom );
-
-			}
-
-		};
-
-		const { dom } = this;
-
-		dom.addEventListener( 'mousedown', onDrag, true );
-		dom.addEventListener( 'touchstart', onDrag, true );
-
-	}
-
+    dom.addEventListener('mousedown', onDrag, true);
+    dom.addEventListener('touchstart', onDrag, true);
+  }
 }
 
 class TitleElement extends DraggableElement {
+  constructor(title, draggable = true) {
+    super(draggable);
 
-	constructor( title, draggable = true ) {
+    const { dom } = this;
 
-		super( draggable );
+    dom.className = 'title';
 
-		const { dom } = this;
+    const spanDOM = document.createElement('span');
+    spanDOM.innerText = title;
 
-		dom.className = 'title';
+    const iconDOM = document.createElement('i');
 
-		const spanDOM = document.createElement( 'span' );
-		spanDOM.innerText = title;
+    const toolbarDOM = document.createElement('f-toolbar');
 
-		const iconDOM = document.createElement( 'i' );
+    this.buttons = [];
 
-		const toolbarDOM = document.createElement( 'f-toolbar' );
+    this.spanDOM = spanDOM;
+    this.iconDOM = iconDOM;
+    this.toolbarDOM = toolbarDOM;
 
-		this.buttons = [];
+    dom.append(spanDOM);
+    dom.append(iconDOM);
+    dom.append(toolbarDOM);
+  }
 
-		this.spanDOM = spanDOM;
-		this.iconDOM = iconDOM;
-		this.toolbarDOM = toolbarDOM;
+  setIcon(value) {
+    this.iconDOM.className = value;
 
-		dom.append( spanDOM );
-		dom.append( iconDOM );
-		dom.append( toolbarDOM );
+    return this;
+  }
 
-	}
+  getIcon() {
+    return this.iconDOM.className;
+  }
 
-	setIcon( value ) {
+  setTitle(value) {
+    this.spanDOM.innerText = value;
 
-		this.iconDOM.className = value;
+    return this;
+  }
 
-		return this;
+  getTitle() {
+    return this.spanDOM.innerText;
+  }
 
-	}
+  addButton(button) {
+    this.buttons.push(button);
 
-	getIcon() {
+    this.toolbarDOM.append(button.dom);
 
-		return this.iconDOM.className;
+    return this;
+  }
 
-	}
+  serialize(data) {
+    super.serialize(data);
 
-	setTitle( value ) {
+    const title = this.getTitle();
+    const icon = this.getIcon();
 
-		this.spanDOM.innerText = value;
+    data.title = title;
 
-		return this;
+    if (icon !== '') {
+      data.icon = icon;
+    }
+  }
 
-	}
+  deserialize(data) {
+    super.deserialize(data);
 
-	getTitle() {
+    this.setTitle(data.title);
 
-		return this.spanDOM.innerText;
-
-	}
-
-	addButton( button ) {
-
-		this.buttons.push( button );
-
-		this.toolbarDOM.append( button.dom );
-
-		return this;
-
-	}
-
-	serialize( data ) {
-
-		super.serialize( data );
-
-		const title = this.getTitle();
-		const icon = this.getIcon();
-
-		data.title = title;
-
-		if ( icon !== '' ) {
-
-			data.icon = icon;
-
-		}
-
-	}
-
-	deserialize( data ) {
-
-		super.deserialize( data );
-
-		this.setTitle( data.title );
-
-		if ( data.icon !== undefined ) {
-
-			this.setIcon( data.icon );
-
-		}
-
-	}
-
+    if (data.icon !== undefined) {
+      this.setIcon(data.icon);
+    }
+  }
 }
 
-const drawLine = ( p1x, p1y, p2x, p2y, invert, size, colorA, ctx, colorB = null ) => {
+const drawLine = (
+  p1x,
+  p1y,
+  p2x,
+  p2y,
+  invert,
+  size,
+  colorA,
+  ctx,
+  colorB = null
+) => {
+  const dx = p2x - p1x;
+  const dy = p2y - p1y;
+  const offset = Math.sqrt(dx * dx + dy * dy) * (invert ? -0.3 : 0.3);
 
-	const dx = p2x - p1x;
-	const dy = p2y - p1y;
-	const offset = Math.sqrt( ( dx * dx ) + ( dy * dy ) ) * ( invert ? - .3 : .3 );
+  ctx.beginPath();
 
-	ctx.beginPath();
+  ctx.moveTo(p1x, p1y);
 
-	ctx.moveTo( p1x, p1y );
+  ctx.bezierCurveTo(p1x + offset, p1y, p2x - offset, p2y, p2x, p2y);
 
-	ctx.bezierCurveTo(
-		p1x + offset, p1y,
-		p2x - offset, p2y,
-		p2x, p2y
-	);
+  if (colorB !== null && colorA !== colorB) {
+    const gradient = ctx.createLinearGradient(p1x, p1y, p2x, p2y);
+    gradient.addColorStop(0, colorA);
+    gradient.addColorStop(1, colorB);
 
-	if ( colorB !== null && colorA !== colorB ) {
+    ctx.strokeStyle = gradient;
+  } else {
+    ctx.strokeStyle = colorA;
+  }
 
-		const gradient = ctx.createLinearGradient( p1x, p1y, p2x, p2y );
-		gradient.addColorStop( 0, colorA );
-		gradient.addColorStop( 1, colorB );
-
-		ctx.strokeStyle = gradient;
-
-	} else {
-
-		ctx.strokeStyle = colorA;
-
-	}
-
-	ctx.lineWidth = size;
-	ctx.stroke();
-
+  ctx.lineWidth = size;
+  ctx.stroke();
 };
 
-const colors = [
-	'#ff4444',
-	'#44ff44',
-	'#4444ff'
-];
+const colors = ['#ff4444', '#44ff44', '#4444ff'];
 
-const dropNode = new Node().add( new TitleElement( 'File' ) ).setWidth( 250 );
+const dropNode = new Node().add(new TitleElement('File')).setWidth(250);
 
 class Canvas extends Serializer {
+  constructor() {
+    super();
 
-	constructor() {
+    const dom = document.createElement('f-canvas');
+    const contentDOM = document.createElement('f-content');
+    const areaDOM = document.createElement('f-area');
+    const dropDOM = document.createElement('f-drop');
 
-		super();
+    const canvas = document.createElement('canvas');
+    const frontCanvas = document.createElement('canvas');
 
-		const dom = document.createElement( 'f-canvas' );
-		const contentDOM = document.createElement( 'f-content' );
-		const areaDOM = document.createElement( 'f-area' );
-		const dropDOM = document.createElement( 'f-drop' );
+    const context = canvas.getContext('2d');
+    const frontContext = frontCanvas.getContext('2d');
 
-		const canvas = document.createElement( 'canvas' );
-		const frontCanvas = document.createElement( 'canvas' );
+    this.dom = dom;
 
-		const context = canvas.getContext( '2d' );
-		const frontContext = frontCanvas.getContext( '2d' );
+    this.contentDOM = contentDOM;
+    this.areaDOM = areaDOM;
+    this.dropDOM = dropDOM;
 
-		this.dom = dom;
+    this.canvas = canvas;
+    this.frontCanvas = frontCanvas;
 
-		this.contentDOM = contentDOM;
-		this.areaDOM = areaDOM;
-		this.dropDOM = dropDOM;
+    this.context = context;
+    this.frontContext = frontContext;
 
-		this.canvas = canvas;
-		this.frontCanvas = frontCanvas;
+    this.width = 10000;
+    this.height = 10000;
 
-		this.context = context;
-		this.frontContext = frontContext;
+    this.clientX = 0;
+    this.clientY = 0;
 
-		this.width = 10000;
-		this.height = 10000;
+    this.relativeClientX = 0;
+    this.relativeClientY = 0;
 
-		this.clientX = 0;
-		this.clientY = 0;
+    this.zoom = 1;
 
-		this.relativeClientX = 0;
-		this.relativeClientY = 0;
+    this.nodes = [];
 
-		this.zoom = 1;
+    this.selected = null;
 
-		this.nodes = [];
+    this.updating = false;
 
-		this.selected = null;
+    this.droppedItems = [];
 
-		this.updating = false;
+    this.events = {
+      drop: [],
+    };
 
-		this.droppedItems = [];
+    frontCanvas.className = 'front';
 
-		this.events = {
-			'drop': []
-		};
+    contentDOM.style.left = toPX(this.centerX);
+    contentDOM.style.top = toPX(this.centerY);
 
-		frontCanvas.className = 'front';
+    areaDOM.style.width = `calc( 100% + ${this.width}px )`;
+    areaDOM.style.height = `calc( 100% + ${this.height}px )`;
 
-		contentDOM.style.left = toPX( this.centerX );
-		contentDOM.style.top = toPX( this.centerY );
+    dropDOM.innerHTML = '<span>drop your file</span>';
 
-		areaDOM.style.width = `calc( 100% + ${ this.width }px )`;
-		areaDOM.style.height = `calc( 100% + ${ this.height }px )`;
-
-		dropDOM.innerHTML = '<span>drop your file</span>';
-
-		dom.append( dropDOM );
-		dom.append( canvas );
-		dom.append( frontCanvas );
-		dom.append( contentDOM );
-		dom.append( areaDOM );
-		/*
+    dom.append(dropDOM);
+    dom.append(canvas);
+    dom.append(frontCanvas);
+    dom.append(contentDOM);
+    dom.append(areaDOM);
+    /*
 		let zoomTouchData = null;
 
 		const onZoomStart = () => {
@@ -1762,16 +1370,13 @@ class Canvas extends Serializer {
 
 		};
 */
-		const onZoom = ( e ) => {
+    const onZoom = (e) => {
+      if (e.touches) {
+        if (e.touches.length === 2) {
+          e.preventDefault();
 
-			if ( e.touches ) {
-
-				if ( e.touches.length === 2 ) {
-
-					e.preventDefault();
-
-					e.stopImmediatePropagation();
-					/*
+          e.stopImmediatePropagation();
+          /*
 					const clientX = ( e.touches[ 0 ].clientX + e.touches[ 1 ].clientX ) / 2;
 					const clientY = ( e.touches[ 0 ].clientY + e.touches[ 1 ].clientY ) / 2;
 
@@ -1800,15 +1405,12 @@ class Canvas extends Serializer {
 					contentDOM.style.top = toPX( this.centerY / zoom );
 					contentDOM.style.zoom = this.zoom = zoom;
 */
+        }
+      } else {
+        e.preventDefault();
 
-				}
-
-			} else {
-
-				e.preventDefault();
-
-				e.stopImmediatePropagation();
-				/*
+        e.stopImmediatePropagation();
+        /*
 				const delta = e.deltaY / 100;
 				const zoom = Math.min( Math.max( this.zoom - delta * .1, .5 ), 1 );
 
@@ -1816,2287 +1418,1815 @@ class Canvas extends Serializer {
 				contentDOM.style.top = toPX( this.centerY / zoom );
 				contentDOM.style.zoom = this.zoom = zoom;
 */
+      }
+    };
 
-			}
+    dom.addEventListener('wheel', onZoom);
+    dom.addEventListener('touchmove', onZoom);
+    //dom.addEventListener( 'touchstart', onZoomStart );
 
-		};
+    let dropEnterCount = 0;
 
-		dom.addEventListener( 'wheel', onZoom );
-		dom.addEventListener( 'touchmove', onZoom );
-		//dom.addEventListener( 'touchstart', onZoomStart );
+    const dragState = (enter) => {
+      if (enter) {
+        if (dropEnterCount++ === 0) {
+          this.droppedItems = [];
 
-		let dropEnterCount = 0;
+          dropDOM.classList.add('visible');
 
-		const dragState = ( enter ) => {
+          this.add(dropNode);
+        }
+      } else if (--dropEnterCount === 0) {
+        dropDOM.classList.remove('visible');
 
-			if ( enter ) {
+        this.remove(dropNode);
+      }
+    };
 
-				if ( dropEnterCount ++ === 0 ) {
+    dom.addEventListener('dragenter', () => {
+      dragState(true);
+    });
 
-					this.droppedItems = [];
+    dom.addEventListener('dragleave', () => {
+      dragState(false);
+    });
 
-					dropDOM.classList.add( 'visible' );
+    dom.addEventListener('dragover', (e) => {
+      e.preventDefault();
 
-					this.add( dropNode );
+      const { relativeClientX, relativeClientY } = this;
 
-				}
+      const centerNodeX = dropNode.getWidth() / 2;
 
-			} else if ( -- dropEnterCount === 0 ) {
+      dropNode.setPosition(relativeClientX - centerNodeX, relativeClientY - 20);
+    });
 
-				dropDOM.classList.remove( 'visible' );
+    dom.addEventListener('drop', (e) => {
+      e.preventDefault();
 
-				this.remove( dropNode );
+      dragState(false);
 
-			}
+      this.droppedItems = e.dataTransfer.items;
 
-		};
+      dispatchEventList(this.events.drop, this);
+    });
 
-		dom.addEventListener( 'dragenter', () => {
+    draggableDOM(
+      dom,
+      (data) => {
+        const { delta, isTouch } = data;
 
- 			dragState( true );
+        if (!isTouch) {
+          if (data.scrollTop === undefined) {
+            data.scrollLeft = dom.scrollLeft;
+            data.scrollTop = dom.scrollTop;
+          }
 
-		} );
+          dom.scrollLeft = data.scrollLeft - delta.x;
+          dom.scrollTop = data.scrollTop - delta.y;
+        }
 
-		dom.addEventListener( 'dragleave', () => {
+        if (data.dragging) {
+          dom.classList.add('grabbing');
+        } else {
+          dom.classList.remove('grabbing');
+        }
+      },
+      'dragging-canvas'
+    );
 
-			dragState( false );
+    this._onMoveEvent = (e) => {
+      const event = e.touches ? e.touches[0] : e;
+      const { zoom, rect } = this;
 
-		} );
+      this.clientX = event.clientX;
+      this.clientY = event.clientY;
 
-		dom.addEventListener( 'dragover', ( e ) => {
+      this.relativeClientX =
+        (dom.scrollLeft - this.centerX + event.clientX - rect.left) / zoom;
+      this.relativeClientY =
+        (dom.scrollTop - this.centerY + event.clientY - rect.top) / zoom;
+    };
 
-			e.preventDefault();
+    this._onContentLoaded = () => {
+      this.centralize();
+    };
 
-			const { relativeClientX, relativeClientY } = this;
+    this._onUpdate = () => {
+      this.update();
+    };
 
-			const centerNodeX = dropNode.getWidth() / 2;
+    this.start();
+  }
 
-			dropNode.setPosition( relativeClientX - centerNodeX, relativeClientY - 20 );
+  get rect() {
+    return this.dom.getBoundingClientRect();
+  }
 
-		} );
+  get relativeX() {
+    return this.dom.scrollLeft - this.centerX;
+  }
 
-		dom.addEventListener( 'drop', ( e ) => {
+  get relativeY() {
+    return this.dom.scrollTop - this.centerY;
+  }
 
-			e.preventDefault();
+  get centerX() {
+    return this.width / 2;
+  }
 
-			dragState( false );
+  get centerY() {
+    return this.height / 2;
+  }
 
-			this.droppedItems = e.dataTransfer.items;
+  onDrop(callback) {
+    this.events.drop.push(callback);
 
-			dispatchEventList( this.events.drop, this );
+    return this;
+  }
 
-		} );
+  start() {
+    this.updating = true;
 
-		draggableDOM( dom, ( data ) => {
+    editor.domElement.addEventListener('wheel', this._onMoveEvent, true);
 
-			const { delta, isTouch } = data;
+    editor.domElement.addEventListener('mousedown', this._onMoveEvent, true);
+    editor.domElement.addEventListener('touchstart', this._onMoveEvent, true);
 
-			if ( ! isTouch ) {
+    editor.domElement.addEventListener('mousemove', this._onMoveEvent, true);
+    editor.domElement.addEventListener('touchmove', this._onMoveEvent, true);
 
-				if ( data.scrollTop === undefined ) {
+    editor.domElement.addEventListener('dragover', this._onMoveEvent, true);
 
-					data.scrollLeft = dom.scrollLeft;
-					data.scrollTop = dom.scrollTop;
+    editor.domElement.addEventListener(
+      'DOMContentLoaded',
+      this._onContentLoaded
+    );
 
-				}
+    requestAnimationFrame(this._onUpdate);
+  }
 
-				dom.scrollLeft = data.scrollLeft - delta.x;
-				dom.scrollTop = data.scrollTop - delta.y;
+  stop() {
+    this.updating = false;
 
-			}
+    document.removeEventListener('wheel', this._onMoveEvent, true);
 
-			if ( data.dragging ) {
+    document.removeEventListener('mousedown', this._onMoveEvent, true);
+    document.removeEventListener('touchstart', this._onMoveEvent, true);
 
-				dom.classList.add( 'grabbing' );
+    document.removeEventListener('mousemove', this._onMoveEvent, true);
+    document.removeEventListener('touchmove', this._onMoveEvent, true);
 
-			} else {
+    document.removeEventListener('dragover', this._onMoveEvent, true);
 
-				dom.classList.remove( 'grabbing' );
+    document.removeEventListener('DOMContentLoaded', this._onContentLoaded);
+  }
 
-			}
+  add(node) {
+    if (node.canvas === this) return;
 
-		}, 'dragging-canvas' );
+    this.nodes.push(node);
 
-		this._onMoveEvent = ( e ) => {
+    node.canvas = this;
 
-			const event = e.touches ? e.touches[ 0 ] : e;
-			const { zoom, rect } = this;
+    this.contentDOM.append(node.dom);
 
-			this.clientX = event.clientX;
-			this.clientY = event.clientY;
+    return this;
+  }
 
-			this.relativeClientX = ( ( ( dom.scrollLeft - this.centerX ) + event.clientX ) - rect.left ) / zoom;
-			this.relativeClientY = ( ( ( dom.scrollTop - this.centerY ) + event.clientY ) - rect.top ) / zoom;
+  remove(node) {
+    if (node === this.selected) {
+      this.select();
+    }
 
-		};
+    this.unlink(node);
 
-		this._onContentLoaded = () => {
+    const nodes = this.nodes;
 
-			this.centralize();
+    nodes.splice(nodes.indexOf(node), 1);
 
-		};
+    node.canvas = null;
 
-		this._onUpdate = () => {
+    this.contentDOM.removeChild(node.dom);
 
-			this.update();
+    node.dispatchEvent(new Event('remove'));
 
-		};
+    return this;
+  }
 
-		this.start();
+  clear() {
+    const nodes = this.nodes;
 
-	}
+    while (nodes.length > 0) {
+      this.remove(nodes[0]);
+    }
 
-	get rect() {
+    return this;
+  }
 
-		return this.dom.getBoundingClientRect();
+  unlink(node) {
+    const links = this.getLinks();
 
-	}
+    for (const link of links) {
+      if (link.inputElement && link.outputElement) {
+        if (link.inputElement.node === node) {
+          link.inputElement.connect();
+        } else if (link.outputElement.node === node) {
+          link.inputElement.connect();
+        }
+      }
+    }
+  }
 
-	get relativeX() {
+  getLinks() {
+    const links = [];
 
-		return this.dom.scrollLeft - this.centerX;
+    for (const node of this.nodes) {
+      links.push(...node.getLinks());
+    }
 
-	}
+    return links;
+  }
 
-	get relativeY() {
+  centralize() {
+    this.dom.scroll(this.centerX, this.centerY);
 
-		return this.dom.scrollTop - this.centerY;
+    return this;
+  }
 
-	}
+  select(node = null) {
+    if (node === this.selected) return;
 
-	get centerX() {
+    const previousNode = this.selected;
 
-		return this.width / 2;
+    if (previousNode !== null) {
+      previousNode.dom.classList.remove('selected');
 
-	}
+      this.selected = null;
 
-	get centerY() {
+      dispatchEventList(previousNode.events.blur, previousNode);
+    }
 
-		return this.height / 2;
+    if (node !== null) {
+      node.dom.classList.add('selected');
 
-	}
+      this.selected = node;
 
-	onDrop( callback ) {
+      dispatchEventList(node.events.focus, node);
+    }
+  }
 
-		this.events.drop.push( callback );
+  update() {
+    if (this.updating === false) return;
 
-		return this;
+    requestAnimationFrame(this._onUpdate);
 
-	}
+    const { dom, zoom, canvas, frontCanvas, frontContext, context } = this;
 
-	start() {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
 
-		this.updating = true;
+    const domRect = this.rect;
 
-		document.addEventListener( 'wheel', this._onMoveEvent, true );
+    if (canvas.width !== width || canvas.height !== height) {
+      canvas.width = width;
+      canvas.height = height;
 
-		document.addEventListener( 'mousedown', this._onMoveEvent, true );
-		document.addEventListener( 'touchstart', this._onMoveEvent, true );
+      frontCanvas.width = width;
+      frontCanvas.height = height;
+    }
 
-		document.addEventListener( 'mousemove', this._onMoveEvent, true );
-		document.addEventListener( 'touchmove', this._onMoveEvent, true );
+    context.clearRect(0, 0, width, height);
+    frontContext.clearRect(0, 0, width, height);
 
-		document.addEventListener( 'dragover', this._onMoveEvent, true );
+    context.globalCompositeOperation = 'lighter';
+    frontContext.globalCompositeOperation = 'source-over';
 
-		document.addEventListener( 'DOMContentLoaded', this._onContentLoaded );
+    const links = this.getLinks();
 
-		requestAnimationFrame( this._onUpdate );
+    const aPos = { x: 0, y: 0 };
+    const bPos = { x: 0, y: 0 };
 
-	}
+    const offsetIORadius = 10;
 
-	stop() {
+    let dragging = '';
 
-		this.updating = false;
+    for (const link of links) {
+      const { lioElement, rioElement } = link;
 
-		document.removeEventListener( 'wheel', this._onMoveEvent, true );
+      let draggingLink = '';
+      let length = 0;
 
-		document.removeEventListener( 'mousedown', this._onMoveEvent, true );
-		document.removeEventListener( 'touchstart', this._onMoveEvent, true );
+      if (lioElement !== null) {
+        const rect = lioElement.dom.getBoundingClientRect();
 
-		document.removeEventListener( 'mousemove', this._onMoveEvent, true );
-		document.removeEventListener( 'touchmove', this._onMoveEvent, true );
+        length = Math.max(length, lioElement.rioLength);
 
-		document.removeEventListener( 'dragover', this._onMoveEvent, true );
+        aPos.x = rect.x + rect.width;
+        aPos.y = rect.y + rect.height / 2;
+      } else {
+        aPos.x = this.clientX;
+        aPos.y = this.clientY;
 
-		document.removeEventListener( 'DOMContentLoaded', this._onContentLoaded );
+        draggingLink = 'lio';
+      }
 
-	}
+      if (rioElement !== null) {
+        const rect = rioElement.dom.getBoundingClientRect();
 
-	add( node ) {
+        length = Math.max(length, rioElement.lioLength);
 
-		if ( node.canvas === this ) return;
+        bPos.x = rect.x;
+        bPos.y = rect.y + rect.height / 2;
+      } else {
+        bPos.x = this.clientX;
+        bPos.y = this.clientY;
 
-		this.nodes.push( node );
+        draggingLink = 'rio';
+      }
 
-		node.canvas = this;
+      dragging = dragging || draggingLink;
 
-		this.contentDOM.append( node.dom );
+      const drawContext = draggingLink ? frontContext : context;
 
-		return this;
+      if (draggingLink || length === 1) {
+        let colorA = null,
+          colorB = null;
 
-	}
+        if (draggingLink === 'rio') {
+          colorA = colorB = lioElement.getRIOColor();
 
-	remove( node ) {
+          aPos.x += offsetIORadius;
+          bPos.x /= zoom;
+          bPos.y /= zoom;
+        } else if (draggingLink === 'lio') {
+          colorA = colorB = rioElement.getLIOColor();
 
-		if ( node === this.selected ) {
+          bPos.x -= offsetIORadius;
+          aPos.x /= zoom;
+          aPos.y /= zoom;
+        } else {
+          colorA = lioElement.getRIOColor();
+          colorB = rioElement.getLIOColor();
+        }
 
-			this.select();
+        drawLine(
+          aPos.x * zoom,
+          aPos.y * zoom,
+          bPos.x * zoom,
+          bPos.y * zoom,
+          false,
+          2,
+          colorA || '#ffffff',
+          drawContext,
+          colorB || '#ffffff'
+        );
+      } else {
+        length = Math.min(length, 4);
 
-		}
+        for (let i = 0; i < length; i++) {
+          const color = colors[i] || '#ffffff';
 
-		this.unlink( node );
+          const marginY = 4;
 
-		const nodes = this.nodes;
+          const rioLength = Math.min(lioElement.rioLength, length);
+          const lioLength = Math.min(rioElement.lioLength, length);
 
-		nodes.splice( nodes.indexOf( node ), 1 );
+          const colorA = lioElement.getRIOColor() || color;
+          const colorB = rioElement.getLIOColor() || color;
 
-		node.canvas = null;
+          const aCenterY = rioLength * marginY * 0.5 - marginY / 2;
+          const bCenterY = lioLength * marginY * 0.5 - marginY / 2;
 
-		this.contentDOM.removeChild( node.dom );
+          const aIndex = Math.min(i, rioLength - 1);
+          const bIndex = Math.min(i, lioLength - 1);
 
-		node.dispatchEvent( new Event( 'remove' ) );
+          const aPosY = aIndex * marginY - 1;
+          const bPosY = bIndex * marginY - 1;
 
-		return this;
+          drawLine(
+            aPos.x * zoom,
+            (aPos.y + aPosY - aCenterY) * zoom,
+            bPos.x * zoom,
+            (bPos.y + bPosY - bCenterY) * zoom,
+            false,
+            2,
+            colorA,
+            drawContext,
+            colorB
+          );
+        }
+      }
+    }
 
-	}
+    context.globalCompositeOperation = 'destination-in';
 
-	clear() {
+    context.fillRect(domRect.x, domRect.y, domRect.width, domRect.height);
 
-		const nodes = this.nodes;
+    if (dragging !== '') {
+      dom.classList.add('dragging-' + dragging);
+    } else {
+      dom.classList.remove('dragging-lio');
+      dom.classList.remove('dragging-rio');
+    }
+  }
 
-		while ( nodes.length > 0 ) {
+  serialize(data) {
+    const nodes = [];
 
-			this.remove( nodes[ 0 ] );
+    for (const node of this.nodes) {
+      nodes.push(node.toJSON(data).id);
+    }
 
-		}
+    data.nodes = nodes;
+  }
 
-		return this;
-
-	}
-
-	unlink( node ) {
-
-		const links = this.getLinks();
-
-		for ( const link of links ) {
-
-			if ( link.inputElement && link.outputElement ) {
-
-				if ( link.inputElement.node === node ) {
-
-					link.inputElement.connect();
-
-				} else if ( link.outputElement.node === node ) {
-
-					link.inputElement.connect();
-
-				}
-
-			}
-
-		}
-
-	}
-
-	getLinks() {
-
-		const links = [];
-
-		for ( const node of this.nodes ) {
-
-			links.push( ...node.getLinks() );
-
-		}
-
-		return links;
-
-	}
-
-	centralize() {
-
-		this.dom.scroll( this.centerX, this.centerY );
-
-		return this;
-
-	}
-
-	select( node = null ) {
-
-		if ( node === this.selected ) return;
-
-		const previousNode = this.selected;
-
-		if ( previousNode !== null ) {
-
-			previousNode.dom.classList.remove( 'selected' );
-
-			this.selected = null;
-
-			dispatchEventList( previousNode.events.blur, previousNode );
-
-		}
-
-		if ( node !== null ) {
-
-			node.dom.classList.add( 'selected' );
-
-			this.selected = node;
-
-			dispatchEventList( node.events.focus, node );
-
-		}
-
-	}
-
-	update() {
-
-		if ( this.updating === false ) return;
-
-		requestAnimationFrame( this._onUpdate );
-
-		const { dom, zoom, canvas, frontCanvas, frontContext, context } = this;
-
-		const width = window.innerWidth;
-		const height = window.innerHeight;
-
-		const domRect = this.rect;
-
-		if ( canvas.width !== width || canvas.height !== height ) {
-
-			canvas.width = width;
-			canvas.height = height;
-
-			frontCanvas.width = width;
-			frontCanvas.height = height;
-
-		}
-
-		context.clearRect( 0, 0, width, height );
-		frontContext.clearRect( 0, 0, width, height );
-
-		context.globalCompositeOperation = 'lighter';
-		frontContext.globalCompositeOperation = 'source-over';
-
-		const links = this.getLinks();
-
-		const aPos = { x: 0, y: 0 };
-		const bPos = { x: 0, y: 0 };
-
-		const offsetIORadius = 10;
-
-		let dragging = '';
-
-		for ( const link of links ) {
-
-			const { lioElement, rioElement } = link;
-
-			let draggingLink = '';
-			let length = 0;
-
-			if ( lioElement !== null ) {
-
-				const rect = lioElement.dom.getBoundingClientRect();
-
-				length = Math.max( length, lioElement.rioLength );
-
-				aPos.x = rect.x + rect.width;
-				aPos.y = rect.y + ( rect.height / 2 );
-
-			} else {
-
-				aPos.x = this.clientX;
-				aPos.y = this.clientY;
-
-				draggingLink = 'lio';
-
-			}
-
-			if ( rioElement !== null ) {
-
-				const rect = rioElement.dom.getBoundingClientRect();
-
-				length = Math.max( length, rioElement.lioLength );
-
-				bPos.x = rect.x;
-				bPos.y = rect.y + ( rect.height / 2 );
-
-			} else {
-
-				bPos.x = this.clientX;
-				bPos.y = this.clientY;
-
-				draggingLink = 'rio';
-
-			}
-
-			dragging = dragging || draggingLink;
-
-			const drawContext = draggingLink ? frontContext : context;
-
-			if ( draggingLink || length === 1 ) {
-
-				let colorA = null,
-					colorB = null;
-
-				if ( draggingLink === 'rio' ) {
-
-					colorA = colorB = lioElement.getRIOColor();
-
-					aPos.x += offsetIORadius;
-					bPos.x /= zoom;
-					bPos.y /= zoom;
-
-				} else if ( draggingLink === 'lio' ) {
-
-					colorA = colorB = rioElement.getLIOColor();
-
-					bPos.x -= offsetIORadius;
-					aPos.x /= zoom;
-					aPos.y /= zoom;
-
-				} else {
-
-					colorA = lioElement.getRIOColor();
-					colorB = rioElement.getLIOColor();
-
-				}
-
-				drawLine(
-					aPos.x * zoom, aPos.y * zoom,
-					bPos.x * zoom, bPos.y * zoom,
-					false, 2, colorA || '#ffffff', drawContext, colorB || '#ffffff'
-				);
-
-			} else {
-
-				length = Math.min( length, 4 );
-
-				for ( let i = 0; i < length; i ++ ) {
-
-					const color = colors[ i ] || '#ffffff';
-
-					const marginY = 4;
-
-					const rioLength = Math.min( lioElement.rioLength, length );
-					const lioLength = Math.min( rioElement.lioLength, length );
-
-					const colorA = lioElement.getRIOColor() || color;
-					const colorB = rioElement.getLIOColor() || color;
-
-					const aCenterY = ( ( rioLength * marginY ) * .5 ) - ( marginY / 2 );
-					const bCenterY = ( ( lioLength * marginY ) * .5 ) - ( marginY / 2 );
-
-					const aIndex = Math.min( i, rioLength - 1 );
-					const bIndex = Math.min( i, lioLength - 1 );
-
-					const aPosY = ( aIndex * marginY ) - 1;
-					const bPosY = ( bIndex * marginY ) - 1;
-
-					drawLine(
-						aPos.x * zoom, ( ( aPos.y + aPosY ) - aCenterY ) * zoom,
-						bPos.x * zoom, ( ( bPos.y + bPosY ) - bCenterY ) * zoom,
-						false, 2, colorA, drawContext, colorB
-					);
-
-				}
-
-			}
-
-		}
-
-		context.globalCompositeOperation = 'destination-in';
-
-		context.fillRect( domRect.x, domRect.y, domRect.width, domRect.height );
-
-		if ( dragging !== '' ) {
-
-			dom.classList.add( 'dragging-' + dragging );
-
-		} else {
-
-			dom.classList.remove( 'dragging-lio' );
-			dom.classList.remove( 'dragging-rio' );
-
-		}
-
-	}
-
-	serialize( data ) {
-
-		const nodes = [];
-
-		for ( const node of this.nodes ) {
-
-			nodes.push( node.toJSON( data ).id );
-
-		}
-
-		data.nodes = nodes;
-
-	}
-
-	deserialize( data ) {
-
-		for ( const id of data.nodes ) {
-
-			this.add( data.objects[ id ] );
-
-		}
-
-	}
-
+  deserialize(data) {
+    for (const id of data.nodes) {
+      this.add(data.objects[id]);
+    }
+  }
 }
 
 class ButtonInput extends Input {
+  constructor(innterText = '') {
+    const dom = document.createElement('button');
 
-	constructor( innterText = '' ) {
+    const spanDOM = document.createElement('span');
+    dom.append(spanDOM);
 
-		const dom = document.createElement( 'button' );
+    const iconDOM = document.createElement('i');
+    dom.append(iconDOM);
 
-		const spanDOM = document.createElement( 'span' );
-		dom.append( spanDOM );
+    super(dom);
 
-		const iconDOM = document.createElement( 'i' );
-		dom.append( iconDOM );
+    this.spanDOM = spanDOM;
+    this.iconDOM = iconDOM;
 
-		super( dom );
+    spanDOM.innerText = innterText;
 
-		this.spanDOM = spanDOM;
-		this.iconDOM = iconDOM;
+    dom.onmouseover = () => {
+      this.dispatchEvent(new Event('mouseover'));
+    };
 
-		spanDOM.innerText = innterText;
+    dom.onclick = dom.ontouchstart = (e) => {
+      e.preventDefault();
 
-		dom.onmouseover = () => {
+      e.stopPropagation();
 
-			this.dispatchEvent( new Event( 'mouseover' ) );
+      this.dispatchEvent(new Event('click'));
+    };
+  }
 
-		};
+  setIcon(className) {
+    this.iconDOM.className = className;
 
-		dom.onclick = dom.ontouchstart = ( e ) => {
+    return this;
+  }
 
-			e.preventDefault();
+  setValue(val) {
+    this.spanDOM.innerText = val;
 
-			e.stopPropagation();
+    return this;
+  }
 
-			this.dispatchEvent( new Event( 'click' ) );
-
-		};
-
-	}
-
-	setIcon( className ) {
-
-		this.iconDOM.className = className;
-
-		return this;
-
-	}
-
-	setValue( val ) {
-
-		this.spanDOM.innerText = val;
-
-		return this;
-
-	}
-
-	getValue() {
-
-		return this.spanDOM.innerText;
-
-	}
-
+  getValue() {
+    return this.spanDOM.innerText;
+  }
 }
 
 class ObjectNode extends Node {
+  constructor(name, inputLength, callback = null, width = 300) {
+    super();
 
-	constructor( name, inputLength, callback = null, width = 300 ) {
+    this.setWidth(width);
 
-		super();
+    const title = new TitleElement(name)
+      .setObjectCallback(callback)
+      .setSerializable(false)
+      .setOutput(inputLength);
 
-		this.setWidth( width );
+    const closeButton = new ButtonInput(Styles.icons.close || '✕')
+      .onClick(() => {
+        this.dispose();
+      })
+      .setIcon(Styles.icons.close);
 
-		const title = new TitleElement( name )
-			.setObjectCallback( callback )
-			.setSerializable( false )
-			.setOutput( inputLength );
+    title.addButton(closeButton);
 
-		const closeButton = new ButtonInput( Styles.icons.close || '✕' ).onClick( () => {
+    this.add(title);
 
-			this.dispose();
+    this.title = title;
+    this.closeButton = closeButton;
+  }
 
-		} ).setIcon( Styles.icons.close );
+  setName(value) {
+    this.title.setTitle(value);
 
-		title.addButton( closeButton );
+    return this;
+  }
 
-		this.add( title );
+  getName() {
+    return this.title.getTitle();
+  }
 
-		this.title = title;
-		this.closeButton = closeButton;
+  setObjectCallback(callback) {
+    this.title.setObjectCallback(callback);
 
-	}
+    return this;
+  }
 
-	setName( value ) {
+  getObject(callback) {
+    return this.title.getObject(callback);
+  }
 
-		this.title.setTitle( value );
+  setColor(color) {
+    return this.title.setColor(color);
+  }
 
-		return this;
+  setOutputColor(color) {
+    return this.title.setOutputColor(color);
+  }
 
-	}
-
-	getName() {
-
-		return this.title.getTitle();
-
-	}
-
-	setObjectCallback( callback ) {
-
-		this.title.setObjectCallback( callback );
-
-		return this;
-
-	}
-
-	getObject( callback ) {
-
-		return this.title.getObject( callback );
-
-	}
-
-	setColor( color ) {
-
-		return this.title.setColor( color );
-
-	}
-
-	setOutputColor( color ) {
-
-		return this.title.setOutputColor( color );
-
-	}
-
-	invalidate() {
-
-		this.title.dispatchEvent( new Event( 'connect' ) );
-
-	}
-
+  invalidate() {
+    this.title.dispatchEvent(new Event('connect'));
+  }
 }
 
 const ENTER_KEY$1 = 13;
 
 class StringInput extends Input {
+  constructor(value = '') {
+    const dom = document.createElement('input');
+    super(dom);
 
-	constructor( value = '' ) {
+    dom.type = 'text';
+    dom.value = value;
+    dom.spellcheck = false;
+    dom.autocomplete = 'off';
 
-		const dom = document.createElement( 'input' );
-		super( dom );
+    dom.onblur = () => {
+      this.dispatchEvent(new Event('blur'));
+    };
 
-		dom.type = 'text';
-		dom.value = value;
-		dom.spellcheck = false;
-		dom.autocomplete = 'off';
+    dom.onchange = () => {
+      this.dispatchEvent(new Event('change'));
+    };
 
-		dom.onblur = () => {
+    dom.onkeyup = (e) => {
+      if (e.keyCode === ENTER_KEY$1) {
+        e.target.blur();
+      }
 
-			this.dispatchEvent( new Event( 'blur' ) );
+      e.stopPropagation();
 
-		};
-
-		dom.onchange = () => {
-
-			this.dispatchEvent( new Event( 'change' ) );
-
-		};
-
-		dom.onkeyup = ( e ) => {
-
-			if ( e.keyCode === ENTER_KEY$1 ) {
-
-				e.target.blur();
-
-			}
-
-			e.stopPropagation();
-
-			this.dispatchEvent( new Event( 'change' ) );
-
-		};
-
-	}
-
+      this.dispatchEvent(new Event('change'));
+    };
+  }
 }
 
 const ENTER_KEY = 13;
 
 class NumberInput extends Input {
+  constructor(value = 0, min = -Infinity, max = Infinity, step = 0.01) {
+    const dom = document.createElement('input');
+    super(dom);
 
-	constructor( value = 0, min = - Infinity, max = Infinity, step = .01 ) {
+    this.min = min;
+    this.max = max;
+    this.step = step;
 
-		const dom = document.createElement( 'input' );
-		super( dom );
+    this.integer = false;
 
-		this.min = min;
-		this.max = max;
-		this.step = step;
+    dom.type = 'text';
+    dom.className = 'number';
+    dom.value = this._getString(value);
+    dom.spellcheck = false;
+    dom.autocomplete = 'off';
 
-		this.integer = false;
+    dom.ondragstart = dom.oncontextmenu = (e) => {
+      e.preventDefault();
 
-		dom.type = 'text';
-		dom.className = 'number';
-		dom.value = this._getString( value );
-		dom.spellcheck = false;
-		dom.autocomplete = 'off';
+      e.stopPropagation();
+    };
 
-		dom.ondragstart = dom.oncontextmenu = ( e ) => {
+    dom.onfocus = dom.onclick = () => {
+      dom.select();
+    };
 
-			e.preventDefault();
+    dom.onblur = () => {
+      this.dispatchEvent(new Event('blur'));
+    };
 
-			e.stopPropagation();
+    dom.onchange = () => {
+      this.dispatchEvent(new Event('change'));
+    };
 
-		};
+    dom.onkeydown = (e) => {
+      if (e.key.length === 1 && /\d|\./.test(e.key) !== true) {
+        return false;
+      }
 
-		dom.onfocus = dom.onclick = () => {
+      if (e.keyCode === ENTER_KEY) {
+        e.target.blur();
+      }
 
-			dom.select();
+      e.stopPropagation();
+    };
 
-		};
+    draggableDOM(dom, (data) => {
+      const { delta } = data;
 
-		dom.onblur = () => {
+      if (data.value === undefined) {
+        data.value = this.getValue();
+      }
 
-			this.dispatchEvent( new Event( 'blur' ) );
+      const diff = delta.x - delta.y;
 
-		};
+      const value = data.value + diff * this.step;
 
-		dom.onchange = () => {
+      this.dom.value = this._getString(value.toFixed(this.precision));
 
-			this.dispatchEvent( new Event( 'change' ) );
+      this.dispatchEvent(new Event('change'));
+    });
+  }
 
-		};
+  setStep(step) {
+    this.step = step;
 
-		dom.onkeydown = ( e ) => {
+    return this;
+  }
 
-			if ( e.key.length === 1 && /\d|\./.test( e.key ) !== true ) {
+  setRange(min, max, step) {
+    this.min = min;
+    this.max = max;
+    this.step = step;
 
-				return false;
+    this.dispatchEvent(new Event('range'));
 
-			}
+    return this.setValue(this.getValue());
+  }
 
-			if ( e.keyCode === ENTER_KEY ) {
+  get precision() {
+    if (this.integer === true) return 0;
 
-				e.target.blur();
+    const fract = this.step % 1;
 
-			}
+    return fract !== 0 ? fract.toString().split('.')[1].length : 1;
+  }
 
-			e.stopPropagation();
+  setValue(val, dispatch = true) {
+    return super.setValue(this._getString(val), dispatch);
+  }
 
-		};
+  getValue() {
+    return Number(this.dom.value);
+  }
 
-		draggableDOM( dom, ( data ) => {
+  serialize(data) {
+    const { min, max } = this;
 
-			const { delta } = data;
-
-			if ( data.value === undefined ) {
-
-				data.value = this.getValue();
-
-			}
-
-			const diff = delta.x - delta.y;
-
-			const value = data.value + ( diff * this.step );
-
-			this.dom.value = this._getString( value.toFixed( this.precision ) );
-
-			this.dispatchEvent( new Event( 'change' ) );
-
-		} );
-
-	}
-
-	setStep( step ) {
-
-		this.step = step;
-
-		return this;
-
-	}
-
-	setRange( min, max, step ) {
-
-		this.min = min;
-		this.max = max;
-		this.step = step;
-
-		this.dispatchEvent( new Event( 'range' ) );
-
-		return this.setValue( this.getValue() );
-
-	}
-
-	get precision() {
-
-		if ( this.integer === true ) return 0;
-
-		const fract = this.step % 1;
-
-		return fract !== 0 ? fract.toString().split( '.' )[ 1 ].length : 1;
-
-	}
-
-	setValue( val, dispatch = true ) {
-
-		return super.setValue( this._getString( val ), dispatch );
-
-	}
-
-	getValue() {
-
-		return Number( this.dom.value );
-
-	}
-
-	serialize( data ) {
-
-		const { min, max } = this;
-
-		if ( min !== - Infinity && max !== Infinity ) {
-
-			data.min = this.min;
-			data.max = this.max;
-			data.step = this.step;
-
-		}
-
-		super.serialize( data );
-
-	}
-
-	deserialize( data ) {
-
-		if ( data.min !== undefined ) {
-
-			const { min, max, step } = this;
-
-			this.setRange( min, max, step );
-
-		}
-
-		super.deserialize( data );
-
-	}
-
-	_getString( value ) {
-
-		const num = Math.min( Math.max( Number( value ), this.min ), this.max );
-
-		if ( this.integer === true ) {
-
-			return Math.floor( num );
-
-		} else {
-
-			return num + ( num % 1 ? '' : '.0' );
-
-		}
-
-	}
-
+    if (min !== -Infinity && max !== Infinity) {
+      data.min = this.min;
+      data.max = this.max;
+      data.step = this.step;
+    }
+
+    super.serialize(data);
+  }
+
+  deserialize(data) {
+    if (data.min !== undefined) {
+      const { min, max, step } = this;
+
+      this.setRange(min, max, step);
+    }
+
+    super.deserialize(data);
+  }
+
+  _getString(value) {
+    const num = Math.min(Math.max(Number(value), this.min), this.max);
+
+    if (this.integer === true) {
+      return Math.floor(num);
+    } else {
+      return num + (num % 1 ? '' : '.0');
+    }
+  }
 }
 
-const getStep = ( min, max ) => {
+const getStep = (min, max) => {
+  const sensibility = 0.001;
 
-	const sensibility = .001;
-
-	return ( max - min ) * sensibility;
-
+  return (max - min) * sensibility;
 };
 
 class SliderInput extends Input {
+  constructor(value = 0, min = 0, max = 100) {
+    const dom = document.createElement('f-subinputs');
+    super(dom);
 
-	constructor( value = 0, min = 0, max = 100 ) {
+    value = Math.min(Math.max(value, min), max);
 
-		const dom = document.createElement( 'f-subinputs' );
-		super( dom );
+    const step = getStep(min, max);
 
-		value = Math.min( Math.max( value, min ), max );
+    const rangeDOM = document.createElement('input');
+    rangeDOM.type = 'range';
+    rangeDOM.min = min;
+    rangeDOM.max = max;
+    rangeDOM.step = step;
+    rangeDOM.value = value;
 
-		const step = getStep( min, max );
+    const field = new NumberInput(value, min, max, step);
+    field.dom.className = 'range-value';
+    field.onChange(() => {
+      rangeDOM.value = field.getValue();
+    });
 
-		const rangeDOM = document.createElement( 'input' );
-		rangeDOM.type = 'range';
-		rangeDOM.min = min;
-		rangeDOM.max = max;
-		rangeDOM.step = step;
-		rangeDOM.value = value;
+    field.addEventListener('range', () => {
+      rangeDOM.min = field.min;
+      rangeDOM.max = field.max;
+      rangeDOM.step = field.step;
+      rangeDOM.value = field.getValue();
+    });
 
-		const field = new NumberInput( value, min, max, step );
-		field.dom.className = 'range-value';
-		field.onChange( () => {
+    dom.append(rangeDOM);
+    dom.append(field.dom);
 
-			rangeDOM.value = field.getValue();
+    this.rangeDOM = rangeDOM;
+    this.field = field;
 
-		} );
+    const updateRangeValue = () => {
+      let value = Number(rangeDOM.value);
 
-		field.addEventListener( 'range', () => {
+      if (value !== this.max && value + this.step >= this.max) {
+        // fix not end range fraction
 
-			rangeDOM.min = field.min;
-			rangeDOM.max = field.max;
-			rangeDOM.step = field.step;
-			rangeDOM.value = field.getValue();
+        rangeDOM.value = value = this.max;
+      }
 
-		} );
+      this.field.setValue(value);
+    };
 
-		dom.append( rangeDOM );
-		dom.append( field.dom );
+    draggableDOM(
+      rangeDOM,
+      () => {
+        updateRangeValue();
 
-		this.rangeDOM = rangeDOM;
-		this.field = field;
+        this.dispatchEvent(new Event('change'));
+      },
+      ''
+    );
+  }
 
-		const updateRangeValue = () => {
+  get min() {
+    return this.field.min;
+  }
 
-			let value = Number( rangeDOM.value );
+  get max() {
+    return this.field.max;
+  }
 
-			if ( value !== this.max && value + this.step >= this.max ) {
+  get step() {
+    return this.field.step;
+  }
 
-				// fix not end range fraction
+  setRange(min, max) {
+    this.field.setRange(min, max, getStep(min, max));
 
-				rangeDOM.value = value = this.max;
+    this.dispatchEvent(new Event('range'));
+    this.dispatchEvent(new Event('change'));
 
-			}
+    return this;
+  }
 
-			this.field.setValue( value );
+  setValue(val, dispatch = true) {
+    this.field.setValue(val);
+    this.rangeDOM.value = val;
 
-		};
+    if (dispatch) this.dispatchEvent(new Event('change'));
 
-		draggableDOM( rangeDOM, () => {
+    return this;
+  }
 
-			updateRangeValue();
+  getValue() {
+    return this.field.getValue();
+  }
 
-			this.dispatchEvent( new Event( 'change' ) );
+  serialize(data) {
+    data.min = this.min;
+    data.max = this.max;
 
-		}, '' );
+    super.serialize(data);
+  }
 
-	}
+  deserialize(data) {
+    const { min, max } = data;
 
-	get min() {
+    this.setRange(min, max);
 
-		return this.field.min;
-
-	}
-
-	get max() {
-
-		return this.field.max;
-
-	}
-
-	get step() {
-
-		return this.field.step;
-
-	}
-
-	setRange( min, max ) {
-
-		this.field.setRange( min, max, getStep( min, max ) );
-
-		this.dispatchEvent( new Event( 'range' ) );
-		this.dispatchEvent( new Event( 'change' ) );
-
-		return this;
-
-	}
-
-	setValue( val, dispatch = true ) {
-
-		this.field.setValue( val );
-		this.rangeDOM.value = val;
-
-		if ( dispatch ) this.dispatchEvent( new Event( 'change' ) );
-
-		return this;
-
-	}
-
-	getValue() {
-
-		return this.field.getValue();
-
-	}
-
-	serialize( data ) {
-
-		data.min = this.min;
-		data.max = this.max;
-
-		super.serialize( data );
-
-	}
-
-	deserialize( data ) {
-
-		const { min, max } = data;
-
-		this.setRange( min, max );
-
-		super.deserialize( data );
-
-	}
-
+    super.deserialize(data);
+  }
 }
 
 class ColorInput extends Input {
+  constructor(value = 0x0099ff) {
+    const dom = document.createElement('input');
+    super(dom);
 
-	constructor( value = 0x0099ff ) {
+    dom.type = 'color';
+    dom.value = toHex(value);
 
-		const dom = document.createElement( 'input' );
-		super( dom );
+    dom.oninput = () => {
+      this.dispatchEvent(new Event('change'));
+    };
+  }
 
-		dom.type = 'color';
-		dom.value = toHex( value );
+  setValue(value, dispatch = true) {
+    return super.setValue(toHex(value), dispatch);
+  }
 
-		dom.oninput = () => {
-
-			this.dispatchEvent( new Event( 'change' ) );
-
-		};
-
-	}
-
-	setValue( value, dispatch = true ) {
-
-		return super.setValue( toHex( value ), dispatch );
-
-	}
-
-	getValue() {
-
-		return parseInt( super.getValue().slice( 1 ), 16 );
-
-	}
-
+  getValue() {
+    return parseInt(super.getValue().slice(1), 16);
+  }
 }
 
 class TextInput extends Input {
+  constructor(innerText = '') {
+    const dom = document.createElement('textarea');
+    super(dom);
 
-	constructor( innerText = '' ) {
+    dom.innerText = innerText;
+  }
 
-		const dom = document.createElement( 'textarea' );
-		super( dom );
+  setValue(val) {
+    this.dom.innerText = val;
 
-		dom.innerText = innerText;
+    return this;
+  }
 
-	}
-
-	setValue( val ) {
-
-		this.dom.innerText = val;
-
-		return this;
-
-	}
-
-	getValue() {
-
-		return this.dom.innerText;
-
-	}
-
+  getValue() {
+    return this.dom.innerText;
+  }
 }
 
 class LabelElement extends Element {
+  constructor(label = '', align = '') {
+    super();
 
-	constructor( label = '', align = '' ) {
+    this.labelDOM = document.createElement('f-label');
+    this.inputsDOM = document.createElement('f-inputs');
 
-		super();
+    const spanDOM = document.createElement('span');
+    const iconDOM = document.createElement('i');
 
-		this.labelDOM = document.createElement( 'f-label' );
-		this.inputsDOM = document.createElement( 'f-inputs' );
+    this.spanDOM = spanDOM;
+    this.iconDOM = iconDOM;
 
-		const spanDOM = document.createElement( 'span' );
-		const iconDOM = document.createElement( 'i' );
+    this.labelDOM.append(this.spanDOM);
+    this.labelDOM.append(this.iconDOM);
 
-		this.spanDOM = spanDOM;
-		this.iconDOM = iconDOM;
+    this.dom.append(this.labelDOM);
+    this.dom.append(this.inputsDOM);
 
-		this.labelDOM.append( this.spanDOM );
-		this.labelDOM.append( this.iconDOM );
+    this.serializeLabel = false;
 
-		this.dom.append( this.labelDOM );
-		this.dom.append( this.inputsDOM );
+    this.setLabel(label);
+    this.setAlign(align);
+  }
 
-		this.serializeLabel = false;
+  setIcon(value) {
+    this.iconDOM.className = value;
 
-		this.setLabel( label );
-		this.setAlign( align );
+    return this;
+  }
 
-	}
+  getIcon() {
+    return this.iconDOM.className;
+  }
 
-	setIcon( value ) {
+  setAlign(align) {
+    this.labelDOM.className = align;
+  }
 
-		this.iconDOM.className = value;
+  setLabel(val) {
+    this.spanDOM.innerText = val;
+  }
 
-		return this;
+  getLabel() {
+    return this.spanDOM.innerText;
+  }
 
-	}
+  serialize(data) {
+    super.serialize(data);
 
-	getIcon() {
+    if (this.serializeLabel) {
+      const label = this.getLabel();
+      const icon = this.getIcon();
 
-		return this.iconDOM.className;
+      data.label = label;
 
-	}
+      if (icon !== '') {
+        data.icon = icon;
+      }
+    }
+  }
 
-	setAlign( align ) {
+  deserialize(data) {
+    super.deserialize(data);
 
-		this.labelDOM.className = align;
+    if (this.serializeLabel) {
+      this.setLabel(data.label);
 
-	}
-
-	setLabel( val ) {
-
-		this.spanDOM.innerText = val;
-
-	}
-
-	getLabel() {
-
-		return this.spanDOM.innerText;
-
-	}
-
-	serialize( data ) {
-
-		super.serialize( data );
-
-		if ( this.serializeLabel ) {
-
-			const label = this.getLabel();
-			const icon = this.getIcon();
-
-			data.label = label;
-
-			if ( icon !== '' ) {
-
-				data.icon = icon;
-
-			}
-
-		}
-
-	}
-
-	deserialize( data ) {
-
-		super.deserialize( data );
-
-		if ( this.serializeLabel ) {
-
-			this.setLabel( data.label );
-
-			if ( data.icon !== undefined ) {
-
-				this.setIcon( data.icon );
-
-			}
-
-		}
-
-	}
-
+      if (data.icon !== undefined) {
+        this.setIcon(data.icon);
+      }
+    }
+  }
 }
 
 class PanelNode extends Node {
+  constructor(title = 'Panel', align = 'top-right') {
+    super();
 
-	constructor( title = 'Panel', align = 'top-right' ) {
+    const titleElement = new TitleElement(title);
+    this.add(titleElement);
 
-		super();
+    const collapseButton = new ButtonInput('🗕');
+    collapseButton.onClick(() => {
+      this.setCollapse(!this.collapsed);
+    });
 
-		const titleElement = new TitleElement( title );
-		this.add( titleElement );
+    titleElement.addButton(collapseButton);
 
-		const collapseButton = new ButtonInput( '🗕' );
-		collapseButton.onClick( () => {
+    this.collapseButton = collapseButton;
+    this.titleElement = titleElement;
+    this.align = align;
+    this.collapsed = false;
 
-			this.setCollapse( ! this.collapsed );
+    this.setAlign(align);
+    this.setStyle('rouded');
+  }
 
-		} );
+  setCollapse(value) {
+    const cssClass = 'closed';
 
-		titleElement.addButton( collapseButton );
+    this.dom.classList.remove(cssClass);
 
-		this.collapseButton = collapseButton;
-		this.titleElement = titleElement;
-		this.align = align;
-		this.collapsed = false;
+    this.collapsed = value;
 
-		this.setAlign( align );
-		this.setStyle( 'rouded' );
+    this.collapseButton.value = value ? '🗖' : '🗕';
 
-	}
+    if (value === true) {
+      this.dom.classList.add(cssClass);
+    }
 
-	setCollapse( value ) {
+    return this;
+  }
 
-		const cssClass = 'closed';
+  setAlign(align) {
+    if (this.align) this.dom.classList.remove(this.align);
+    this.dom.classList.add(align);
 
-		this.dom.classList.remove( cssClass );
+    this.align = align;
 
-		this.collapsed = value;
+    return this;
+  }
 
-		this.collapseButton.value = value ? '🗖' : '🗕';
+  addInput(inputClass, object, property, ...params) {
+    const value = object[property];
 
-		if ( value === true ) {
+    const input = new inputClass(value, ...params);
+    input.onChange(() => {
+      object[property] = input.value;
+    });
 
-			this.dom.classList.add( cssClass );
+    this.add(new LabelElement(property).add(input));
 
-		}
+    return input;
+  }
 
-		return this;
+  addSlider(object, property, min, max) {
+    return this.addInput(SliderInput, object, property, min, max);
+  }
 
-	}
+  addNumber(object, property) {
+    return this.addInput(NumberInput, object, property);
+  }
 
-	setAlign( align ) {
+  addColor(object, property) {
+    return this.addInput(ColorInput, object, property);
+  }
 
-		if ( this.align ) this.dom.classList.remove( this.align );
-		this.dom.classList.add( align );
+  addString(object, property) {
+    return this.addInput(StringInput, object, property);
+  }
 
-		this.align = align;
+  addText(object, property) {
+    const input = this.addInput(TextInput, object, property);
+    input.element.setHeight(70);
 
-		return this;
+    return input;
+  }
 
-	}
+  addButton(name) {
+    const input = new ButtonInput(name);
 
-	addInput( inputClass, object, property, ...params ) {
+    this.add(new Element().setHeight(34).add(input));
 
-		const value = object[ property ];
-
-		const input = new inputClass( value, ...params );
-		input.onChange( () => {
-
-			object[ property ] = input.value;
-
-		} );
-
-		this.add( new LabelElement( property ).add( input ) );
-
-		return input;
-
-	}
-
-	addSlider( object, property, min, max ) {
-
-		return this.addInput( SliderInput, object, property, min, max );
-
-	}
-
-	addNumber( object, property ) {
-
-		return this.addInput( NumberInput, object, property );
-
-	}
-
-	addColor( object, property ) {
-
-		return this.addInput( ColorInput, object, property );
-
-	}
-
-	addString( object, property ) {
-
-		return this.addInput( StringInput, object, property );
-
-	}
-
-	addText( object, property ) {
-
-		const input = this.addInput( TextInput, object, property );
-		input.element.setHeight( 70 );
-
-		return input;
-
-	}
-
-	addButton( name ) {
-
-		const input = new ButtonInput( name );
-
-		this.add( new Element().setHeight( 34 ).add( input ) );
-
-		return input;
-
-	}
-
+    return input;
+  }
 }
 
 class Menu extends EventTarget {
+  constructor(className) {
+    super();
 
-	constructor( className ) {
+    const dom = document.createElement('f-menu');
+    dom.className = className + ' hidden';
 
-		super();
+    const listDOM = document.createElement('f-list');
 
-		const dom = document.createElement( 'f-menu' );
-		dom.className = className + ' hidden';
+    dom.append(listDOM);
 
-		const listDOM = document.createElement( 'f-list' );
+    this.dom = dom;
+    this.listDOM = listDOM;
 
-		dom.append( listDOM );
+    this.visible = false;
 
-		this.dom = dom;
-		this.listDOM = listDOM;
+    this.subMenus = new WeakMap();
+    this.domButtons = new WeakMap();
 
-		this.visible = false;
+    this.buttons = [];
 
-		this.subMenus = new WeakMap();
-		this.domButtons = new WeakMap();
+    this.events = {};
+  }
 
-		this.buttons = [];
+  onContext(callback) {
+    this.events.context.push(callback);
 
-		this.events = {};
+    return this;
+  }
 
-	}
+  show() {
+    this.dom.classList.remove('hidden');
 
-	onContext( callback ) {
+    this.visible = true;
 
-		this.events.context.push( callback );
+    this.dispatchEvent(new Event('show'));
 
-		return this;
+    return this;
+  }
 
-	}
+  hide() {
+    this.dom.classList.add('hidden');
 
-	show() {
+    this.dispatchEvent(new Event('hide'));
 
-		this.dom.classList.remove( 'hidden' );
+    this.visible = false;
+  }
 
-		this.visible = true;
+  add(button, submenu = null) {
+    const liDOM = document.createElement('f-item');
 
-		this.dispatchEvent( new Event( 'show' ) );
+    if (submenu !== null) {
+      liDOM.classList.add('submenu');
 
-		return this;
+      liDOM.append(submenu.dom);
 
-	}
+      this.subMenus.set(button, submenu);
 
-	hide() {
+      button.dom.addEventListener('mouseover', () => submenu.show());
+      button.dom.addEventListener('mouseout', () => submenu.hide());
+    }
 
-		this.dom.classList.add( 'hidden' );
+    liDOM.append(button.dom);
 
-		this.dispatchEvent( new Event( 'hide' ) );
+    this.buttons.push(button);
 
-		this.visible = false;
+    this.listDOM.append(liDOM);
 
-	}
+    this.domButtons.set(button, liDOM);
 
-	add( button, submenu = null ) {
+    return this;
+  }
 
-		const liDOM = document.createElement( 'f-item' );
+  clear() {
+    this.buttons = [];
 
-		if ( submenu !== null ) {
+    this.subMenus = new WeakMap();
+    this.domButtons = new WeakMap();
 
-			liDOM.classList.add( 'submenu' );
-
-			liDOM.append( submenu.dom );
-
-			this.subMenus.set( button, submenu );
-
-			button.dom.addEventListener( 'mouseover', () => submenu.show() );
-			button.dom.addEventListener( 'mouseout', () => submenu.hide() );
-
-		}
-
-		liDOM.append( button.dom );
-
-		this.buttons.push( button );
-
-		this.listDOM.append( liDOM );
-
-		this.domButtons.set( button, liDOM );
-
-		return this;
-
-	}
-
-	clear() {
-
-		this.buttons = [];
-
-		this.subMenus = new WeakMap();
-		this.domButtons = new WeakMap();
-
-		while ( this.listDOM.firstChild ) {
-
-			this.listDOM.firstChild.remove();
-
-		}
-
-	}
-
+    while (this.listDOM.firstChild) {
+      this.listDOM.firstChild.remove();
+    }
+  }
 }
 
 let lastContext = null;
 
-const onCloseLastContext = ( e ) => {
-
-	if ( lastContext && lastContext.visible === true && e.target.closest( 'f-menu.context' ) === null ) {
-
-		lastContext.hide();
-
-	}
-
+const onCloseLastContext = (e) => {
+  if (
+    lastContext &&
+    lastContext.visible === true &&
+    e.target.closest('f-menu.context') === null
+  ) {
+    lastContext.hide();
+  }
 };
 
-document.body.addEventListener( 'mousedown', onCloseLastContext, true );
-document.body.addEventListener( 'touchstart', onCloseLastContext, true );
+document.body.addEventListener('mousedown', onCloseLastContext, true);
+document.body.addEventListener('touchstart', onCloseLastContext, true);
 
 class ContextMenu extends Menu {
+  constructor(target = null) {
+    super('context', target);
 
-	constructor( target = null ) {
+    this.events.context = [];
 
-		super( 'context', target );
+    this._lastButtonClick = null;
 
-		this.events.context = [];
+    this._onButtonClick = (e = null) => {
+      const button = e ? e.target : null;
 
-		this._lastButtonClick = null;
+      if (this._lastButtonClick) {
+        this._lastButtonClick.dom.parentElement.classList.remove('active');
+      }
 
-		this._onButtonClick = ( e = null ) => {
+      this._lastButtonClick = button;
 
-			const button = e ? e.target : null;
+      if (button) {
+        if (this.subMenus.has(button)) {
+          this.subMenus.get(button)._onButtonClick();
+        }
 
-			if ( this._lastButtonClick ) {
+        button.dom.parentElement.classList.add('active');
+      }
+    };
 
-				this._lastButtonClick.dom.parentElement.classList.remove( 'active' );
+    this._onButtonMouseOver = (e) => {
+      const button = e.target;
 
-			}
+      if (this.subMenus.has(button) && this._lastButtonClick !== button) {
+        this._onButtonClick();
+      }
+    };
 
-			this._lastButtonClick = button;
+    this.addEventListener('context', () => {
+      dispatchEventList(this.events.context, this);
+    });
 
-			if ( button ) {
+    this.setTarget(target);
+  }
 
-				if ( this.subMenus.has( button ) ) {
+  openFrom(dom) {
+    const rect = dom.getBoundingClientRect();
 
-					this.subMenus.get( button )._onButtonClick();
+    return this.open(rect.x + rect.width / 2, rect.y + rect.height / 2);
+  }
 
-				}
+  open(x = pointer.x, y = pointer.y) {
+    if (lastContext !== null) {
+      lastContext.hide();
+    }
 
-				button.dom.parentElement.classList.add( 'active' );
+    lastContext = this;
 
-			}
+    this.setPosition(x, y);
 
-		};
+    document.body.append(this.dom);
 
-		this._onButtonMouseOver = ( e ) => {
+    return this.show();
+  }
 
-			const button = e.target;
+  setPosition(x, y) {
+    const dom = this.dom;
 
-			if ( this.subMenus.has( button ) && this._lastButtonClick !== button ) {
+    dom.style.left = toPX(x);
+    dom.style.top = toPX(y);
 
-				this._onButtonClick();
+    return this;
+  }
 
-			}
+  setTarget(target = null) {
+    if (target !== null) {
+      const onContextMenu = (e) => {
+        e.preventDefault();
 
-		};
+        if (e.pointerType !== 'mouse' || (e.pageX === 0 && e.pageY === 0))
+          return;
 
-		this.addEventListener( 'context', ( ) => {
+        this.dispatchEvent(new Event('context'));
 
-			dispatchEventList( this.events.context, this );
+        this.open();
+      };
 
-		} );
+      this.target = target;
 
-		this.setTarget( target );
+      target.addEventListener('contextmenu', onContextMenu, false);
+    }
 
-	}
+    return this;
+  }
 
-	openFrom( dom ) {
+  show() {
+    if (!this.opened) {
+      this.dom.style.left = '';
+      this.dom.style.transform = '';
+    }
 
-		const rect = dom.getBoundingClientRect();
+    const domRect = this.dom.getBoundingClientRect();
 
-		return this.open( rect.x + ( rect.width / 2 ), rect.y + ( rect.height / 2 ) );
-
-	}
-
-	open( x = pointer.x, y = pointer.y ) {
-
-		if ( lastContext !== null ) {
-
-			lastContext.hide();
-
-		}
-
-		lastContext = this;
-
-		this.setPosition( x, y );
-
-		document.body.append( this.dom );
-
-		return this.show();
-
-	}
-
-	setPosition( x, y ) {
-
-		const dom = this.dom;
-
-		dom.style.left = toPX( x );
-		dom.style.top = toPX( y );
-
-		return this;
-
-	}
-
-	setTarget( target = null ) {
-
-		if ( target !== null ) {
-
-			const onContextMenu = ( e ) => {
-
-				e.preventDefault();
-
-				if ( e.pointerType !== 'mouse' || ( e.pageX === 0 && e.pageY === 0 ) ) return;
-
-				this.dispatchEvent( new Event( 'context' ) );
-
-				this.open();
-
-			};
-
-			this.target = target;
-
-			target.addEventListener( 'contextmenu', onContextMenu, false );
-
-		}
-
-		return this;
-
-	}
-
-	show() {
-
-		if ( ! this.opened ) {
-
-			this.dom.style.left = '';
-			this.dom.style.transform = '';
-
-		}
-
-		const domRect = this.dom.getBoundingClientRect();
-
-		let offsetX = Math.min( window.innerWidth - ( domRect.x + domRect.width + 10 ), 0 );
-		let offsetY = Math.min( window.innerHeight - ( domRect.y + domRect.height + 10 ), 0 );
-
-		if ( this.opened ) {
-
-			if ( offsetX < 0 ) offsetX = - domRect.width;
-			if ( offsetY < 0 ) offsetY = - domRect.height;
-
-			this.setPosition( domRect.x + offsetX, domRect.y + offsetY );
-
-		} else {
-
-			// flip submenus
-
-			if ( offsetX < 0 ) this.dom.style.left = '-100%';
-			if ( offsetY < 0 ) this.dom.style.transform = 'translateY( calc( 32px - 100% ) )';
-
-		}
-
-		return super.show();
-
-	}
-
-	hide() {
-
-		if ( this.opened ) {
-
-			lastContext = null;
-
-		}
-
-		return super.hide();
-
-	}
-
-	add( button, submenu = null ) {
-
-		button.addEventListener( 'click', this._onButtonClick );
-		button.addEventListener( 'mouseover', this._onButtonMouseOver );
-
-		return super.add( button, submenu );
-
-	}
-
-	get opened() {
-
-		return lastContext === this;
-
-	}
-
+    let offsetX = Math.min(
+      window.innerWidth - (domRect.x + domRect.width + 10),
+      0
+    );
+    let offsetY = Math.min(
+      window.innerHeight - (domRect.y + domRect.height + 10),
+      0
+    );
+
+    if (this.opened) {
+      if (offsetX < 0) offsetX = -domRect.width;
+      if (offsetY < 0) offsetY = -domRect.height;
+
+      this.setPosition(domRect.x + offsetX, domRect.y + offsetY);
+    } else {
+      // flip submenus
+
+      if (offsetX < 0) this.dom.style.left = '-100%';
+      if (offsetY < 0)
+        this.dom.style.transform = 'translateY( calc( 32px - 100% ) )';
+    }
+
+    return super.show();
+  }
+
+  hide() {
+    if (this.opened) {
+      lastContext = null;
+    }
+
+    return super.hide();
+  }
+
+  add(button, submenu = null) {
+    button.addEventListener('click', this._onButtonClick);
+    button.addEventListener('mouseover', this._onButtonMouseOver);
+
+    return super.add(button, submenu);
+  }
+
+  get opened() {
+    return lastContext === this;
+  }
 }
 
 class CircleMenu extends Menu {
-
-	constructor( target = null ) {
-
-		super( 'circle', target );
-
-	}
-
+  constructor(target = null) {
+    super('circle', target);
+  }
 }
 
 class Tips extends EventTarget {
+  constructor() {
+    super();
 
-	constructor() {
+    const dom = document.createElement('f-tips');
 
-		super();
+    this.dom = dom;
 
-		const dom = document.createElement( 'f-tips' );
+    this.time = 0;
+    this.duration = 3000;
+  }
 
-		this.dom = dom;
+  message(str) {
+    return this.tip(str);
+  }
 
-		this.time = 0;
-		this.duration = 3000;
+  error(str) {
+    return this.tip(str, 'error');
+  }
 
-	}
+  tip(html, className = '') {
+    const dom = document.createElement('f-tip');
+    dom.className = className;
+    dom.innerHTML = html;
 
-	message( str ) {
+    this.dom.prepend(dom);
 
-		return this.tip( str );
+    //requestAnimationFrame( () => dom.style.opacity = 1 );
 
-	}
+    this.time = Math.min(this.time + this.duration, this.duration);
 
-	error( str ) {
+    setTimeout(() => {
+      this.time -= this.duration;
 
-		return this.tip( str, 'error' );
+      dom.style.opacity = 0;
 
-	}
+      setTimeout(() => dom.remove(), 250);
+    }, this.time);
 
-	tip( html, className = '' ) {
-
-		const dom = document.createElement( 'f-tip' );
-		dom.className = className;
-		dom.innerHTML = html;
-
-		this.dom.prepend( dom );
-
-		//requestAnimationFrame( () => dom.style.opacity = 1 );
-
-		this.time = Math.min( this.time + this.duration, this.duration );
-
-		setTimeout( () => {
-
-			this.time -= this.duration;
-
-			dom.style.opacity = 0;
-
-			setTimeout( () => dom.remove(), 250 );
-
-		}, this.time );
-
-		return this;
-
-	}
-
+    return this;
+  }
 }
 
-const filterString = ( str ) => {
-
-	return str.trim().toLowerCase().replace( /\s\s+/g, ' ' );
-
+const filterString = (str) => {
+  return str.trim().toLowerCase().replace(/\s\s+/g, ' ');
 };
 
 class Search extends Menu {
+  constructor() {
+    super('search');
 
-	constructor() {
+    this.events.submit = [];
+    this.events.filter = [];
 
-		super( 'search' );
+    const inputDOM = document.createElement('input');
+    inputDOM.placeholder = 'Type here';
 
-		this.events.submit = [];
-		this.events.filter = [];
+    let filter = true;
+    let filterNeedUpdate = true;
 
-		const inputDOM = document.createElement( 'input' );
-		inputDOM.placeholder = 'Type here';
+    inputDOM.addEventListener('focusout', () => {
+      filterNeedUpdate = true;
 
-		let filter = true;
-		let filterNeedUpdate = true;
+      this.setValue('');
+    });
 
-		inputDOM.addEventListener( 'focusout', () => {
+    inputDOM.onkeydown = (e) => {
+      const keyCode = e.keyCode;
 
-			filterNeedUpdate = true;
+      if (keyCode === 38) {
+        const index = this.filteredIndex;
 
-			this.setValue( '' );
+        if (this.forceAutoComplete) {
+          this.filteredIndex =
+            index !== null ? (index + 1) % (this.filtered.length || 1) : 0;
+        } else {
+          this.filteredIndex =
+            index !== null ? Math.min(index + 1, this.filtered.length - 1) : 0;
+        }
 
-		} );
+        e.preventDefault();
 
-		inputDOM.onkeydown = ( e ) => {
+        filter = false;
+      } else if (keyCode === 40) {
+        const index = this.filteredIndex;
 
-			const keyCode = e.keyCode;
+        if (this.forceAutoComplete) {
+          this.filteredIndex = index - 1;
 
-			if ( keyCode === 38 ) {
+          if (this.filteredIndex === null)
+            this.filteredIndex = this.filtered.length - 1;
+        } else {
+          this.filteredIndex = index !== null ? index - 1 : null;
+        }
 
-				const index = this.filteredIndex;
+        e.preventDefault();
 
-				if ( this.forceAutoComplete ) {
+        filter = false;
+      } else if (keyCode === 13) {
+        this.value = this.currentFiltered
+          ? this.currentFiltered.button.getValue()
+          : inputDOM.value;
 
-					this.filteredIndex = index !== null ? ( index + 1 ) % ( this.filtered.length || 1 ) : 0;
+        this.submit();
 
-				} else {
+        e.preventDefault();
 
-					this.filteredIndex = index !== null ? Math.min( index + 1, this.filtered.length - 1 ) : 0;
+        filter = false;
+      } else {
+        filter = true;
+      }
+    };
 
-				}
+    inputDOM.onkeyup = () => {
+      if (filter) {
+        if (filterNeedUpdate) {
+          this.dispatchEvent(new Event('filter'));
 
-				e.preventDefault();
+          filterNeedUpdate = false;
+        }
 
-				filter = false;
+        this.filter(inputDOM.value);
+      }
+    };
 
-			} else if ( keyCode === 40 ) {
+    this.filtered = [];
+    this.currentFiltered = null;
 
-				const index = this.filteredIndex;
+    this.value = '';
 
-				if ( this.forceAutoComplete ) {
+    this.forceAutoComplete = false;
 
-					this.filteredIndex = index - 1;
+    this.dom.append(inputDOM);
 
-					if ( this.filteredIndex === null ) this.filteredIndex = this.filtered.length - 1;
+    this.inputDOM = inputDOM;
 
-				} else {
+    this.addEventListener('filter', () => {
+      dispatchEventList(this.events.filter, this);
+    });
 
-					this.filteredIndex = index !== null ? index - 1 : null;
+    this.addEventListener('submit', () => {
+      dispatchEventList(this.events.submit, this);
+    });
+  }
 
-				}
+  submit() {
+    this.dispatchEvent(new Event('submit'));
 
-				e.preventDefault();
+    return this.setValue('');
+  }
 
-				filter = false;
+  setValue(value) {
+    this.inputDOM.value = value;
 
-			} else if ( keyCode === 13 ) {
+    this.filter(value);
 
-				this.value = this.currentFiltered ? this.currentFiltered.button.getValue() : inputDOM.value;
+    return this;
+  }
 
-				this.submit();
+  getValue() {
+    return this.value;
+  }
 
-				e.preventDefault();
+  onFilter(callback) {
+    this.events.filter.push(callback);
 
-				filter = false;
+    return this;
+  }
 
-			} else {
+  onSubmit(callback) {
+    this.events.submit.push(callback);
 
-				filter = true;
+    return this;
+  }
 
-			}
+  getFilterByButton(button) {
+    for (const filter of this.filtered) {
+      if (filter.button === button) {
+        return filter;
+      }
+    }
 
-		};
+    return null;
+  }
 
-		inputDOM.onkeyup = () => {
+  add(button) {
+    super.add(button);
 
-			if ( filter ) {
+    const onDown = () => {
+      const filter = this.getFilterByButton(button);
 
-				if ( filterNeedUpdate ) {
+      this.filteredIndex = this.filtered.indexOf(filter);
+      this.value = button.getValue();
 
-					this.dispatchEvent( new Event( 'filter' ) );
+      this.submit();
+    };
 
-					filterNeedUpdate = false;
+    button.dom.addEventListener('mousedown', onDown);
+    button.dom.addEventListener('touchstart', onDown);
 
-				}
+    this.domButtons.get(button).remove();
 
-				this.filter( inputDOM.value );
+    return this;
+  }
 
-			}
+  set filteredIndex(index) {
+    if (this.currentFiltered) {
+      const buttonDOM = this.domButtons.get(this.currentFiltered.button);
 
-		};
+      buttonDOM.classList.remove('active');
 
-		this.filtered = [];
-		this.currentFiltered = null;
+      this.currentFiltered = null;
+    }
 
-		this.value = '';
+    const filteredItem = this.filtered[index];
 
-		this.forceAutoComplete = false;
+    if (filteredItem) {
+      const buttonDOM = this.domButtons.get(filteredItem.button);
 
-		this.dom.append( inputDOM );
+      buttonDOM.classList.add('active');
 
-		this.inputDOM = inputDOM;
+      this.currentFiltered = filteredItem;
+    }
 
-		this.addEventListener( 'filter', ( ) => {
+    this.updateFilter();
+  }
 
-			dispatchEventList( this.events.filter, this );
+  get filteredIndex() {
+    return this.currentFiltered
+      ? this.filtered.indexOf(this.currentFiltered)
+      : null;
+  }
 
-		} );
+  filter(text) {
+    text = filterString(text);
 
-		this.addEventListener( 'submit', ( ) => {
+    const filtered = [];
 
-			dispatchEventList( this.events.submit, this );
+    for (const button of this.buttons) {
+      const buttonDOM = this.domButtons.get(button);
 
-		} );
+      buttonDOM.remove();
 
-	}
+      const label = filterString(button.getValue());
 
-	submit() {
+      if (text && label.includes(text) === true) {
+        const score = text.length / label.length;
 
-		this.dispatchEvent( new Event( 'submit' ) );
+        filtered.push({
+          button,
+          score,
+        });
+      }
+    }
 
-		return this.setValue( '' );
+    filtered.sort((a, b) => b.score - a.score);
 
-	}
+    this.filtered = filtered;
+    this.filteredIndex = this.forceAutoComplete ? 0 : null;
+  }
 
-	setValue( value ) {
+  updateFilter() {
+    const filteredIndex = Math.min(this.filteredIndex, this.filteredIndex - 3);
 
-		this.inputDOM.value = value;
+    for (let i = 0; i < this.filtered.length; i++) {
+      const button = this.filtered[i].button;
+      const buttonDOM = this.domButtons.get(button);
 
-		this.filter( value );
+      buttonDOM.remove();
 
-		return this;
-
-	}
-
-	getValue() {
-
-		return this.value;
-
-	}
-
-	onFilter( callback ) {
-
-		this.events.filter.push( callback );
-
-		return this;
-
-	}
-
-	onSubmit( callback ) {
-
-		this.events.submit.push( callback );
-
-		return this;
-
-	}
-
-	getFilterByButton( button ) {
-
-		for ( const filter of this.filtered ) {
-
-			if ( filter.button === button ) {
-
-				return filter;
-
-			}
-
-		}
-
-		return null;
-
-	}
-
-	add( button ) {
-
-		super.add( button );
-
-		const onDown = () => {
-
-			const filter = this.getFilterByButton( button );
-
-			this.filteredIndex = this.filtered.indexOf( filter );
-			this.value = button.getValue();
-
-			this.submit();
-
-		};
-
-		button.dom.addEventListener( 'mousedown', onDown );
-		button.dom.addEventListener( 'touchstart', onDown );
-
-		this.domButtons.get( button ).remove();
-
-		return this;
-
-	}
-
-	set filteredIndex( index ) {
-
-		if ( this.currentFiltered ) {
-
-			const buttonDOM = this.domButtons.get( this.currentFiltered.button );
-
-			buttonDOM.classList.remove( 'active' );
-
-			this.currentFiltered = null;
-
-		}
-
-		const filteredItem = this.filtered[ index ];
-
-		if ( filteredItem ) {
-
-			const buttonDOM = this.domButtons.get( filteredItem.button );
-
-			buttonDOM.classList.add( 'active' );
-
-			this.currentFiltered = filteredItem;
-
-		}
-
-		this.updateFilter();
-
-	}
-
-	get filteredIndex() {
-
-		return this.currentFiltered ? this.filtered.indexOf( this.currentFiltered ) : null;
-
-	}
-
-	filter( text ) {
-
-		text = filterString( text );
-
-		const filtered = [];
-
-		for ( const button of this.buttons ) {
-
-			const buttonDOM = this.domButtons.get( button );
-
-			buttonDOM.remove();
-
-			const label = filterString( button.getValue() );
-
-			if ( text && label.includes( text ) === true ) {
-
-				const score = text.length / label.length;
-
-				filtered.push( {
-					button,
-					score
-				} );
-
-			}
-
-		}
-
-		filtered.sort( ( a, b ) => b.score - a.score );
-
-		this.filtered = filtered;
-		this.filteredIndex = this.forceAutoComplete ? 0 : null;
-
-	}
-
-	updateFilter() {
-
-		const filteredIndex = Math.min( this.filteredIndex, this.filteredIndex - 3 );
-
-		for ( let i = 0; i < this.filtered.length; i ++ ) {
-
-			const button = this.filtered[ i ].button;
-			const buttonDOM = this.domButtons.get( button );
-
-			buttonDOM.remove();
-
-			if ( i >= filteredIndex ) {
-
-				this.listDOM.append( buttonDOM );
-
-			}
-
-		}
-
-	}
-
+      if (i >= filteredIndex) {
+        this.listDOM.append(buttonDOM);
+      }
+    }
+  }
 }
 
 class SelectInput extends Input {
+  constructor(options = [], value = null) {
+    const dom = document.createElement('select');
+    super(dom);
 
-	constructor( options = [], value = null ) {
+    dom.onchange = () => {
+      this.dispatchEvent(new Event('change'));
+    };
 
-		const dom = document.createElement( 'select' );
-		super( dom );
+    dom.onmousedown = dom.ontouchstart = () => {
+      this.dispatchEvent(new Event('click'));
+    };
 
-		dom.onchange = () => {
+    this.setOptions(options, value);
+  }
 
-			this.dispatchEvent( new Event( 'change' ) );
+  setOptions(options, value = null) {
+    const dom = this.dom;
+    const defaultValue = dom.value;
 
-		};
+    let containsDefaultValue = false;
 
-		dom.onmousedown = dom.ontouchstart = () => {
+    this.options = options;
+    dom.innerHTML = '';
 
-			this.dispatchEvent( new Event( 'click' ) );
+    for (let index = 0; index < options.length; index++) {
+      let opt = options[index];
 
-		};
+      if (typeof opt === 'string') {
+        opt = { name: opt, value: index };
+      }
 
-		this.setOptions( options, value );
+      const option = document.createElement('option');
+      option.innerText = opt.name;
+      option.value = opt.value;
 
-	}
+      if (containsDefaultValue === false && defaultValue === opt.value) {
+        containsDefaultValue = true;
+      }
 
-	setOptions( options, value = null ) {
+      dom.append(option);
+    }
 
-		const dom = this.dom;
-		const defaultValue = dom.value;
+    dom.value =
+      value !== null ? value : containsDefaultValue ? defaultValue : '';
 
-		let containsDefaultValue = false;
+    return this;
+  }
 
-		this.options = options;
-		dom.innerHTML = '';
+  getOptions() {
+    return this._options;
+  }
 
-		for ( let index = 0; index < options.length; index ++ ) {
+  serialize(data) {
+    data.options = [...this.options];
 
-			let opt = options[ index ];
+    super.serialize(data);
+  }
 
-			if ( typeof opt === 'string' ) {
+  deserialize(data) {
+    const currentOptions = this.options;
 
-				opt = { name: opt, value: index };
+    if (currentOptions.length === 0) {
+      this.setOptions(data.options);
+    }
 
-			}
-
-			const option = document.createElement( 'option' );
-			option.innerText = opt.name;
-			option.value = opt.value;
-
-			if ( containsDefaultValue === false && defaultValue === opt.value ) {
-
-				containsDefaultValue = true;
-
-			}
-
-			dom.append( option );
-
-		}
-
-		dom.value = value !== null ? value : containsDefaultValue ? defaultValue : '';
-
-		return this;
-
-	}
-
-	getOptions() {
-
-		return this._options;
-
-	}
-
-	serialize( data ) {
-
-		data.options = [ ...this.options ];
-
-		super.serialize( data );
-
-	}
-
-	deserialize( data ) {
-
-		const currentOptions = this.options;
-
-		if ( currentOptions.length === 0 ) {
-
-			this.setOptions( data.options );
-
-		}
-
-		super.deserialize( data );
-
-	}
-
+    super.deserialize(data);
+  }
 }
 
 class ToggleInput extends Input {
+  constructor(value = false) {
+    const dom = document.createElement('input');
+    super(dom);
 
-	constructor( value = false ) {
+    dom.type = 'checkbox';
+    dom.className = 'toggle';
+    dom.checked = value;
 
-		const dom = document.createElement( 'input' );
-		super( dom );
+    dom.onclick = () => this.dispatchEvent(new Event('click'));
+    dom.onchange = () => this.dispatchEvent(new Event('change'));
+  }
 
-		dom.type = 'checkbox';
-		dom.className = 'toggle';
-		dom.checked = value;
+  setValue(val) {
+    this.dom.checked = val;
 
-		dom.onclick = () => this.dispatchEvent( new Event( 'click' ) );
-		dom.onchange = () => this.dispatchEvent( new Event( 'change' ) );
+    this.dispatchEvent(new Event('change'));
 
-	}
+    return this;
+  }
 
-	setValue( val ) {
-
-		this.dom.checked = val;
-
-		this.dispatchEvent( new Event( 'change' ) );
-
-		return this;
-
-	}
-
-	getValue() {
-
-		return this.dom.checked;
-
-	}
-
+  getValue() {
+    return this.dom.checked;
+  }
 }
 
-var Flow = /*#__PURE__*/Object.freeze( {
-	__proto__: null,
-	Element: Element,
-	Input: Input,
-	Node: Node,
-	Canvas: Canvas,
-	Serializer: Serializer,
-	Styles: Styles,
-	ObjectNode: ObjectNode,
-	PanelNode: PanelNode,
-	Menu: Menu,
-	ContextMenu: ContextMenu,
-	CircleMenu: CircleMenu,
-	Tips: Tips,
-	Search: Search,
-	DraggableElement: DraggableElement,
-	LabelElement: LabelElement,
-	TitleElement: TitleElement,
-	ButtonInput: ButtonInput,
-	ColorInput: ColorInput,
-	NumberInput: NumberInput,
-	SelectInput: SelectInput,
-	SliderInput: SliderInput,
-	StringInput: StringInput,
-	TextInput: TextInput,
-	ToggleInput: ToggleInput
-} );
+var Flow = /*#__PURE__*/ Object.freeze({
+  __proto__: null,
+  Element: Element,
+  Input: Input,
+  Node: Node,
+  Canvas: Canvas,
+  Serializer: Serializer,
+  Styles: Styles,
+  ObjectNode: ObjectNode,
+  PanelNode: PanelNode,
+  Menu: Menu,
+  ContextMenu: ContextMenu,
+  CircleMenu: CircleMenu,
+  Tips: Tips,
+  Search: Search,
+  DraggableElement: DraggableElement,
+  LabelElement: LabelElement,
+  TitleElement: TitleElement,
+  ButtonInput: ButtonInput,
+  ColorInput: ColorInput,
+  NumberInput: NumberInput,
+  SelectInput: SelectInput,
+  SliderInput: SliderInput,
+  StringInput: StringInput,
+  TextInput: TextInput,
+  ToggleInput: ToggleInput,
+});
 
 class Loader extends EventTarget {
+  constructor(parseType = Loader.DEFAULT) {
+    super();
 
-	constructor( parseType = Loader.DEFAULT ) {
+    this.parseType = parseType;
 
-		super();
+    this.events = {
+      load: [],
+    };
+  }
 
-		this.parseType = parseType;
+  setParseType(type) {
+    this.parseType = type;
 
-		this.events = {
-			'load': []
-		};
+    return this;
+  }
 
-	}
+  getParseType() {
+    return this.parseType;
+  }
 
-	setParseType( type ) {
+  onLoad(callback) {
+    this.events.load.push(callback);
 
-		this.parseType = type;
+    return this;
+  }
 
-		return this;
+  async load(url, lib = null) {
+    return await fetch(url)
+      .then((response) => response.json())
+      .then((result) => {
+        this.data = this.parse(result, lib);
 
-	}
+        dispatchEventList(this.events.load, this);
 
-	getParseType() {
+        return this.data;
+      })
+      .catch((err) => {
+        console.error('Loader:', err);
+      });
+  }
 
-		return this.parseType;
+  parse(json, lib = null) {
+    json = this._parseObjects(json, lib);
 
-	}
+    const parseType = this.parseType;
 
-	onLoad( callback ) {
+    if (parseType === Loader.DEFAULT) {
+      const flowObj = new Flow[json.type]();
 
-		this.events.load.push( callback );
+      if (flowObj.getSerializable()) {
+        flowObj.deserialize(json);
+      }
 
-		return this;
+      return flowObj;
+    } else if (parseType === Loader.OBJECTS) {
+      return json;
+    }
+  }
 
-	}
+  _parseObjects(json, lib = null) {
+    json = { ...json };
 
-	async load( url, lib = null ) {
+    const objects = {};
 
-		return await fetch( url )
-			.then( response => response.json() )
-			.then( result => {
+    for (const id in json.objects) {
+      const obj = json.objects[id];
+      obj.objects = objects;
 
-				this.data = this.parse( result, lib );
+      const Class = lib && lib[obj.type] ? lib[obj.type] : Flow[obj.type];
 
-				dispatchEventList( this.events.load, this );
+      if (!Class) {
+        console.error(`Class "${obj.type}" not found!`);
+      }
 
-				return this.data;
+      objects[id] = new Class();
+    }
 
-			} )
-			.catch( err => {
+    const ref = new WeakMap();
 
-				console.error( 'Loader:', err );
+    const deserializePass = (prop = null) => {
+      for (const id in json.objects) {
+        const newObject = objects[id];
 
-			} );
+        if (
+          ref.has(newObject) === false &&
+          (prop === null || newObject[prop] === true)
+        ) {
+          ref.set(newObject, true);
 
-	}
+          if (newObject.getSerializable()) {
+            newObject.deserialize(json.objects[id]);
+          }
+        }
+      }
+    };
 
-	parse( json, lib = null ) {
+    deserializePass('isNode');
+    deserializePass('isElement');
+    deserializePass('isInput');
+    deserializePass();
 
-		json = this._parseObjects( json, lib );
+    json.objects = objects;
 
-		const parseType = this.parseType;
-
-		if ( parseType === Loader.DEFAULT ) {
-
-			const flowObj = new Flow[ json.type ]();
-
-			if ( flowObj.getSerializable() ) {
-
-				flowObj.deserialize( json );
-
-			}
-
-			return flowObj;
-
-		} else if ( parseType === Loader.OBJECTS ) {
-
-			return json;
-
-		}
-
-	}
-
-	_parseObjects( json, lib = null ) {
-
-		json = { ...json };
-
-		const objects = {};
-
-		for ( const id in json.objects ) {
-
-			const obj = json.objects[ id ];
-			obj.objects = objects;
-
-			const Class = lib && lib[ obj.type ] ? lib[ obj.type ] : Flow[ obj.type ];
-
-			if ( ! Class ) {
-
-				console.error( `Class "${ obj.type }" not found!` );
-
-			}
-
-			objects[ id ] = new Class();
-
-		}
-
-		const ref = new WeakMap();
-
-		const deserializePass = ( prop = null ) => {
-
-			for ( const id in json.objects ) {
-
-				const newObject = objects[ id ];
-
-				if ( ref.has( newObject ) === false && ( prop === null || newObject[ prop ] === true ) ) {
-
-					ref.set( newObject, true );
-
-					if ( newObject.getSerializable() ) {
-
-						newObject.deserialize( json.objects[ id ] );
-
-					}
-
-				}
-
-			}
-
-		};
-
-		deserializePass( 'isNode' );
-		deserializePass( 'isElement' );
-		deserializePass( 'isInput' );
-		deserializePass();
-
-		json.objects = objects;
-
-		return json;
-
-	}
-
+    return json;
+  }
 }
 
 Loader.DEFAULT = 'default';
 Loader.OBJECTS = 'objects';
 
-export { ButtonInput, Canvas, CircleMenu, ColorInput, ContextMenu, DraggableElement, Element, Input, LabelElement, Loader, Menu, Node, NumberInput, ObjectNode, PanelNode, REVISION, Search, SelectInput, Serializer, SliderInput, StringInput, Styles, TextInput, Tips, TitleElement, ToggleInput, Utils };
+export {
+  ButtonInput,
+  Canvas,
+  CircleMenu,
+  ColorInput,
+  ContextMenu,
+  DraggableElement,
+  Element,
+  Input,
+  LabelElement,
+  Loader,
+  Menu,
+  Node,
+  NumberInput,
+  ObjectNode,
+  PanelNode,
+  REVISION,
+  Search,
+  SelectInput,
+  Serializer,
+  SliderInput,
+  StringInput,
+  Styles,
+  TextInput,
+  Tips,
+  TitleElement,
+  ToggleInput,
+  Utils,
+};
