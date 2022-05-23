@@ -27,12 +27,16 @@ yarn add three-js-editor-react-2
 import {
   ThreeJsEditor,
   ObjectLoaderFunctionType,
+  ClearEditorFunctionType,
 } from 'three-js-editor-react-2';
 import axios from 'axios';
 
 const ThreeJsEditorPage = () => {
   const [objectLoaderFunction, setObjectLoaderFunction] =
     useState<null | ObjectLoaderFunctionType>(null);
+
+  const [clearEditorFunction, setClearEditorFunction] =
+    useState<null | ClearEditorFunctionType>(null);
 
   // the loader function will then be available in a state variable
   console.log(objectLoaderFunction);
@@ -49,17 +53,26 @@ const ThreeJsEditorPage = () => {
     });
   };
 
+  const _setObjectLoaderFunction = (newFunction: ObjectLoaderFunctionType) => {
+    setObjectLoaderFunction(() => newFunction);
+  };
+
+  const _setClearEditorFunction = (newFunction: ClearEditorFunctionType) => {
+    setClearEditorFunction(() => newFunction);
+  };
+
   return (
     <div>
       <ThreeJsEditor
         menubarCallbacks={{
           fileCallbacks: {
             exportGLTFCallback: (jsonText: string) => {
-              console.log('jsonText', jsonText);
+              console.log('jsonText', jsonText); // the current gltf scene in string format
             },
           },
         }}
-        setObjectLoaderFunction={setObjectLoaderFunction}
+        setObjectLoaderFunction={_setObjectLoaderFunction}
+        setClearEditorFunction={_setClearEditorFunction}
       />
     </div>
   );
