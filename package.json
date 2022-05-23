@@ -1,6 +1,6 @@
 {
   "name": "three-js-editor-react-2",
-  "version": "1.0.25",
+  "version": "1.0.27",
   "description": "Three js editor inside React",
   "homepage": "https://github.com/BaurTokenov/three-js-editor-2",
   "main": "dist/index.js",
