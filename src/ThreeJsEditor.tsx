@@ -29,11 +29,15 @@ interface ThreeJsEditorProps {
   setObjectLoaderFunction?: React.Dispatch<
     React.SetStateAction<((files: File[]) => void) | null>
   >;
+  setClearEditorFunction?: React.Dispatch<
+    React.SetStateAction<(() => void) | null>
+  >;
 }
 
 export const ThreeJsEditor: React.FC<ThreeJsEditorProps> = ({
   menubarCallbacks,
   setObjectLoaderFunction,
+  setClearEditorFunction,
 }) => {
   const hostDivRef = useRef<HTMLDivElement | null>(null);
 
@@ -133,6 +137,9 @@ export const ThreeJsEditor: React.FC<ThreeJsEditorProps> = ({
 
     if (_.isFunction(setObjectLoaderFunction)) {
       setObjectLoaderFunction(() => editor.loader.loadFiles);
+    }
+    if (_.isFunction(setClearEditorFunction)) {
+      setClearEditorFunction(() => editor.clear.bind(editor));
     }
     //
 

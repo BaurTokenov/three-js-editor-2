@@ -14,6 +14,10 @@ declare interface ThreeJsEditorProps {
   setObjectLoaderFunction?: React.Dispatch<
     React.SetStateAction<ObjectLoaderFunctionType>
   >;
+  /** Setter for the clear function. Can be used to clear the editor. Equivalent to clicking "File->New" */
+  setClearEditorFunction?: React.Dispatch<
+    React.SetStateAction<(() => void) | null>
+  >;
 }
 
 export const ThreeJsEditor: React.FC<ThreeJsEditorProps>;
