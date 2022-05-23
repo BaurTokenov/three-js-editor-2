@@ -20,18 +20,14 @@ declare global {
 }
 
 interface ThreeJsEditorProps {
-  /** Callbacks to use when exporting*/
+  /** Callbacks to use in Menubar */
   menubarCallbacks?: {
     fileCallbacks: {
       exportGLTFCallback: (jsonText: string) => {};
     };
   };
-  setObjectLoaderFunction?: React.Dispatch<
-    React.SetStateAction<((files: File[]) => void) | null>
-  >;
-  setClearEditorFunction?: React.Dispatch<
-    React.SetStateAction<(() => void) | null>
-  >;
+  setObjectLoaderFunction?: (newFunction: (files: File[]) => void) => void;
+  setClearEditorFunction?: (newFunction: () => void) => void;
 }
 
 export const ThreeJsEditor: React.FC<ThreeJsEditorProps> = ({
@@ -136,10 +132,10 @@ export const ThreeJsEditor: React.FC<ThreeJsEditorProps> = ({
     });
 
     if (_.isFunction(setObjectLoaderFunction)) {
-      setObjectLoaderFunction(() => editor.loader.loadFiles);
+      setObjectLoaderFunction(editor.loader.loadFiles);
     }
     if (_.isFunction(setClearEditorFunction)) {
-      setClearEditorFunction(() => editor.clear.bind(editor));
+      setClearEditorFunction(editor.clear.bind(editor));
     }
     //
 

@@ -107,10 +107,10 @@ const ThreeJsEditor = ({ menubarCallbacks, setObjectLoaderFunction, setClearEdit
             signals.historyChanged.add(saveState);
         });
         if (lodash_1.default.isFunction(setObjectLoaderFunction)) {
-            setObjectLoaderFunction(() => editor.loader.loadFiles);
+            setObjectLoaderFunction(editor.loader.loadFiles);
         }
         if (lodash_1.default.isFunction(setClearEditorFunction)) {
-            setClearEditorFunction(() => editor.clear.bind(editor));
+            setClearEditorFunction(editor.clear.bind(editor));
         }
         //
         hostDiv.addEventListener('dragover', (event) => {
