@@ -173,7 +173,7 @@ export const ThreeJsEditor: React.FC<ThreeJsEditorProps> = ({
       editor.signals.windowResize.dispatch();
     }
 
-    window.addEventListener('resize', onWindowResize);
+    new ResizeObserver(onWindowResize).observe(hostDiv);
 
     onWindowResize();
 

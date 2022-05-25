@@ -136,7 +136,7 @@ const ThreeJsEditor = ({ menubarCallbacks, setObjectLoaderFunction, setClearEdit
         function onWindowResize() {
             editor.signals.windowResize.dispatch();
         }
-        window.addEventListener('resize', onWindowResize);
+        new ResizeObserver(onWindowResize).observe(hostDiv);
         onWindowResize();
         //
         let isLoadingFromHash = false;
