@@ -10,10 +10,10 @@ const Menubar_View_1 = require("./Menubar.View");
 const Menubar_Help_1 = require("./Menubar.Help");
 const Menubar_Play_1 = require("./Menubar.Play");
 const Menubar_Status_1 = require("./Menubar.Status");
-function Menubar(editor, menubarCallbacks) {
+function Menubar(editor, menubarCallbacks, menubarRenameMap) {
     const container = new ui_1.UIPanel();
     container.setId('menubar');
-    container.add(new Menubar_File_1.MenubarFile(editor, menubarCallbacks && menubarCallbacks['fileCallbacks']));
+    container.add(new Menubar_File_1.MenubarFile(editor, menubarCallbacks && menubarCallbacks['fileCallbacks'], menubarRenameMap && menubarRenameMap['fileRenameMap']));
     container.add(new Menubar_Edit_1.MenubarEdit(editor));
     container.add(new Menubar_Add_1.MenubarAdd(editor));
     container.add(new Menubar_Play_1.MenubarPlay(editor));

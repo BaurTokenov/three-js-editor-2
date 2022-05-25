@@ -15,6 +15,12 @@ declare interface ThreeJsEditorProps {
   setObjectLoaderFunction?: (newFunction: ObjectLoaderFunctionType) => void;
   /** Setter for the clear function. Can be used to clear the editor. Equivalent to clicking "File->New" */
   setClearEditorFunction?: (newFunction: ClearEditorFunctionType) => void;
+  /** Map to rename texts in the Menubar */
+  menubarRenameMap?: {
+    fileRenameMap?: {
+      'menubar/file/export/gltf': string;
+    };
+  };
 }
 
 export const ThreeJsEditor: React.FC<ThreeJsEditorProps>;

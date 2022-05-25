@@ -6,7 +6,8 @@ import { UIPanel, UIRow, UIHorizontalRule } from './libs/ui';
 
 function MenubarFile(
   editor,
-  callbacks = { exportGLTFCallback: (jsonText) => {} }
+  callbacks = { exportGLTFCallback: (jsonText) => {} },
+  fileRenameMap = undefined
 ) {
   const config = editor.config;
   const strings = editor.strings;
@@ -63,6 +64,43 @@ function MenubarFile(
   options.add(option);
 
   //
+
+  options.add(new UIHorizontalRule());
+
+  // Export GLTF
+
+  option = new UIRow();
+  option.setClass('option');
+
+  const exportGltfText =
+    fileRenameMap && fileRenameMap['menubar/file/export/gltf'];
+
+  option.setTextContent(
+    exportGltfText || strings.getKey('menubar/file/export/gltf')
+  );
+
+  option.onClick(async function () {
+    const scene = editor.scene;
+    const animations = getAnimations(scene);
+
+    const { GLTFExporter } = await import(
+      '../../examples/jsm/exporters/GLTFExporter.js'
+    );
+
+    const exporter = new GLTFExporter();
+
+    exporter.parse(
+      scene,
+      function (result) {
+        const output = JSON.stringify(result, null, 2);
+        // saveString(output, 'scene.gltf');
+        callbacks.exportGLTFCallback(output);
+      },
+      undefined,
+      { animations: animations }
+    );
+  });
+  options.add(option);
 
   options.add(new UIHorizontalRule());
 
@@ -223,34 +261,6 @@ function MenubarFile(
       },
       undefined,
       { binary: true, animations: animations }
-    );
-  });
-  options.add(option);
-
-  // Export GLTF
-
-  option = new UIRow();
-  option.setClass('option');
-  option.setTextContent(strings.getKey('menubar/file/export/gltf'));
-  option.onClick(async function () {
-    const scene = editor.scene;
-    const animations = getAnimations(scene);
-
-    const { GLTFExporter } = await import(
-      '../../examples/jsm/exporters/GLTFExporter.js'
-    );
-
-    const exporter = new GLTFExporter();
-
-    exporter.parse(
-      scene,
-      function (result) {
-        const output = JSON.stringify(result, null, 2);
-        // saveString(output, 'scene.gltf');
-        callbacks.exportGLTFCallback(output);
-      },
-      undefined,
-      { animations: animations }
     );
   });
   options.add(option);

@@ -32,7 +32,7 @@ exports.MenubarFile = void 0;
 const THREE = __importStar(require("three"));
 const fflate_module_1 = require("../../examples/jsm/libs/fflate.module");
 const ui_1 = require("./libs/ui");
-function MenubarFile(editor, callbacks = { exportGLTFCallback: (jsonText) => { } }) {
+function MenubarFile(editor, callbacks = { exportGLTFCallback: (jsonText) => { } }, fileRenameMap = undefined) {
     const config = editor.config;
     const strings = editor.strings;
     const container = new ui_1.UIPanel();
@@ -76,6 +76,26 @@ function MenubarFile(editor, callbacks = { exportGLTFCallback: (jsonText) => { }
     });
     options.add(option);
     //
+    options.add(new ui_1.UIHorizontalRule());
+    // Export GLTF
+    option = new ui_1.UIRow();
+    option.setClass('option');
+    const exportGltfText = fileRenameMap && fileRenameMap['menubar/file/export/gltf'];
+    option.setTextContent(exportGltfText || strings.getKey('menubar/file/export/gltf'));
+    option.onClick(function () {
+        return __awaiter(this, void 0, void 0, function* () {
+            const scene = editor.scene;
+            const animations = getAnimations(scene);
+            const { GLTFExporter } = yield Promise.resolve().then(() => __importStar(require('../../examples/jsm/exporters/GLTFExporter.js')));
+            const exporter = new GLTFExporter();
+            exporter.parse(scene, function (result) {
+                const output = JSON.stringify(result, null, 2);
+                // saveString(output, 'scene.gltf');
+                callbacks.exportGLTFCallback(output);
+            }, undefined, { animations: animations });
+        });
+    });
+    options.add(option);
     options.add(new ui_1.UIHorizontalRule());
     // Export Geometry
     option = new ui_1.UIRow();
@@ -197,24 +217,6 @@ function MenubarFile(editor, callbacks = { exportGLTFCallback: (jsonText) => { }
             exporter.parse(scene, function (result) {
                 saveArrayBuffer(result, 'scene.glb');
             }, undefined, { binary: true, animations: animations });
-        });
-    });
-    options.add(option);
-    // Export GLTF
-    option = new ui_1.UIRow();
-    option.setClass('option');
-    option.setTextContent(strings.getKey('menubar/file/export/gltf'));
-    option.onClick(function () {
-        return __awaiter(this, void 0, void 0, function* () {
-            const scene = editor.scene;
-            const animations = getAnimations(scene);
-            const { GLTFExporter } = yield Promise.resolve().then(() => __importStar(require('../../examples/jsm/exporters/GLTFExporter.js')));
-            const exporter = new GLTFExporter();
-            exporter.parse(scene, function (result) {
-                const output = JSON.stringify(result, null, 2);
-                // saveString(output, 'scene.gltf');
-                callbacks.exportGLTFCallback(output);
-            }, undefined, { animations: animations });
         });
     });
     options.add(option);

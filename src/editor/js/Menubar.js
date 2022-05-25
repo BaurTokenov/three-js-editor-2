@@ -9,14 +9,15 @@ import { MenubarHelp } from './Menubar.Help';
 import { MenubarPlay } from './Menubar.Play';
 import { MenubarStatus } from './Menubar.Status';
 
-function Menubar(editor, menubarCallbacks) {
+function Menubar(editor, menubarCallbacks, menubarRenameMap) {
   const container = new UIPanel();
   container.setId('menubar');
 
   container.add(
     new MenubarFile(
       editor,
-      menubarCallbacks && menubarCallbacks['fileCallbacks']
+      menubarCallbacks && menubarCallbacks['fileCallbacks'],
+      menubarRenameMap && menubarRenameMap['fileRenameMap']
     )
   );
   container.add(new MenubarEdit(editor));
