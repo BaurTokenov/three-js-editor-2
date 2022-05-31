@@ -28,6 +28,7 @@ interface ThreeJsEditorProps {
   };
   setObjectLoaderFunction?: (newFunction: (files: File[]) => void) => void;
   setClearEditorFunction?: (newFunction: () => void) => void;
+  setPositionFunction?: (newPosition: [number, number, number]) => void;
   menubarRenameMap?: {
     fileRenameMap?: {
       'menubar/file/export/gltf': string;
@@ -39,6 +40,7 @@ export const ThreeJsEditor: React.FC<ThreeJsEditorProps> = ({
   menubarCallbacks,
   setObjectLoaderFunction,
   setClearEditorFunction,
+  setPositionFunction,
   menubarRenameMap,
 }) => {
   const hostDivRef = useRef<HTMLDivElement | null>(null);
@@ -74,7 +76,7 @@ export const ThreeJsEditor: React.FC<ThreeJsEditorProps> = ({
     const player = Player(editor);
     hostDiv.appendChild(player.dom);
 
-    const sidebar = Sidebar(editor);
+    const sidebar = Sidebar(editor, setPositionFunction);
     hostDiv.appendChild(sidebar.dom);
 
     const menubar = Menubar(editor, menubarCallbacks, menubarRenameMap);

@@ -8,11 +8,11 @@ const Sidebar_Script_1 = require("./Sidebar.Script");
 const Sidebar_Animation_1 = require("./Sidebar.Animation");
 const Sidebar_Project_1 = require("./Sidebar.Project");
 const Sidebar_Settings_1 = require("./Sidebar.Settings");
-function Sidebar(editor) {
+function Sidebar(editor, setPositionFunction) {
     const strings = editor.strings;
     const container = new ui_1.UITabbedPanel();
     container.setId('sidebar');
-    const scene = new ui_1.UISpan().add(new Sidebar_Scene_1.SidebarScene(editor), new Sidebar_Properties_1.SidebarProperties(editor), new Sidebar_Animation_1.SidebarAnimation(editor), new Sidebar_Script_1.SidebarScript(editor));
+    const scene = new ui_1.UISpan().add(new Sidebar_Scene_1.SidebarScene(editor), new Sidebar_Properties_1.SidebarProperties(editor, setPositionFunction), new Sidebar_Animation_1.SidebarAnimation(editor), new Sidebar_Script_1.SidebarScript(editor));
     const project = new Sidebar_Project_1.SidebarProject(editor);
     const settings = new Sidebar_Settings_1.SidebarSettings(editor);
     container.addTab('scene', strings.getKey('sidebar/scene'), scene);

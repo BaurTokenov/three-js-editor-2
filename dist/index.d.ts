@@ -3,6 +3,9 @@ declare module 'three-js-editor-react-2';
 /** Loader function type provided by three-js-editor */
 declare type ObjectLoaderFunctionType = (files: File[]) => void;
 declare type ClearEditorFunctionType = () => void;
+declare type SetPositionFunctionType = (
+  newPosition: [number, number, number]
+) => void;
 
 declare interface ThreeJsEditorProps {
   /** Callbacks to use in Menubar */
@@ -15,6 +18,8 @@ declare interface ThreeJsEditorProps {
   setObjectLoaderFunction?: (newFunction: ObjectLoaderFunctionType) => void;
   /** Setter for the clear function. Can be used to clear the editor. Equivalent to clicking "File->New" */
   setClearEditorFunction?: (newFunction: ClearEditorFunctionType) => void;
+  /** Setter for positions in the sidebar. Enables direct access to an object's position. */
+  setPositionFunction?: SetPositionFunctionType;
   /** Map to rename texts in the Menubar */
   menubarRenameMap?: {
     fileRenameMap?: {

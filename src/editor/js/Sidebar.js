@@ -7,7 +7,7 @@ import { SidebarAnimation } from './Sidebar.Animation';
 import { SidebarProject } from './Sidebar.Project';
 import { SidebarSettings } from './Sidebar.Settings';
 
-function Sidebar(editor) {
+function Sidebar(editor, setPositionFunction) {
   const strings = editor.strings;
 
   const container = new UITabbedPanel();
@@ -15,7 +15,7 @@ function Sidebar(editor) {
 
   const scene = new UISpan().add(
     new SidebarScene(editor),
-    new SidebarProperties(editor),
+    new SidebarProperties(editor, setPositionFunction),
     new SidebarAnimation(editor),
     new SidebarScript(editor)
   );

@@ -29,7 +29,7 @@ const SetPositionCommand_1 = require("./commands/SetPositionCommand");
 const SetRotationCommand_1 = require("./commands/SetRotationCommand");
 const SetScaleCommand_1 = require("./commands/SetScaleCommand");
 const SetColorCommand_1 = require("./commands/SetColorCommand");
-function SidebarObject(editor) {
+function SidebarObject(editor, setPositionFunction) {
     const strings = editor.strings;
     const signals = editor.signals;
     const container = new ui_1.UIPanel();
@@ -463,6 +463,9 @@ function SidebarObject(editor) {
         objectPositionX.setValue(object.position.x);
         objectPositionY.setValue(object.position.y);
         objectPositionZ.setValue(object.position.z);
+        if (setPositionFunction) {
+            setPositionFunction([object.position.x, object.position.y, object.position.z]);
+        }
         objectRotationX.setValue(object.rotation.x * THREE.MathUtils.RAD2DEG);
         objectRotationY.setValue(object.rotation.y * THREE.MathUtils.RAD2DEG);
         objectRotationZ.setValue(object.rotation.z * THREE.MathUtils.RAD2DEG);
