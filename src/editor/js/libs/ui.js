@@ -458,8 +458,8 @@ class UINumber extends UIElement {
       prevPointer.x = event.clientX;
       prevPointer.y = event.clientY;
 
-      editor.domElement.addEventListener('mousemove', onMouseMove);
-      editor.domElement.addEventListener('mouseup', onMouseUp);
+      document.addEventListener('mousemove', onMouseMove);
+      document.addEventListener('mouseup', onMouseUp);
     }
 
     function onMouseMove(event) {
@@ -502,8 +502,8 @@ class UINumber extends UIElement {
         prevPointer.x = event.touches[0].pageX;
         prevPointer.y = event.touches[0].pageY;
 
-        editor.domElement.addEventListener('touchmove', onTouchMove);
-        editor.domElement.addEventListener('touchend', onTouchEnd);
+        document.addEventListener('touchmove', onTouchMove);
+        document.addEventListener('touchend', onTouchEnd);
       }
     }
 
@@ -676,8 +676,8 @@ class UIInteger extends UIElement {
       prevPointer.x = event.clientX;
       prevPointer.y = event.clientY;
 
-      editor.domElement.addEventListener('mousemove', onMouseMove);
-      editor.domElement.addEventListener('mouseup', onMouseUp);
+      document.addEventListener('mousemove', onMouseMove);
+      document.addEventListener('mouseup', onMouseUp);
     }
 
     function onMouseMove(event) {

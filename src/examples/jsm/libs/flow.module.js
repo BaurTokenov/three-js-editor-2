@@ -1548,20 +1548,17 @@ class Canvas extends Serializer {
   start() {
     this.updating = true;
 
-    editor.domElement.addEventListener('wheel', this._onMoveEvent, true);
+    document.addEventListener('wheel', this._onMoveEvent, true);
 
-    editor.domElement.addEventListener('mousedown', this._onMoveEvent, true);
-    editor.domElement.addEventListener('touchstart', this._onMoveEvent, true);
+    document.addEventListener('mousedown', this._onMoveEvent, true);
+    document.addEventListener('touchstart', this._onMoveEvent, true);
 
-    editor.domElement.addEventListener('mousemove', this._onMoveEvent, true);
-    editor.domElement.addEventListener('touchmove', this._onMoveEvent, true);
+    document.addEventListener('mousemove', this._onMoveEvent, true);
+    document.addEventListener('touchmove', this._onMoveEvent, true);
 
-    editor.domElement.addEventListener('dragover', this._onMoveEvent, true);
+    document.addEventListener('dragover', this._onMoveEvent, true);
 
-    editor.domElement.addEventListener(
-      'DOMContentLoaded',
-      this._onContentLoaded
-    );
+    document.addEventListener('DOMContentLoaded', this._onContentLoaded);
 
     requestAnimationFrame(this._onUpdate);
   }

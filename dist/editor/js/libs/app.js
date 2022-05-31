@@ -122,11 +122,11 @@ class APP {
                 dom1.append(vrButton);
             prevTime = performance.now();
             startTime = prevTime;
-            editor.domElement.addEventListener('keydown', onKeyDown);
-            editor.domElement.addEventListener('keyup', onKeyUp);
-            editor.domElement.addEventListener('pointerdown', onPointerDown);
-            editor.domElement.addEventListener('pointerup', onPointerUp);
-            editor.domElement.addEventListener('pointermove', onPointerMove);
+            document.addEventListener('keydown', onKeyDown);
+            document.addEventListener('keyup', onKeyUp);
+            document.addEventListener('pointerdown', onPointerDown);
+            document.addEventListener('pointerup', onPointerUp);
+            document.addEventListener('pointermove', onPointerMove);
             dispatch(events.start, arguments);
             renderer.setAnimationLoop(animate);
         };

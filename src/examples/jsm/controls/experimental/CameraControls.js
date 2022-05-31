@@ -773,8 +773,8 @@ var CameraControls = function (object, domElement) {
     }
 
     if (state !== STATE.NONE) {
-      editor.domElement.addEventListener('mousemove', onMouseMove, false);
-      editor.domElement.addEventListener('mouseup', onMouseUp, false);
+      document.addEventListener('mousemove', onMouseMove, false);
+      document.addEventListener('mouseup', onMouseUp, false);
 
       scope.dispatchEvent(startEvent);
     }

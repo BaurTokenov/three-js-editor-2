@@ -170,7 +170,7 @@ function Viewport(editor) {
         const array = getMousePosition(container.dom, event.clientX, event.clientY);
         onUpPosition.fromArray(array);
         handleClick();
-        document.removeEventListener('mouseup', onMouseUp);
+        editor.domElement.removeEventListener('mouseup', onMouseUp);
     }
     function onTouchStart(event) {
         const touch = event.changedTouches[0];
@@ -183,7 +183,7 @@ function Viewport(editor) {
         const array = getMousePosition(container.dom, touch.clientX, touch.clientY);
         onUpPosition.fromArray(array);
         handleClick();
-        document.removeEventListener('touchend', onTouchEnd);
+        editor.domElement.removeEventListener('touchend', onTouchEnd);
     }
     function onDoubleClick(event) {
         const array = getMousePosition(container.dom, event.clientX, event.clientY);

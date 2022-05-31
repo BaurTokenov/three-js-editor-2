@@ -352,8 +352,8 @@ class UINumber extends UIElement {
             onMouseDownValue = scope.value;
             prevPointer.x = event.clientX;
             prevPointer.y = event.clientY;
-            editor.domElement.addEventListener('mousemove', onMouseMove);
-            editor.domElement.addEventListener('mouseup', onMouseUp);
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
         }
         function onMouseMove(event) {
             const currentValue = scope.value;
@@ -383,8 +383,8 @@ class UINumber extends UIElement {
                 onMouseDownValue = scope.value;
                 prevPointer.x = event.touches[0].pageX;
                 prevPointer.y = event.touches[0].pageY;
-                editor.domElement.addEventListener('touchmove', onTouchMove);
-                editor.domElement.addEventListener('touchend', onTouchEnd);
+                document.addEventListener('touchmove', onTouchMove);
+                document.addEventListener('touchend', onTouchEnd);
             }
         }
         function onTouchMove(event) {
@@ -512,8 +512,8 @@ class UIInteger extends UIElement {
             onMouseDownValue = scope.value;
             prevPointer.x = event.clientX;
             prevPointer.y = event.clientY;
-            editor.domElement.addEventListener('mousemove', onMouseMove);
-            editor.domElement.addEventListener('mouseup', onMouseUp);
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
         }
         function onMouseMove(event) {
             const currentValue = scope.value;

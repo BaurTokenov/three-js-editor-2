@@ -226,7 +226,7 @@ function Viewport(editor) {
 
     handleClick();
 
-    document.removeEventListener('mouseup', onMouseUp);
+    editor.domElement.removeEventListener('mouseup', onMouseUp);
   }
 
   function onTouchStart(event) {
@@ -246,7 +246,7 @@ function Viewport(editor) {
 
     handleClick();
 
-    document.removeEventListener('touchend', onTouchEnd);
+    editor.domElement.removeEventListener('touchend', onTouchEnd);
   }
 
   function onDoubleClick(event) {
