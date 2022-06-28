@@ -42,6 +42,7 @@ export const ThreeJsEditor: React.FC<ThreeJsEditorProps> = ({
   setClearEditorFunction,
   setPositionFunction,
   menubarRenameMap,
+  children,
 }) => {
   const hostDivRef = useRef<HTMLDivElement | null>(null);
 
@@ -212,7 +213,7 @@ export const ThreeJsEditor: React.FC<ThreeJsEditorProps> = ({
     }
   }, [hostDivRef]);
 
-  return <StyledHost ref={hostDivRef} />;
+  return <StyledHost ref={hostDivRef}> {children} </StyledHost>;
 };
 
 const StyledHost = styled.div`
